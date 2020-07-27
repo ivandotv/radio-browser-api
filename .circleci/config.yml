@@ -1,0 +1,58 @@
+version: 2.1
+orbs:
+  # coveralls: coveralls/coveralls@1.0.4 # coveralls setup
+  codecov: codecov/codecov@1.1.1
+jobs:
+  node-v10:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - test
+  node-v12:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - test
+      - store-coverage-data
+      - upload-coverage
+  node-v13:
+    docker:
+      - image: circleci/node:13
+    steps:
+      - test
+commands:
+  store-coverage-data:
+    steps:
+      - store_artifacts:
+          path: coverage
+  test:
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-dependancies
+          command: npm ci
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - $HOME/.npm
+      - run:
+          name: unit test
+          command: |
+            mkdir -p ./reports/junit
+            npm run ci:test
+      - store_test_results:
+          path: reports/junit/
+  upload-coverage:
+    steps:
+      # - coveralls/upload # coveralls setup
+      - codecov/upload:
+          file: coverage/coverage-final.json
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - node-v10
+      - node-v12
+      - node-v13
