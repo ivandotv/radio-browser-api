@@ -1,6 +1,6 @@
 {
-  "name": "untitled",
-  "version": "1.0.0",
+  "name": "radio-browser-api",
+  "version": "0.0.0",
   "private": true,
   "description": "",
   "main": "dist/cjs/index.js",
@@ -18,7 +18,6 @@
   },
   "scripts": {
     "prepublishOnly": "npm run build",
-    "nodemon": "./node_modules/.bin/nodemon",
     "cz": "git-cz",
     "fix:src": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
     "fix:tests": "eslint --fix \"./tests/**/*.{js,jsx,ts,tsx}\"",
@@ -51,12 +50,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ivandotv/node-module-ts.git"
+    "url": "git+https://github.com/ivandotv/radio-browser-api.git"
   },
   "bugs": {
-    "url": "https://github.com/ivandotv/node-module-ts/issues"
+    "url": "https://github.com/ivandotv/radio-browser-api/issues"
   },
-  "homepage": "https://github.com/ivandotv/node-module-ts#readme",
+  "homepage": "https://github.com/ivandotv/radio-browser-api#readme",
   "keywords": [],
   "author": "Ivan Vlatkovic",
   "devDependencies": {
@@ -83,7 +82,7 @@
     "babel-plugin-transform-define": "^2.0.0",
     "babel-preset-minify": "^0.5.1",
     "commitizen": "^4.1.2",
-    "conventional-changelog-conventionalcommits": "^4.3.0",
+    "conventional-changelog-conventionalcommits": "^4.4.0",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
     "cz-conventional-changelog": "^3.2.0",
@@ -97,7 +96,6 @@
     "jest-watch-typeahead": "^0.6.0",
     "lint-staged": "^10.2.9",
     "node-fetch": "^2.6.0",
-    "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "prettier-standard": "^16.3.0",
@@ -111,5 +109,8 @@
     "typedoc": "^0.18.0",
     "typedoc-plugin-markdown": "^2.3.1",
     "typescript": "^4.0.0"
+  },
+  "peerDependencies": {
+    "node-fetch": "^2.6.0"
   }
 }
