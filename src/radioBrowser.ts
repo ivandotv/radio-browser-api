@@ -1,158 +1,192 @@
-import { StationResult } from './stationResult'
+import {
+  StationSearchType,
+  AdvancedStationQuery,
+  CountryResult,
+  CountryStateResult,
+  Query,
+  Station,
+  StationQuery
+} from './constants'
 
-// todo  - move from class to functions
+// todo - ubaciti dns metode
+// todo - promeniti sve u query ime
+// todo list of station checks
+// todo list of station clicks
+function createQueryParams(params?: object): string {
+  let result = ''
+  if (params) {
+    result += '?'
+    for (const [key, value] of Object.entries(params)) {
+      result += `&${key}=${encodeURIComponent(value)}`
+    }
+  }
+
+  return result
+}
+
 export class RadioBrowser {
-  protected rootUrl: string = 'http://fr1.api.radio-browser.info/json'
+  protected baseUrl: string = 'https://fr1.api.radio-browser.info/json'
 
-  constructor() {}
+  protected fetchConfig: RequestInit = {
+    method: 'GET',
+    redirect: 'follow'
+  }
+
+  // todo preko konstruktora u header ce da idu app name i sta vec treba
+  constructor(protected userAgent: string) {
+    this.fetchConfig.headers = { 'user-agent': this.userAgent }
+  }
+
+  protected buildRequest(
+    endPoint: string,
+    search?: string,
+    config?: object
+  ): string {
+    search = search ? `/${encodeURIComponent(search)}` : ''
+    const query = config ? createQueryParams(config) : ''
+
+    return `${this.baseUrl}/${endPoint}${search}${query}`
+  }
+
+  protected async runRequest<T>(
+    url: string,
+    config: RequestInit = {}
+  ): Promise<T> {
+    // manual merge deep
+    const headers = Object.assign({}, this.fetchConfig.headers, config.headers)
+    const fetchConfig = Object.assign({}, this.fetchConfig, config)
+    fetchConfig.headers = headers
+
+    const response = await fetch(url, fetchConfig)
+
+    if (response.ok) {
+      return response.json()
+    } else {
+      throw response
+    }
+  }
 
   async getCountries(
     search?: string,
-    config?: GetCountriesConfig
-  ): CountryResult[] {
-    search = search ? `/${encodeURIComponent(search)}` : ''
-    const response = await fetch(`${this.rootUrl}/countries${search}`)
+    query?: Query,
+    fetchConfig?: RequestInit
+  ): Promise<CountryResult[]> {
+    return this.runRequest(
+      this.buildRequest('countries', search, query),
+      fetchConfig
+    )
   }
 
   async getCountryCodes(
     search?: string,
-    config?: CountryCodes
-  ): CountryResult[] {
+    query?: Query,
+    fetchConfig?: RequestInit
+  ): Promise<CountryResult[]> {
     search = search ? `/${search.toUpperCase()}` : ''
 
-    const response = await fetch(`${this.rootUrl}/countrycodes${search}`)
+    return this.runRequest(
+      this.buildRequest('countrycodes', search, query),
+      fetchConfig
+    )
   }
 
-  async getCodecs(search?: string, config?: CountryCodes): CountryResult[] {
+  async getCodecs(
+    search?: string,
+    query?: Query,
+    fetchConfig?: RequestInit
+  ): Promise<CountryResult[]> {
     search = search ? `/${search.toUpperCase()}` : ''
 
-    const response = await fetch(`${this.rootUrl}/codecs${search}`)
+    return this.runRequest(
+      this.buildRequest('codecs', search, query),
+      fetchConfig
+    )
   }
 
   async getCountryStates(
     search?: string,
-    config?: CountryCodes
-  ): CountryStatesResult[] {
-    search = search ? `/${search.toUpperCase()}` : ''
-
-    const response = await fetch(`${this.rootUrl}/states${search}`)
+    query?: Query,
+    fetchConfig?: RequestInit
+  ): Promise<CountryStateResult[]> {
+    return this.runRequest(
+      this.buildRequest('states', search, query),
+      fetchConfig
+    )
   }
 
-  async getLanguages(search?: string, config?: CountryCodes): CountryResult[] {
-    search = search ? `/${search}` : ''
-
-    const response = await fetch(`${this.rootUrl}/languages${search}`)
+  async getLanguages(
+    search?: string,
+    config?: Query,
+    fetchConfig?: RequestInit
+  ): Promise<CountryResult[]> {
+    return this.runRequest(
+      this.buildRequest('languages', search, config),
+      fetchConfig
+    )
   }
 
-  async getTags(search?: string, config?: CountryCodes): CountryResult[] {
-    search = search ? `/${search.toLocaleLowerCase()}` : ''
+  async getTags(
+    search?: string,
+    config?: Query,
+    fetchConfig?: RequestInit
+  ): Promise<CountryResult[]> {
+    search = search ? search.toLowerCase() : ''
 
-    const response = await fetch(`${this.rootUrl}/tags${search}`)
+    return this.runRequest(
+      this.buildRequest('languages', search, config),
+      fetchConfig
+    )
   }
 
   // http://fr1.api.radio-browser.info/{format}/stations/byuuid/{searchterm}
-  // mmm main method
-  async getStations(
+  async getStationsBy(
     searchType: keyof typeof StationSearchType,
-    search: string,
-    _config?: SearchStationConfig
-  ): StationResult[] {
+    search?: string,
+    query?: StationQuery,
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
     if (!StationSearchType[searchType]) {
-      throw new Error(`wrong search type: ${searchType}`)
+      throw new Error(`search type does not exist: ${searchType}`)
     }
-    search = search.toLocaleLowerCase()
 
-    const response = await fetch(
-      `${this.rootUrl}/${StationSearchType[
-        searchType
-      ].toLocaleLowerCase()}/${search}`
+    search = search ? search.toLowerCase() : ''
+
+    return this.runRequest(
+      this.buildRequest('stations', `${searchType}/${search}`, query),
+      fetchConfig
     )
-
-    // return response
   }
 
   async getAllStations(
-    _config?: Omit<SearchStationConfig, 'hideBroken'>
-  ): StationResult[] {
-    if (!StationSearchType[searchType]) {
-      throw new Error(`wrong search type: ${searchType}`)
-    }
-    search = search.toLocaleLowerCase()
-
-    const response = await fetch(
-      `${this.rootUrl}/${StationSearchType[
-        searchType
-      ].toLocaleLowerCase()}/${search}`
+    query?: Omit<StationQuery, 'hideBroken'>,
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
+    return this.runRequest(
+      this.buildRequest('stations', '', query),
+      fetchConfig
     )
+  }
 
-    // return response
+  async sendStationClick(
+    uuid: string,
+    fetchConfig?: RequestInit
+  ): Promise<{
+    ok: boolean
+    message: string
+    stationuuid: string
+    name: string
+    url: string
+  }> {
+    return this.runRequest(this.buildRequest('url', uuid), fetchConfig)
+  }
+
+  async searchStations(
+    query: AdvancedStationQuery,
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
+    return this.runRequest(
+      this.buildRequest('search', undefined, query),
+      fetchConfig
+    )
   }
 }
-
-export const StationSearchType = {
-  uuid: 'uuid',
-  name: 'name',
-  nameExact: 'nameExact',
-  codec: 'codec',
-  codexExact: 'codecExact',
-  country: 'country',
-  countryExact: 'countryExact',
-  countryCodeExact: 'countryCodeExact',
-  state: 'state',
-  stateExact: 'stateExact',
-  language: 'language',
-  languageExact: 'languageExact',
-  tag: 'tag',
-  tagExact: 'tagExact'
-} as const
-
-export const StationSearchOrder = {
-  name: 'name',
-  url: 'url',
-  homepage: 'homepage',
-  favicon: 'favicon',
-  tags: 'tags',
-  country: 'country',
-  state: 'state',
-  language: 'language',
-  votes: 'votes',
-  codec: 'codec',
-  bitrate: 'bitrate',
-  lastCheckOK: 'lastCheckOK',
-  lastCheckTime: 'lastCheckTime',
-  clickTimeStamp: 'clickTimeStamp',
-  clickCount: 'clickCount',
-  clickTrend: 'clickTrend',
-  random: 'random'
-} as const
-
-export type SearchStationConfig = {
-  offset?: number
-  limit?: number
-  reverse?: boolean
-  order?: keyof typeof StationSearchOrder
-  hideBroken?: boolean
-}
-
-export type CountryStates = GetCountriesConfig & { country: string }
-export type GetCountriesConfig = {
-  order?: 'name' | 'stationcount'
-  reverse?: boolean
-  hideBroken?: boolean
-}
-
-export type CountryCodes = GetCountriesConfig
-
-// valid for country codes also
-export type CountryResult = {
-  name: string
-  stationcount: number
-}
-
-export type CountryStatesResult = CountryResult & {
-  country: string
-}
-// function parseConfig(config: any): string {
-//   for (const prop in config) {
-//   }
-// }
