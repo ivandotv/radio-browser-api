@@ -25,7 +25,7 @@ function createQueryParams(params?: object): string {
 }
 
 export class RadioBrowser {
-  protected baseUrl: string = 'https://fr1.api.radio-browser.info/json'
+  protected static baseUrl: string = 'https://fr1.api.radio-browser.info/json'
 
   protected fetchConfig: RequestInit = {
     method: 'GET',
@@ -37,6 +37,29 @@ export class RadioBrowser {
     this.fetchConfig.headers = { 'user-agent': this.userAgent }
   }
 
+  static async resolveBaseUrl(
+    autoSet = true
+  ): Promise<{ ip: string; name: string }> {
+    // alternative 'http://all.api.radio-browser.info/json/servers',
+    const url = 'https://fr1.api.radio-browser.info/json/servers'
+    const response = await fetch(url)
+
+    if (response.ok) {
+      const result = await response.json()
+      if (autoSet) {
+        this.baseUrl = result[0].ip
+      }
+
+      return result
+    } else {
+      throw response
+    }
+  }
+
+  static setBaseUrl(url: string): void {
+    this.baseUrl = url
+  }
+
   protected buildRequest(
     endPoint: string,
     search?: string,
@@ -45,7 +68,7 @@ export class RadioBrowser {
     search = search ? `/${encodeURIComponent(search)}` : ''
     const query = config ? createQueryParams(config) : ''
 
-    return `${this.baseUrl}/${endPoint}${search}${query}`
+    return `${RadioBrowser.baseUrl}/${endPoint}${search}${query}`
   }
 
   protected async runRequest<T>(
