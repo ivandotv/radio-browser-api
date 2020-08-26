@@ -8,8 +8,6 @@ import {
   StationQuery
 } from './constants'
 
-// todo - ubaciti dns metode
-// todo - promeniti sve u query ime
 // todo list of station checks
 // todo list of station clicks
 function createQueryParams(params?: object): string {
@@ -58,6 +56,10 @@ export class RadioBrowser {
 
   static setBaseUrl(url: string): void {
     this.baseUrl = url
+  }
+
+  static getBaseUrl(): string {
+    return this.baseUrl
   }
 
   protected buildRequest(
