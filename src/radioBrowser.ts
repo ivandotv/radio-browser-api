@@ -13,64 +13,60 @@ import {
 function createQueryParams(params?: object): string {
   let result = ''
   if (params) {
-    result += '?'
     for (const [key, value] of Object.entries(params)) {
       result += `&${key}=${encodeURIComponent(value)}`
     }
   }
 
-  return result
+  return result ? `?${result.slice(1).toLowerCase()}.` : ''
 }
 
 export class RadioBrowser {
-  protected static baseUrl: string = 'https://fr1.api.radio-browser.info/json'
+  protected baseUrl = 'https://fr1.api.radio-browser.info/json'
 
   protected fetchConfig: RequestInit = {
     method: 'GET',
     redirect: 'follow'
   }
 
-  // todo preko konstruktora u header ce da idu app name i sta vec treba
   constructor(protected userAgent: string) {
     this.fetchConfig.headers = { 'user-agent': this.userAgent }
   }
 
-  static async resolveBaseUrl(
-    autoSet = true
+  async resolveBaseUrl(
+    autoSet = true,
+    config: RequestInit = {}
   ): Promise<{ ip: string; name: string }> {
     // alternative 'http://all.api.radio-browser.info/json/servers',
-    const url = 'https://fr1.api.radio-browser.info/json/servers'
-    const response = await fetch(url)
 
-    if (response.ok) {
-      const result = await response.json()
-      if (autoSet) {
-        this.baseUrl = result[0].ip
-      }
-
-      return result
-    } else {
-      throw response
+    const result = await this.runRequest<{ name: string; ip: string }[]>(
+      this.buildRequest('servers'),
+      config
+    )
+    if (autoSet) {
+      this.baseUrl = result[0].ip
     }
+
+    return result[0]
   }
 
-  static setBaseUrl(url: string): void {
+  setBaseUrl(url: string): void {
     this.baseUrl = url
   }
 
-  static getBaseUrl(): string {
+  getBaseUrl(): string {
     return this.baseUrl
   }
 
   protected buildRequest(
     endPoint: string,
     search?: string,
-    config?: object
+    query?: object
   ): string {
     search = search ? `/${encodeURIComponent(search)}` : ''
-    const query = config ? createQueryParams(config) : ''
+    const queryParams = query ? createQueryParams(query) : ''
 
-    return `${RadioBrowser.baseUrl}/${endPoint}${search}${query}`
+    return `${this.baseUrl}/${endPoint}${search}${queryParams}`
   }
 
   protected async runRequest<T>(
@@ -158,7 +154,7 @@ export class RadioBrowser {
     search = search ? search.toLowerCase() : ''
 
     return this.runRequest(
-      this.buildRequest('languages', search, config),
+      this.buildRequest('tags', search, config),
       fetchConfig
     )
   }
