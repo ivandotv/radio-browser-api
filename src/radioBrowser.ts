@@ -11,7 +11,7 @@ import {
 // todo list of station checks
 // todo list of station clicks
 
-export class RadioBrowser {
+export class RadioBrowserApi {
   protected baseUrl = 'https://fr1.api.radio-browser.info/json'
 
   protected fetchConfig: RequestInit = {

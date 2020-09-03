@@ -1,6 +1,6 @@
 import nock from 'nock'
 import nodeFetch from 'node-fetch'
-import { RadioBrowser } from '../src/radioBrowser'
+import { RadioBrowserApi } from '../src/radioBrowser'
 
 const globalTest = {
   fetch: (nodeFetch as unknown) as typeof fetch
@@ -24,7 +24,7 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(200, mockResult)
 
-    const api = new RadioBrowser('test', globalTest.fetch)
+    const api = new RadioBrowserApi('test', globalTest.fetch)
     const result = await api.resolveBaseUrl()
 
     expect(result).toEqual(mockResult[0])
@@ -32,7 +32,7 @@ describe('Radio Browser', () => {
   })
 
   test('Resolve base url but do not set it', async () => {
-    const api = new RadioBrowser('test', globalTest.fetch)
+    const api = new RadioBrowserApi('test', globalTest.fetch)
     const defaultBaseUrl = api.getBaseUrl()
     const mockResult = [
       {
@@ -54,7 +54,7 @@ describe('Radio Browser', () => {
   test('Manually set base url', () => {
     const url = '1.2.3.4'
 
-    const api = new RadioBrowser('test', globalTest.fetch)
+    const api = new RadioBrowserApi('test', globalTest.fetch)
     api.setBaseUrl(url)
 
     expect(api.getBaseUrl()).toBe(url)
@@ -66,7 +66,7 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(500, errorText)
 
-    const api = new RadioBrowser('test', globalTest.fetch)
+    const api = new RadioBrowserApi('test', globalTest.fetch)
     expect.assertions(1)
     try {
       await api.resolveBaseUrl()
@@ -83,7 +83,7 @@ describe('Radio Browser', () => {
 
     const agent = 'test'
     const spy = jest.spyOn(globalTest, 'fetch')
-    const api = new RadioBrowser(agent, globalTest.fetch)
+    const api = new RadioBrowserApi(agent, globalTest.fetch)
 
     await api.resolveBaseUrl()
 
@@ -100,7 +100,7 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(200, [{ name: '', ip: '' }])
 
-    const api = new RadioBrowser('test', globalTest.fetch)
+    const api = new RadioBrowserApi('test', globalTest.fetch)
     const spy = jest.spyOn(globalTest, 'fetch')
 
     const headerName = 'x-jest-test'
@@ -125,7 +125,7 @@ describe('Radio Browser', () => {
       .get(/json\/countries/)
       .reply(200, {})
 
-    const api = new RadioBrowser('test', globalTest.fetch)
+    const api = new RadioBrowserApi('test', globalTest.fetch)
     const spy = jest.spyOn(globalTest, 'fetch')
     const headerName = 'x-jest-test'
     const headerValue = '1'
