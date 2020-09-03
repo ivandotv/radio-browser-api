@@ -19,20 +19,20 @@ export const StationSearchOrder = {
 } as const
 
 export const StationSearchType = {
-  uuid: 'byuuid',
-  name: 'byname',
-  nameExact: 'bynameexact',
-  codec: 'bycodec',
-  codexExact: 'bycodecexact',
-  country: 'bycountry',
-  countryExact: 'bycountryexact',
-  countryCodeExact: 'bycountrycodeexact',
-  state: 'bystate',
-  stateExact: 'bystateexact',
-  language: 'bylanguage',
-  languageExact: 'bylanguageexact',
-  tag: 'bytag',
-  tagExact: 'bytagexact'
+  byUuid: 'byUuid',
+  byName: 'byName',
+  byNameExact: 'byNameExact',
+  byCodec: 'byCodec',
+  byCodexExact: 'byCodecExact',
+  byCountry: 'byCountry',
+  byCountryExact: 'byCountryExact',
+  byCountryCodeExact: 'byCountryCodeExact',
+  byState: 'byState',
+  byStateExact: 'byStateExact',
+  byLanguage: 'byLanguage',
+  byLanguageExact: 'byLanguageexact',
+  byTag: 'byTag',
+  byTagExact: 'byTagExact'
 } as const
 
 export type Station = {
@@ -43,11 +43,11 @@ export type Station = {
   urlresolved: string
   homepage: string
   favicon: string
-  tags: string[]
+  tags: string
   country: string
   countrycode: string
   state: string
-  language: string[]
+  language: string
   votes: number
   lastchangetime: Date
   codec: string
