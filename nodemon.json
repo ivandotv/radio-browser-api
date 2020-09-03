@@ -1,5 +1,0 @@
-{
-  "verbose": true,
-  "watch": ["dist/cjs"],
-  "ignore": ["dist/cjs/*.map.js"]
-}
