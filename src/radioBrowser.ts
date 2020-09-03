@@ -210,6 +210,6 @@ export class RadioBrowser {
       }
     }
 
-    return result ? `?${result.slice(1).toLowerCase()}.` : ''
+    return result ? `?${result.slice(1).toLowerCase()}` : ''
   }
 }
