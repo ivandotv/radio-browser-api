@@ -1,10 +1,14 @@
 import nock from 'nock'
 import nodeFetch from 'node-fetch'
+import { Query } from '../src'
 import { RadioBrowserApi } from '../src/radioBrowser'
+import { StationSearchType } from '../src/constants'
+import { AdvancedStationQuery, StationQuery } from '../dist/types'
 
 const globalTest = {
   fetch: (nodeFetch as unknown) as typeof fetch
 }
+const baseUrl = 'https://fr1.api.radio-browser.info'
 
 describe('Radio Browser', () => {
   afterEach(() => {
@@ -15,20 +19,20 @@ describe('Radio Browser', () => {
   test('Resolve base url', async () => {
     const mockResult = [
       {
-        name: 'server name',
+        name: 'some.server.name.info',
         ip: '1.2.2.2'
       }
     ]
 
-    nock(/radio-browser.info/)
+    nock('https://all.api.radio-browser.info')
       .get('/json/servers')
       .reply(200, mockResult)
 
     const api = new RadioBrowserApi('test', globalTest.fetch)
     const result = await api.resolveBaseUrl()
 
-    expect(result).toEqual(mockResult[0])
-    expect(api.getBaseUrl()).toBe(mockResult[0].ip)
+    expect(result).toEqual(mockResult)
+    expect(api.getBaseUrl()).toBe('https://' + mockResult[0].name)
   })
 
   test('Resolve base url but do not set it', async () => {
@@ -36,18 +40,22 @@ describe('Radio Browser', () => {
     const defaultBaseUrl = api.getBaseUrl()
     const mockResult = [
       {
-        name: 'server name',
+        name: 'first.server',
+        ip: '1.2.2.2.'
+      },
+      {
+        name: 'second.server',
         ip: '1.2.2.2.'
       }
     ]
 
-    nock(/radio-browser.info/)
+    nock('https://all.api.radio-browser.info')
       .get('/json/servers')
       .reply(200, mockResult)
 
     const result = await api.resolveBaseUrl(false)
 
-    expect(result).toEqual(mockResult[0])
+    expect(result).toEqual(mockResult)
     expect(api.getBaseUrl()).toBe(defaultBaseUrl)
   })
 
@@ -60,7 +68,7 @@ describe('Radio Browser', () => {
     expect(api.getBaseUrl()).toBe(url)
   })
 
-  test('Throw if response is not OK', async () => {
+  test('Throw if resolve base url is not OK', async () => {
     const errorText = 'server error'
     nock(/radio-browser.info/)
       .get('/json/servers')
@@ -76,7 +84,7 @@ describe('Radio Browser', () => {
     }
   })
 
-  test('When fetching, custom user agent is present', async () => {
+  test('Custom user agent is present', async () => {
     nock(/radio-browser.info/)
       .get('/json/servers')
       .reply(200, [{ name: '', ip: '' }])
@@ -95,7 +103,7 @@ describe('Radio Browser', () => {
     )
   })
 
-  test('When fetching, custom headers are present', async () => {
+  test('Custom headers are present', async () => {
     nock(/radio-browser.info/)
       .get('/json/servers')
       .reply(200, [{ name: '', ip: '' }])
@@ -121,30 +129,420 @@ describe('Radio Browser', () => {
   })
 
   test('get countries', async () => {
-    nock(/radio-browser.info/)
-      .get(/json\/countries/)
-      .reply(200, {})
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
 
-    const api = new RadioBrowserApi('test', globalTest.fetch)
-    const spy = jest.spyOn(globalTest, 'fetch')
     const headerName = 'x-jest-test'
     const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const country = 'germany'
+    const query = { order: 'name' }
 
-    await api.getCountries(
-      'search',
-      { order: 'name' },
-      {
-        headers: {
-          [headerName]: headerValue
-        }
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
       }
-    )
+    })
+      .get(`/json/countries/${country}`)
+      .query(query)
+      .reply(200, mockResult)
 
-    expect(spy).toBeCalledWith(
-      expect.stringMatching(/countries\/search\?order=name/),
-      expect.objectContaining({
-        headers: expect.objectContaining({ [headerName]: headerValue })
+    const result = await api.getCountries(country, query as Query, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+
+  test('get country by country code', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const country = 'RS'
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/countrycodes/${country}`)
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.getCountryByCountryCode(country, query as Query, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+
+  test('get codecs', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get('/json/codecs')
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.getCodecs(query as Query, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+
+  test('get country states', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const country = 'Germany'
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/states/${country}`)
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.getCountryStates(country, query as Query, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+
+  test('get languages', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const language = 'ger'
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/languages/${language}`)
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.getLanguages(language, query as Query, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+
+  test('get tags', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const tag = 'jazz'
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/tags/${tag}`)
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.getTags(tag, query as Query, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+  describe('Get stations by', () => {
+    test('by language', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [{ name: 'rs', stationcount: 10 }]
+      const language = 'ger'
+      const query = { order: 'name', reverse: true }
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
       })
-    )
+        .get(`/json/stations/bylanguage/${language}`)
+        .query(query)
+        .reply(200, mockResult)
+
+      const result = await api.getStationsBy(
+        StationSearchType.byLanguage,
+        language,
+        query as StationQuery,
+        {
+          headers: {
+            [headerName]: headerValue
+          }
+        }
+      )
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual(mockResult)
+    })
+
+    test('by tag', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [{ name: 'rs', stationcount: 10 }]
+      const tag = 'jazz'
+      const query = { order: 'name', reverse: true }
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get(`/json/stations/bytag/${tag}`)
+        .query(query)
+        .reply(200, mockResult)
+
+      const result = await api.getStationsBy(
+        StationSearchType.byTag,
+        tag,
+        query as StationQuery,
+        {
+          headers: {
+            [headerName]: headerValue
+          }
+        }
+      )
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual(mockResult)
+    })
+    test('Throw if station search type does not exist', async () => {
+      expect.assertions(1)
+
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+      try {
+        await api.getStationsBy(
+          // @ts-ignore
+          'byColor', // does not exits
+          'red'
+        )
+      } catch (e: any) {
+        expect(e.message).toMatch(/search type does not exist/)
+      }
+    })
+  })
+
+  test('get all stations', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get('/json/stations')
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.getAllStations(query as StationQuery, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+
+  test('send station click', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const stationUuid = '1234567890'
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/url/${stationUuid}`)
+      .reply(200, mockResult)
+
+    const result = await api.sendStationClick(stationUuid, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+
+  test('vote for station', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const stationUuid = '1234567890'
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/vote/${stationUuid}`)
+      .reply(200, mockResult)
+
+    const result = await api.voteForStation(stationUuid, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+
+  test('get stations by votes', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const country = 'RS'
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/countrycodes/${country}`)
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.getCountryByCountryCode(country, query as Query, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+  describe('Advanced station search', () => {
+    // advanced station search
+    xtest('by tag list', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [{ name: 'rs', stationcount: 10 }]
+      const query = {
+        tagList: 'rap,pop,jazz'
+      }
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get('/json/stations/search')
+        .query(query)
+        .reply(200, mockResult)
+
+      const result = await api.searchStations(
+        {
+          tagList: ['rap', 'pop', 'jazz']
+        },
+        {
+          headers: {
+            [headerName]: headerValue
+          }
+        }
+      )
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual(mockResult)
+    })
   })
 })
