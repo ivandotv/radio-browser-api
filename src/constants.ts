@@ -43,11 +43,11 @@ export type Station = {
   urlresolved: string
   homepage: string
   favicon: string
-  tags: string[]
+  tags: string
   country: string
   countrycode: string
   state: string
-  language: string[]
+  language: string
   votes: number
   lastchangetime: Date
   codec: string
