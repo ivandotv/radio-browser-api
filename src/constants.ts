@@ -40,7 +40,8 @@ export type Station = {
   stationuuid: string
   name: string
   url: string
-  urlresolved: string
+  // eslint-disable-next-line
+  url_resolved: string
   homepage: string
   favicon: string
   tags: string
@@ -61,6 +62,14 @@ export type Station = {
   clicktrend: number
 }
 
+export type StationQuery = {
+  offset?: number
+  limit?: number
+  reverse?: boolean
+  order?: keyof typeof StationSearchOrder
+  hideBroken?: boolean
+}
+
 export type AdvancedStationQuery = {
   name?: string
   nameExact?: boolean
@@ -77,19 +86,7 @@ export type AdvancedStationQuery = {
   codec?: string
   bitrateMin?: string
   bitrateMax?: string
-  order?: keyof typeof StationSearchOrder
-  reverse?: boolean
-  offset?: number
-  limit?: number
-}
-
-export type StationQuery = {
-  offset?: number
-  limit?: number
-  reverse?: boolean
-  order?: keyof typeof StationSearchOrder
-  hideBroken?: boolean
-}
+} & StationQuery
 
 export type Query = {
   order?: 'name' | 'stationcount'
