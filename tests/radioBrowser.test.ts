@@ -1,9 +1,9 @@
 import nock from 'nock'
 import nodeFetch from 'node-fetch'
+import { StationQuery } from '../dist/types'
 import { Query } from '../src'
-import { RadioBrowserApi } from '../src/radioBrowser'
 import { StationSearchType } from '../src/constants'
-import { AdvancedStationQuery, StationQuery } from '../dist/types'
+import { RadioBrowserApi } from '../src/radioBrowser'
 
 const globalTest = {
   fetch: (nodeFetch as unknown) as typeof fetch
@@ -136,7 +136,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [{ name: 'rs', stationcount: 10 }]
     const country = 'germany'
-    const query = { order: 'name' }
+    const query = { order: 'name', hideBroken: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -145,7 +145,7 @@ describe('Radio Browser', () => {
       }
     })
       .get(`/json/countries/${country}`)
-      .query(query)
+      .query({ order: 'name', hidebroken: 'true' })
       .reply(200, mockResult)
 
     const result = await api.getCountries(country, query as Query, {
@@ -175,7 +175,10 @@ describe('Radio Browser', () => {
       }
     })
       .get(`/json/countrycodes/${country}`)
-      .query(query)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
       .reply(200, mockResult)
 
     const result = await api.getCountryByCountryCode(country, query as Query, {
@@ -204,7 +207,10 @@ describe('Radio Browser', () => {
       }
     })
       .get('/json/codecs')
-      .query(query)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
       .reply(200, mockResult)
 
     const result = await api.getCodecs(query as Query, {
@@ -234,7 +240,10 @@ describe('Radio Browser', () => {
       }
     })
       .get(`/json/states/${country}`)
-      .query(query)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
       .reply(200, mockResult)
 
     const result = await api.getCountryStates(country, query as Query, {
@@ -264,7 +273,10 @@ describe('Radio Browser', () => {
       }
     })
       .get(`/json/languages/${language}`)
-      .query(query)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
       .reply(200, mockResult)
 
     const result = await api.getLanguages(language, query as Query, {
@@ -294,7 +306,10 @@ describe('Radio Browser', () => {
       }
     })
       .get(`/json/tags/${tag}`)
-      .query(query)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
       .reply(200, mockResult)
 
     const result = await api.getTags(tag, query as Query, {
@@ -324,7 +339,10 @@ describe('Radio Browser', () => {
         }
       })
         .get(`/json/stations/bylanguage/${language}`)
-        .query(query)
+        .query({
+          hidebroken: 'true',
+          ...query
+        })
         .reply(200, mockResult)
 
       const result = await api.getStationsBy(
@@ -359,7 +377,10 @@ describe('Radio Browser', () => {
         }
       })
         .get(`/json/stations/bytag/${tag}`)
-        .query(query)
+        .query({
+          hidebroken: 'true',
+          ...query
+        })
         .reply(200, mockResult)
 
       const result = await api.getStationsBy(
@@ -409,7 +430,10 @@ describe('Radio Browser', () => {
       }
     })
       .get('/json/stations')
-      .query(query)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
       .reply(200, mockResult)
 
     const result = await api.getAllStations(query as StationQuery, {
@@ -495,7 +519,10 @@ describe('Radio Browser', () => {
       }
     })
       .get(`/json/countrycodes/${country}`)
-      .query(query)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
       .reply(200, mockResult)
 
     const result = await api.getCountryByCountryCode(country, query as Query, {
@@ -509,7 +536,7 @@ describe('Radio Browser', () => {
   })
   describe('Advanced station search', () => {
     // advanced station search
-    xtest('by tag list', async () => {
+    test('by tag list', async () => {
       const userAgent = 'test'
       const api = new RadioBrowserApi(userAgent, globalTest.fetch)
 
@@ -517,7 +544,7 @@ describe('Radio Browser', () => {
       const headerValue = '1'
       const mockResult = [{ name: 'rs', stationcount: 10 }]
       const query = {
-        tagList: 'rap,pop,jazz'
+        taglist: 'rap,pop,jazz'
       }
 
       const scope = nock(baseUrl, {
@@ -527,7 +554,10 @@ describe('Radio Browser', () => {
         }
       })
         .get('/json/stations/search')
-        .query(query)
+        .query({
+          hidebroken: 'true',
+          ...query
+        })
         .reply(200, mockResult)
 
       const result = await api.searchStations(
@@ -544,5 +574,121 @@ describe('Radio Browser', () => {
       expect(scope.isDone()).toBe(true)
       expect(result).toEqual(mockResult)
     })
+  })
+  describe('Show or hide broken stations', () => {
+    // advanced station search
+    test('hide broken stations by default', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [{ name: 'rs', stationcount: 10 }]
+      const query = {
+        taglist: 'rap,pop,jazz'
+      }
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get('/json/stations/search')
+        .query({
+          hidebroken: 'true',
+          ...query
+        })
+        .reply(200, mockResult)
+
+      const result = await api.searchStations(
+        {
+          tagList: ['rap', 'pop', 'jazz']
+        },
+        {
+          headers: {
+            [headerName]: headerValue
+          }
+        }
+      )
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual(mockResult)
+    })
+  })
+
+  test('hide broken stations explicitly', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const query = {
+      taglist: 'rap,pop,jazz',
+      hidebroken: 'true'
+    }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get('/json/stations/search')
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.searchStations(
+      {
+        tagList: ['rap', 'pop', 'jazz'],
+        hideBroken: true
+      },
+      {
+        headers: {
+          [headerName]: headerValue
+        }
+      }
+    )
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
+  })
+  test('Show broken stations', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const query = {
+      taglist: 'rap,pop,jazz',
+      hidebroken: 'false'
+    }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get('/json/stations/search')
+      .query(query)
+      .reply(200, mockResult)
+
+    const result = await api.searchStations(
+      {
+        tagList: ['rap', 'pop', 'jazz'],
+        hideBroken: false
+      },
+      {
+        headers: {
+          [headerName]: headerValue
+        }
+      }
+    )
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual(mockResult)
   })
 })
