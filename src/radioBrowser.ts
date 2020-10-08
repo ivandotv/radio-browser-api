@@ -8,19 +8,23 @@ import {
   StationQuery
 } from './constants'
 
-// todo list of station checks
-// todo list of station clicks
-
 export class RadioBrowserApi {
   protected baseUrl = 'https://fr1.api.radio-browser.info/json'
+
+  hideBroken: boolean
 
   protected fetchConfig: RequestInit = {
     method: 'GET',
     redirect: 'follow'
   }
 
-  constructor(protected userAgent: string, protected fetchImpl: typeof fetch) {
+  constructor(
+    protected userAgent: string,
+    protected fetchImpl: typeof fetch,
+    hideBroken = true
+  ) {
     this.fetchConfig.headers = { 'user-agent': this.userAgent }
+    this.hideBroken = hideBroken
   }
 
   async resolveBaseUrl(
@@ -160,7 +164,10 @@ export class RadioBrowserApi {
     name: string
     url: string
   }> {
-    return this.runRequest(this.buildRequest('url', uuid), fetchConfig)
+    return this.runRequest(
+      this.buildRequest('url', uuid, undefined, false),
+      fetchConfig
+    )
   }
 
   async voteForStation(
@@ -179,10 +186,23 @@ export class RadioBrowserApi {
   protected buildRequest(
     endPoint: string,
     search?: string,
-    query?: object
+    query?: Query | AdvancedStationQuery | StationQuery,
+    addHideBrokenParam = true
   ): string {
     search = search ? `/${encodeURIComponent(search)}` : ''
-    const queryParams = query ? this.createQueryParams(query) : ''
+
+    let queryCopy
+    if (query) {
+      queryCopy = { ...query }
+      if ('tagList' in queryCopy && Array.isArray(queryCopy.tagList)) {
+        queryCopy.tagList = [...queryCopy.tagList]
+      }
+      if (addHideBrokenParam && typeof queryCopy.hideBroken === 'undefined') {
+        queryCopy.hideBroken = this.hideBroken
+      }
+    }
+
+    const queryParams = queryCopy ? this.createQueryParams(queryCopy) : ''
 
     return `${this.baseUrl}/${endPoint}${search}${queryParams}`
   }
