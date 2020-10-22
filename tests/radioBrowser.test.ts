@@ -28,7 +28,7 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(200, mockResult)
 
-    const api = new RadioBrowserApi('test', globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch)
     const result = await api.resolveBaseUrl()
 
     expect(result).toEqual(mockResult)
@@ -36,7 +36,7 @@ describe('Radio Browser', () => {
   })
 
   test('Resolve base url but do not set it', async () => {
-    const api = new RadioBrowserApi('test', globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch)
     const defaultBaseUrl = api.getBaseUrl()
     const mockResult = [
       {
@@ -62,7 +62,7 @@ describe('Radio Browser', () => {
   test('Manually set base url', () => {
     const url = '1.2.3.4'
 
-    const api = new RadioBrowserApi('test', globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch)
     api.setBaseUrl(url)
 
     expect(api.getBaseUrl()).toBe(url)
@@ -74,7 +74,7 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(500, errorText)
 
-    const api = new RadioBrowserApi('test', globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch)
     expect.assertions(1)
     try {
       await api.resolveBaseUrl()
@@ -91,7 +91,7 @@ describe('Radio Browser', () => {
 
     const agent = 'test'
     const spy = jest.spyOn(globalTest, 'fetch')
-    const api = new RadioBrowserApi(agent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, agent)
 
     await api.resolveBaseUrl()
 
@@ -108,7 +108,7 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(200, [{ name: '', ip: '' }])
 
-    const api = new RadioBrowserApi('test', globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch)
     const spy = jest.spyOn(globalTest, 'fetch')
 
     const headerName = 'x-jest-test'
@@ -130,7 +130,7 @@ describe('Radio Browser', () => {
 
   test('get countries', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -160,7 +160,7 @@ describe('Radio Browser', () => {
 
   test('get country by country code', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -193,7 +193,7 @@ describe('Radio Browser', () => {
 
   test('get codecs', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -225,7 +225,7 @@ describe('Radio Browser', () => {
 
   test('get country states', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -258,7 +258,7 @@ describe('Radio Browser', () => {
 
   test('get languages', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -291,7 +291,7 @@ describe('Radio Browser', () => {
 
   test('get tags', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -324,7 +324,7 @@ describe('Radio Browser', () => {
   describe('Get stations by', () => {
     test('by language', async () => {
       const userAgent = 'test'
-      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -362,7 +362,7 @@ describe('Radio Browser', () => {
 
     test('by tag', async () => {
       const userAgent = 'test'
-      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -401,7 +401,7 @@ describe('Radio Browser', () => {
       expect.assertions(1)
 
       const userAgent = 'test'
-      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
       try {
         await api.getStationsBy(
           // @ts-ignore
@@ -416,7 +416,7 @@ describe('Radio Browser', () => {
 
   test('get all stations', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -448,7 +448,7 @@ describe('Radio Browser', () => {
 
   test('send station click', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -476,7 +476,7 @@ describe('Radio Browser', () => {
 
   test('vote for station', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -504,7 +504,7 @@ describe('Radio Browser', () => {
 
   test('get stations by votes', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -538,7 +538,7 @@ describe('Radio Browser', () => {
     // advanced station search
     test('by tag list', async () => {
       const userAgent = 'test'
-      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -579,7 +579,7 @@ describe('Radio Browser', () => {
     // advanced station search
     test('hide broken stations by default', async () => {
       const userAgent = 'test'
-      const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -619,7 +619,7 @@ describe('Radio Browser', () => {
 
   test('hide broken stations explicitly', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -656,7 +656,7 @@ describe('Radio Browser', () => {
   })
   test('Show broken stations', async () => {
     const userAgent = 'test'
-    const api = new RadioBrowserApi(userAgent, globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'

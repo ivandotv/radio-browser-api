@@ -19,11 +19,13 @@ export class RadioBrowserApi {
   }
 
   constructor(
-    protected userAgent: string,
     protected fetchImpl: typeof fetch,
+    protected userAgent?: string,
     hideBroken = true
   ) {
-    this.fetchConfig.headers = { 'user-agent': this.userAgent }
+    if (this.userAgent) {
+      this.fetchConfig.headers = { 'user-agent': this.userAgent }
+    }
     this.hideBroken = hideBroken
   }
 
