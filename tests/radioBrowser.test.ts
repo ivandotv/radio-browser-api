@@ -4,6 +4,7 @@ import { StationQuery } from '../dist/types'
 import { Query } from '../src'
 import { StationSearchType } from '../src/constants'
 import { RadioBrowserApi } from '../src/radioBrowser'
+import { mockStation, mockStationResponse } from './utils/mockStation'
 
 const globalTest = {
   fetch: (nodeFetch as unknown) as typeof fetch
@@ -328,7 +329,7 @@ describe('Radio Browser', () => {
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
-      const mockResult = [{ name: 'rs', stationcount: 10 }]
+      const mockResult = [mockStationResponse]
       const language = 'ger'
       const query = { order: 'name', reverse: true }
 
@@ -357,7 +358,7 @@ describe('Radio Browser', () => {
       )
 
       expect(scope.isDone()).toBe(true)
-      expect(result).toEqual(mockResult)
+      expect(result).toEqual([mockStation])
     })
 
     test('by tag', async () => {
@@ -366,7 +367,7 @@ describe('Radio Browser', () => {
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
-      const mockResult = [{ name: 'rs', stationcount: 10 }]
+      const mockResult = [mockStationResponse]
       const tag = 'jazz'
       const query = { order: 'name', reverse: true }
 
@@ -395,7 +396,7 @@ describe('Radio Browser', () => {
       )
 
       expect(scope.isDone()).toBe(true)
-      expect(result).toEqual(mockResult)
+      expect(result).toEqual([mockStation])
     })
     test('Throw if station search type does not exist', async () => {
       expect.assertions(1)
@@ -420,7 +421,7 @@ describe('Radio Browser', () => {
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
-    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const mockResult = [mockStationResponse]
     const query = { order: 'name', reverse: true }
 
     const scope = nock(baseUrl, {
@@ -443,7 +444,7 @@ describe('Radio Browser', () => {
     })
 
     expect(scope.isDone()).toBe(true)
-    expect(result).toEqual(mockResult)
+    expect(result).toEqual([mockStation])
   })
 
   test('send station click', async () => {
@@ -452,7 +453,6 @@ describe('Radio Browser', () => {
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
-    const mockResult = [{ name: 'rs', stationcount: 10 }]
     const stationUuid = '1234567890'
 
     const scope = nock(baseUrl, {
@@ -462,16 +462,15 @@ describe('Radio Browser', () => {
       }
     })
       .get(`/json/url/${stationUuid}`)
-      .reply(200, mockResult)
+      .reply(200, {})
 
-    const result = await api.sendStationClick(stationUuid, {
+    await api.sendStationClick(stationUuid, {
       headers: {
         [headerName]: headerValue
       }
     })
 
     expect(scope.isDone()).toBe(true)
-    expect(result).toEqual(mockResult)
   })
 
   test('vote for station', async () => {
@@ -542,7 +541,7 @@ describe('Radio Browser', () => {
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
-      const mockResult = [{ name: 'rs', stationcount: 10 }]
+      const mockResult = [mockStationResponse]
       const query = {
         taglist: 'rap,pop,jazz'
       }
@@ -572,7 +571,7 @@ describe('Radio Browser', () => {
       )
 
       expect(scope.isDone()).toBe(true)
-      expect(result).toEqual(mockResult)
+      expect(result).toEqual([mockStation])
     })
   })
   describe('Show or hide broken stations', () => {
@@ -583,7 +582,7 @@ describe('Radio Browser', () => {
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
-      const mockResult = [{ name: 'rs', stationcount: 10 }]
+      const mockResult = [mockStationResponse]
       const query = {
         taglist: 'rap,pop,jazz'
       }
@@ -613,7 +612,7 @@ describe('Radio Browser', () => {
       )
 
       expect(scope.isDone()).toBe(true)
-      expect(result).toEqual(mockResult)
+      expect(result).toEqual([mockStation])
     })
   })
 
@@ -623,7 +622,7 @@ describe('Radio Browser', () => {
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
-    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const mockResult = [mockStationResponse]
     const query = {
       taglist: 'rap,pop,jazz',
       hidebroken: 'true'
@@ -652,7 +651,7 @@ describe('Radio Browser', () => {
     )
 
     expect(scope.isDone()).toBe(true)
-    expect(result).toEqual(mockResult)
+    expect(result).toEqual([mockStation])
   })
   test('Show broken stations', async () => {
     const userAgent = 'test'
@@ -660,7 +659,7 @@ describe('Radio Browser', () => {
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
-    const mockResult = [{ name: 'rs', stationcount: 10 }]
+    const mockResult = [mockStationResponse]
     const query = {
       taglist: 'rap,pop,jazz',
       hidebroken: 'false'
@@ -689,6 +688,84 @@ describe('Radio Browser', () => {
     )
 
     expect(scope.isDone()).toBe(true)
-    expect(result).toEqual(mockResult)
+    expect(result).toEqual([mockStation])
+  })
+  test('remove tags longer than 10 characters', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+
+    const response = Object.assign({}, mockStationResponse, {
+      tags: 'a,b,taglongerthan10characters'
+    })
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [response]
+    const tag = 'jazz'
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/stations/bytag/${tag}`)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
+      .reply(200, mockResult)
+
+    const result = await api.getStationsBy(
+      StationSearchType.byTag,
+      tag,
+      query as StationQuery,
+      {
+        headers: {
+          [headerName]: headerValue
+        }
+      }
+    )
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual([
+      Object.assign({}, mockStation, { tags: ['a', 'b'] })
+    ])
+  })
+  test('Remove stations with the same ids', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [mockStationResponse, mockStationResponse]
+    const tag = 'jazz'
+    const query = { order: 'name', reverse: true }
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/stations/bytag/${tag}`)
+      .query({
+        hidebroken: 'true',
+        ...query
+      })
+      .reply(200, mockResult)
+
+    const result = await api.getStationsBy(
+      StationSearchType.byTag,
+      tag,
+      query as StationQuery,
+      {
+        headers: {
+          [headerName]: headerValue
+        }
+      }
+    )
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual([mockStation])
   })
 })
