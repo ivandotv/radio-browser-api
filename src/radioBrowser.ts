@@ -8,6 +8,9 @@ import {
   StationQuery
 } from './constants'
 
+type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
+type StationResponse = Overwrite<Station, { tags: string; language: string }>
+
 export class RadioBrowserApi {
   protected baseUrl = 'https://fr1.api.radio-browser.info/json'
 
@@ -111,7 +114,7 @@ export class RadioBrowserApi {
     config?: Query,
     fetchConfig?: RequestInit
   ): Promise<CountryResult[]> {
-    tag = tag ? tag.toLowerCase() : ''
+    tag = tag ? tag.toLowerCase() : '' // empty string returns all tags
 
     return this.runRequest(this.buildRequest('tags', tag, config), fetchConfig)
   }
@@ -130,30 +133,60 @@ export class RadioBrowserApi {
 
     search = search ? search.toLowerCase() : ''
 
-    return this.runRequest(
+    const stations = await this.runRequest<StationResponse[]>(
       this.buildRequest(`stations/${searchType.toLowerCase()}`, search, query),
       fetchConfig
     )
+
+    return this.normalizeStations(stations)
+  }
+
+  protected normalizeStations(stations: StationResponse[]): Station[] {
+    const result = []
+    const duplicateNames: { [key: string]: boolean } = {}
+
+    for (const rawStation of stations) {
+      // guard against results having same stations (same names) under different id
+      const station = ({ ...rawStation } as unknown) as Station
+
+      if (duplicateNames[station.name.toLowerCase()]) continue
+
+      duplicateNames[rawStation.name.toLowerCase()] = true
+
+      station.tags = [...new Set(rawStation.tags.split(','))].filter(
+        (tag) => tag.length > 0 && tag.length < 10
+      ) // there are tags that are complete sentences
+
+      station.language = rawStation.language.split(',')
+
+      result.push(station)
+    }
+
+    return result
   }
 
   async getAllStations(
     query?: Omit<StationQuery, 'hideBroken'>,
     fetchConfig?: RequestInit
   ): Promise<Station[]> {
-    return this.runRequest(
+    const stations = await this.runRequest<StationResponse[]>(
       this.buildRequest('stations', '', query),
       fetchConfig
     )
+
+    return this.normalizeStations(stations)
   }
 
   async searchStations(
     query: AdvancedStationQuery,
     fetchConfig?: RequestInit
   ): Promise<Station[]> {
-    return this.runRequest(
+    const stations = await this.runRequest<StationResponse[]>(
       this.buildRequest('stations/search', undefined, query),
       fetchConfig
     )
+
+    return this.normalizeStations(stations)
   }
 
   async sendStationClick(
