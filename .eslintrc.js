@@ -10,8 +10,8 @@ module.exports = {
     __DEV__: true,
     __VERSION__: true
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'prettier', 'standard'],
-  extends: ['prettier/standard', 'standard'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
+  extends: ['prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     // project: './tsconfig.eslint.json',
