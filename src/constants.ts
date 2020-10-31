@@ -35,7 +35,7 @@ export const StationSearchType = {
   byTagExact: 'byTagExact'
 } as const
 
-export type Station = {
+export type StationResponse = {
   changeuuid: string
   stationuuid: string
   name: string
@@ -44,22 +44,50 @@ export type Station = {
   url_resolved: string
   homepage: string
   favicon: string
-  tags: string[]
+  tags: string
   country: string
   countrycode: string
   state: string
+  language: string
+  votes: number
+  lastchangetime: string
+  codec: string
+  bitrate: number
+  hls: number
+  lastcheckok: number
+  lastchecktime: string
+  lastlocalchecktime: string
+  lastcheckoktime: string
+  clicktimestamp: string
+  clickcount: number
+  clicktrend: number
+}
+
+export type Station = {
+  changeId: string
+  id: string
+  name: string
+  url: string
+  urlResolved: string
+  homepage: string
+  favicon: string
+  tags: string[]
+  country: string
+  countryCode: string
+  state: string
   language: string[]
   votes: number
-  lastchangetime: Date
+  lastChangeTime: Date
   codec: string
   bitrate: number
   hls: boolean
-  lastcheckok: boolean
-  lastchecktime: Date
-  lastcheckoktime: Date
-  clicktimestamp: Date
-  clickcount: number
-  clicktrend: number
+  lastCheckOk: boolean
+  lastCheckTime: Date
+  lastCheckOkTime: Date
+  lastLocalCheckTime: Date
+  clickTimestamp: Date
+  clickCount: number
+  clickTrend: number
 }
 
 export type StationQuery = {

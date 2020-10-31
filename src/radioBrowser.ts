@@ -5,11 +5,9 @@ import {
   CountryStateResult,
   Query,
   Station,
-  StationQuery
+  StationQuery,
+  StationResponse
 } from './constants'
-
-type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
-type StationResponse = Overwrite<Station, { tags: string; language: string }>
 
 export class RadioBrowserApi {
   protected baseUrl = 'https://fr1.api.radio-browser.info/json'
@@ -126,7 +124,6 @@ export class RadioBrowserApi {
     query?: StationQuery,
     fetchConfig?: RequestInit
   ): Promise<Station[]> {
-    // searchType = searchType.toLowerCase() as keyof typeof StationSearchType
     if (!StationSearchType[searchType]) {
       throw new Error(`search type does not exist: ${searchType}`)
     }
@@ -143,21 +140,46 @@ export class RadioBrowserApi {
 
   protected normalizeStations(stations: StationResponse[]): Station[] {
     const result = []
-    const duplicateNames: { [key: string]: boolean } = {}
+    const duplicates: { [key: string]: boolean } = {}
 
-    for (const rawStation of stations) {
-      // guard against results having same stations (same names) under different id
-      const station = ({ ...rawStation } as unknown) as Station
+    for (const response of stations) {
+      const nameAndUrl = `${response.name
+        .toLowerCase()
+        .trim()}${response.url.toLowerCase().trim()}`
 
-      if (duplicateNames[station.name.toLowerCase()]) continue
+      // guard against results having the same stations under different id's
+      if (duplicates[nameAndUrl]) continue
 
-      duplicateNames[rawStation.name.toLowerCase()] = true
+      duplicates[nameAndUrl] = true
 
-      station.tags = [...new Set(rawStation.tags.split(','))].filter(
-        (tag) => tag.length > 0 && tag.length < 10
-      ) // there are tags that are complete sentences
-
-      station.language = rawStation.language.split(',')
+      const station: Station = {
+        changeId: response.changeuuid,
+        id: response.stationuuid,
+        name: response.name,
+        url: response.url,
+        urlResolved: response.url_resolved,
+        homepage: response.homepage,
+        favicon: response.favicon,
+        country: response.country,
+        countryCode: response.countrycode,
+        state: response.state,
+        votes: response.votes,
+        codec: response.codec,
+        bitrate: response.bitrate,
+        clickCount: response.clickcount,
+        clickTrend: response.clicktrend,
+        hls: Boolean(response.hls),
+        lastCheckOk: Boolean(response.lastcheckok),
+        lastChangeTime: new Date(response.lastchangetime),
+        lastCheckOkTime: new Date(response.lastcheckoktime),
+        clickTimestamp: new Date(response.clicktimestamp),
+        lastLocalCheckTime: new Date(response.lastlocalchecktime),
+        language: response.language.split(','),
+        lastCheckTime: new Date(response.lastchecktime),
+        tags: [...new Set(response.tags.split(','))].filter(
+          (tag) => tag.length > 0 && tag.length < 10
+        ) // drop duplicates and tags over 10 characters
+      }
 
       result.push(station)
     }
