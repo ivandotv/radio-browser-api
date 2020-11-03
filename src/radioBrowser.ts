@@ -6,7 +6,8 @@ import {
   Query,
   Station,
   StationQuery,
-  StationResponse
+  StationResponse,
+  TagResult
 } from './constants'
 
 export class RadioBrowserApi {
@@ -19,6 +20,12 @@ export class RadioBrowserApi {
     redirect: 'follow'
   }
 
+  /**
+   * Creates an instance of radio browser api.
+   * @param fetchImpl - Fetch API
+   * @param userAgent - User agent to indentify the calls to the API
+   * @param hideBroken - Hide broken stations for all future API calls
+   */
   constructor(
     protected fetchImpl: typeof fetch,
     protected userAgent?: string,
@@ -30,6 +37,12 @@ export class RadioBrowserApi {
     this.hideBroken = hideBroken
   }
 
+  /**
+   * Resolves API base url
+   * @param autoSet - Automatically set first resolved base url
+   * @param config-  Fetch configuration
+   * @returns Array of objects with the ip and name of the api server
+   */
   async resolveBaseUrl(
     autoSet = true,
     config: RequestInit = {}
@@ -46,14 +59,29 @@ export class RadioBrowserApi {
     return result
   }
 
+  /**
+   * Sets base url for all api calls
+   * @param url - Url to the api server
+   */
   setBaseUrl(url: string): void {
     this.baseUrl = url
   }
 
+  /**
+   * Get current base url
+   * @returns Base url
+   */
   getBaseUrl(): string {
     return this.baseUrl
   }
 
+  /**
+   * Gets available countries
+   * @param search - Search for country
+   * @param query - Query params
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of country results with the name of the station and station count
+   */
   async getCountries(
     search?: string,
     query?: Query,
@@ -65,6 +93,13 @@ export class RadioBrowserApi {
     )
   }
 
+  /**
+   * Gets countries by country code
+   * @param search - Country code
+   * @param query  - Query
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of country results with the name of the station and station count
+   */
   async getCountryCodes(
     search?: string,
     query?: Query,
@@ -78,6 +113,12 @@ export class RadioBrowserApi {
     )
   }
 
+  /**
+   * Gets available codes
+   * @param query - Query
+   * @param fetchConfig -  Fetch configuration
+   * @returns List of available codes
+   */
   async getCodecs(
     query?: Query,
     fetchConfig?: RequestInit
@@ -85,6 +126,13 @@ export class RadioBrowserApi {
     return this.runRequest(this.buildRequest('codecs', '', query), fetchConfig)
   }
 
+  /**
+   * Gets country states. States **should** be regions inside a country.
+   * @param country - Limit state to particular country
+   * @param query - Query
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of country states
+   */
   async getCountryStates(
     country?: string,
     query?: Query,
@@ -96,28 +144,49 @@ export class RadioBrowserApi {
     )
   }
 
+  /**
+   * Gets all available languages
+   * @param language- Limit results to particular language
+   * @param query -  Query
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of language results
+   */
   async getLanguages(
     language?: string,
-    config?: Query,
+    query?: Query,
     fetchConfig?: RequestInit
   ): Promise<CountryResult[]> {
     return this.runRequest(
-      this.buildRequest('languages', language, config),
+      this.buildRequest('languages', language, query),
       fetchConfig
     )
   }
 
+  /**
+   * Gets all available tags
+   * @param tag - Limit results to particular tag
+   * @param query - Query
+   * @param fetchConfig - Fetch configuration
+   * @returns List of tag results
+   */
   async getTags(
     tag?: string,
-    config?: Query,
+    query?: Query,
     fetchConfig?: RequestInit
-  ): Promise<CountryResult[]> {
+  ): Promise<TagResult[]> {
     tag = tag ? tag.toLowerCase() : '' // empty string returns all tags
 
-    return this.runRequest(this.buildRequest('tags', tag, config), fetchConfig)
+    return this.runRequest(this.buildRequest('tags', tag, query), fetchConfig)
   }
 
-  // http://fr1.api.radio-browser.info/{format}/stations/byuuid/{searchterm}
+  /**
+   * Gets stations by various available parameters
+   * @param searchType - Parameter for the search
+   * @param search - Search value for the parameter
+   * @param query - Query
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of station results
+   */
   async getStationsBy(
     searchType: keyof typeof StationSearchType,
     search?: string,
@@ -130,6 +199,7 @@ export class RadioBrowserApi {
 
     search = search ? search.toLowerCase() : ''
 
+    // http://fr1.api.radio-browser.info/{format}/stations/byuuid/{searchterm}
     const stations = await this.runRequest<StationResponse[]>(
       this.buildRequest(`stations/${searchType.toLowerCase()}`, search, query),
       fetchConfig
@@ -138,6 +208,11 @@ export class RadioBrowserApi {
     return this.normalizeStations(stations)
   }
 
+  /**
+   * Normalizes stations from the API response
+   * @param stations - Array of station responses
+   * @returns Array of normalized stations
+   */
   protected normalizeStations(stations: StationResponse[]): Station[] {
     const result = []
     const duplicates: { [key: string]: boolean } = {}
@@ -187,6 +262,13 @@ export class RadioBrowserApi {
     return result
   }
 
+  /**
+   * Gets all available stations. Please note that if results
+   * are not limited somehow, they can be huge (size in MB)
+   * @param query - Query
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of all available stations
+   */
   async getAllStations(
     query?: Omit<StationQuery, 'hideBroken'>,
     fetchConfig?: RequestInit
@@ -199,6 +281,12 @@ export class RadioBrowserApi {
     return this.normalizeStations(stations)
   }
 
+  /**
+   * Searches stations by particular params
+   * @param query - Query
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of station results
+   */
   async searchStations(
     query: AdvancedStationQuery,
     fetchConfig?: RequestInit
@@ -211,6 +299,12 @@ export class RadioBrowserApi {
     return this.normalizeStations(stations)
   }
 
+  /**
+   * Gets stations by clicks. Stations with the highest number of clicks are most popular
+   * @param limit - Limit the number of returned stations
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of stations
+   */
   async getStationsByClicks(
     limit?: number,
     fetchConfig?: RequestInit
@@ -218,6 +312,12 @@ export class RadioBrowserApi {
     return this.resolveGetStations('topclick', limit, fetchConfig)
   }
 
+  /**
+   * Gets stations by votes. Returns most voted stations
+   * @param limit - Limit the number of returned stations
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of stations
+   */
   async getStationsByVotes(
     limit?: number,
     fetchConfig?: RequestInit
@@ -225,6 +325,12 @@ export class RadioBrowserApi {
     return this.resolveGetStations('topvote', limit, fetchConfig)
   }
 
+  /**
+   * Gets stations by recent clicks. They are basically most recently listened stations.
+   * @param limit - Limit the number of returned stations
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of stations
+   */
   async getStationsByRecentClicks(
     limit?: number,
     fetchConfig?: RequestInit
@@ -232,8 +338,14 @@ export class RadioBrowserApi {
     return this.resolveGetStations('lastclick', limit, fetchConfig)
   }
 
+  /**
+   * Sends click for the station. This method should be used when user starts to listen to the station.
+   * @param id - Station id
+   * @param fetchConfig  - Fetch configuration
+   * @returns Station click object
+   */
   async sendStationClick(
-    uuid: string,
+    id: string,
     fetchConfig?: RequestInit
   ): Promise<{
     ok: boolean
@@ -243,13 +355,19 @@ export class RadioBrowserApi {
     url: string
   }> {
     return this.runRequest(
-      this.buildRequest('url', uuid, undefined, false),
+      this.buildRequest('url', id, undefined, false),
       fetchConfig
     )
   }
 
+  /**
+   * Votes for station. This method should be used when user adds the station to favourites etc..
+   * @param id - Station id
+   * @param fetchConfig - Fetch configuration
+   * @returns Station vote object
+   */
   async voteForStation(
-    uuid: string,
+    id: string,
     fetchConfig?: RequestInit
   ): Promise<{
     ok: boolean
@@ -258,9 +376,15 @@ export class RadioBrowserApi {
     name: string
     url: string
   }> {
-    return this.runRequest(this.buildRequest('vote', uuid), fetchConfig)
+    return this.runRequest(this.buildRequest('vote', id), fetchConfig)
   }
 
+  /**
+   * Gets stations by station id
+   * @param ids - Array of station id's
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of stations
+   */
   async getStationsById(
     ids: string[],
     fetchConfig?: RequestInit
@@ -279,6 +403,12 @@ export class RadioBrowserApi {
     return this.normalizeStations(stations)
   }
 
+  /**
+   * Gets station by station url
+   * @param url - Station url
+   * @param fetchConfig - Fetch configuration
+   * @returns Array of stations
+   */
   async getStationByUrl(
     url: string,
     fetchConfig?: RequestInit
@@ -310,6 +440,14 @@ export class RadioBrowserApi {
     return this.normalizeStations(stations)
   }
 
+  /**
+   * Builds request to the API
+   * @param endPoint - API endpoint
+   * @param search - Search term
+   * @param query - Query
+   * @param addHideBrokenParam - Hide broken stations from the results
+   * @returns Built request string
+   */
   protected buildRequest(
     endPoint: string,
     search?: string,
@@ -334,16 +472,26 @@ export class RadioBrowserApi {
     return `${this.baseUrl}/${endPoint}${search}${queryParams}`
   }
 
+  /**
+   * Fires of the request to the API
+   * @param url - Request url
+   * @param fetchConfig - Fetch configuration
+   * @returns Fetch response
+   */
   protected async runRequest<T>(
     url: string,
-    config: RequestInit = {}
+    fetchConfig: RequestInit = {}
   ): Promise<T> {
     // manual merge deep
-    const headers = Object.assign({}, this.fetchConfig.headers, config.headers)
-    const fetchConfig = Object.assign({}, this.fetchConfig, config)
+    const headers = Object.assign(
+      {},
+      this.fetchConfig.headers,
+      fetchConfig.headers
+    )
+    const finalConfig = Object.assign({}, this.fetchConfig, fetchConfig)
     fetchConfig.headers = headers
 
-    const response = await this.fetchImpl(url, fetchConfig)
+    const response = await this.fetchImpl(url, finalConfig)
 
     if (response.ok) {
       return response.json()
@@ -352,6 +500,11 @@ export class RadioBrowserApi {
     }
   }
 
+  /**
+   * Encodes query parameters
+   * @param params - Object that represents paramters as key value pairs
+   * @returns  String of encoded query parameters
+   */
   protected createQueryParams(params?: object): string {
     let result = ''
     if (params) {

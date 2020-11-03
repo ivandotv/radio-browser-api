@@ -128,6 +128,7 @@ export type CountryResult = {
   stationcount: number
 }
 
+export type TagResult = CountryResult
 export type CountryStateResult = CountryResult & {
   country: string
 }
