@@ -10,7 +10,11 @@ module.exports = {
     __DEV__: true,
     __VERSION__: true
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
+  plugins: [
+    '@typescript-eslint/eslint-plugin',
+    'eslint-plugin-tsdoc',
+    'prettier'
+  ],
   extends: ['prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -18,6 +22,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
+    'tsdoc/syntax': 'warn',
     'no-unused-vars': 'off',
     'generator-star-spacing': ['error', { before: false, after: true }],
     'space-before-function-paren': 'off',
