@@ -182,7 +182,7 @@ describe('Radio Browser', () => {
       })
       .reply(200, mockResult)
 
-    const result = await api.getCountryByCountryCode(country, query as Query, {
+    const result = await api.getCountryCodes(country, query as Query, {
       headers: {
         [headerName]: headerValue
       }
@@ -524,7 +524,7 @@ describe('Radio Browser', () => {
       })
       .reply(200, mockResult)
 
-    const result = await api.getCountryByCountryCode(country, query as Query, {
+    const result = await api.getCountryCodes(country, query as Query, {
       headers: {
         [headerName]: headerValue
       }
@@ -756,6 +756,229 @@ describe('Radio Browser', () => {
       .reply(200, mockResult)
 
     const result = await api.getStationsBy(StationSearchType.byTag, tag)
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual([getMockStation()])
+  })
+
+  describe('Get top stations by clicks', () => {
+    test('get all', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [getMockResponse()]
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get('/json/stations/topclick')
+        .reply(200, mockResult)
+
+      const result = await api.getStationsByClicks(undefined, {
+        headers: {
+          [headerName]: headerValue
+        }
+      })
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual([getMockStation()])
+    })
+    test('get top 5', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+
+      const count = 5
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [getMockResponse()]
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get(`/json/stations/topclick/${count}`)
+        .reply(200, mockResult)
+
+      const result = await api.getStationsByClicks(count, {
+        headers: {
+          [headerName]: headerValue
+        }
+      })
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual([getMockStation()])
+    })
+  })
+
+  describe('Get stations by votes', () => {
+    test('get all', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [getMockResponse()]
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get('/json/stations/topvote')
+        .reply(200, mockResult)
+
+      const result = await api.getStationsByVotes(undefined, {
+        headers: {
+          [headerName]: headerValue
+        }
+      })
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual([getMockStation()])
+    })
+    test('get top 5', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+
+      const count = 5
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [getMockResponse()]
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get(`/json/stations/topvote/${count}`)
+        .reply(200, mockResult)
+
+      const result = await api.getStationsByVotes(count, {
+        headers: {
+          [headerName]: headerValue
+        }
+      })
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual([getMockStation()])
+    })
+  })
+
+  describe('Get stations by recent clicks', () => {
+    test('get all', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [getMockResponse()]
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get('/json/stations/lastclick')
+        .reply(200, mockResult)
+
+      const result = await api.getStationsByRecentClicks(undefined, {
+        headers: {
+          [headerName]: headerValue
+        }
+      })
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual([getMockStation()])
+    })
+    test('get top 5', async () => {
+      const userAgent = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+
+      const count = 5
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [getMockResponse()]
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': userAgent
+        }
+      })
+        .get(`/json/stations/lastclick/${count}`)
+        .reply(200, mockResult)
+
+      const result = await api.getStationsByRecentClicks(count, {
+        headers: {
+          [headerName]: headerValue
+        }
+      })
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual([getMockStation()])
+    })
+  })
+
+  test('get stations by Id', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const stationIds = ['1', '2', '3']
+
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [getMockResponse()]
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/stations/byuuid/${stationIds.join(',')}`)
+      .reply(200, mockResult)
+
+    const result = await api.getStationsById(stationIds, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
+
+    expect(scope.isDone()).toBe(true)
+    expect(result).toEqual([getMockStation()])
+  })
+  test('get stations by url', async () => {
+    const userAgent = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+
+    const url = 'stationUrl'
+    const headerName = 'x-jest-test'
+    const headerValue = '1'
+    const mockResult = [getMockResponse()]
+
+    const scope = nock(baseUrl, {
+      reqheaders: {
+        [headerName]: headerValue,
+        'user-agent': userAgent
+      }
+    })
+      .get(`/json/stations/byurl/${url}`)
+      .reply(200, mockResult)
+
+    const result = await api.getStationByUrl(url, {
+      headers: {
+        [headerName]: headerValue
+      }
+    })
 
     expect(scope.isDone()).toBe(true)
     expect(result).toEqual([getMockStation()])

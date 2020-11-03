@@ -65,7 +65,7 @@ export class RadioBrowserApi {
     )
   }
 
-  async getCountryByCountryCode(
+  async getCountryCodes(
     search?: string,
     query?: Query,
     fetchConfig?: RequestInit
@@ -211,6 +211,27 @@ export class RadioBrowserApi {
     return this.normalizeStations(stations)
   }
 
+  async getStationsByClicks(
+    limit?: number,
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
+    return this.resolveGetStations('topclick', limit, fetchConfig)
+  }
+
+  async getStationsByVotes(
+    limit?: number,
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
+    return this.resolveGetStations('topvote', limit, fetchConfig)
+  }
+
+  async getStationsByRecentClicks(
+    limit?: number,
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
+    return this.resolveGetStations('lastclick', limit, fetchConfig)
+  }
+
   async sendStationClick(
     uuid: string,
     fetchConfig?: RequestInit
@@ -238,6 +259,55 @@ export class RadioBrowserApi {
     url: string
   }> {
     return this.runRequest(this.buildRequest('vote', uuid), fetchConfig)
+  }
+
+  async getStationsById(
+    ids: string[],
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
+    const stationsIds = ids.join(',')
+    const stations = await this.runRequest<StationResponse[]>(
+      this.buildRequest(
+        `stations/byuuid/${stationsIds}`,
+        undefined,
+        undefined,
+        false
+      ),
+      fetchConfig
+    )
+
+    return this.normalizeStations(stations)
+  }
+
+  async getStationByUrl(
+    url: string,
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
+    const stations = await this.runRequest<StationResponse[]>(
+      this.buildRequest(`stations/byurl/${url}`, undefined, undefined, false),
+      fetchConfig
+    )
+
+    return this.normalizeStations(stations)
+  }
+
+  protected async resolveGetStations(
+    endPoint: string,
+    limit?: number,
+    fetchConfig?: RequestInit
+  ): Promise<Station[]> {
+    const limitStations = limit ? `/${limit}` : ''
+    const stations = await this.runRequest<StationResponse[]>(
+      this.buildRequest(
+        `stations/${endPoint}${limitStations}`,
+        undefined,
+        undefined,
+        false
+      ),
+      fetchConfig
+    )
+
+    return this.normalizeStations(stations)
   }
 
   protected buildRequest(
