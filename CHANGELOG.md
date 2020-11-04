@@ -1,3 +1,9 @@
+### [1.0.1](https://github.com/ivandotv/radio-browser-api/compare/v1.0.0...v1.0.1) (2020-11-04)
+
+
+* **readme:** Add badges ([581d74a](https://github.com/ivandotv/radio-browser-api/commit/581d74acc52bebcd2ea4742aad1f38769518cb1d))
+* Add MIT licence ([a12e3f1](https://github.com/ivandotv/radio-browser-api/commit/a12e3f1eb84ea94d56e199925cd8c105e0cedccb))
+
 ## 1.0.0 (2020-11-04)
 
 
