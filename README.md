@@ -1,5 +1,9 @@
 # Radio Browser API
 
+![Unit tests](https://github.com/ivandotv/radio-browser-api/workflows/Unit%20tests/badge.svg)
+![Codecov](https://img.shields.io/codecov/c/github/ivandotv/radio-browser-api)
+![NPM](https://img.shields.io/npm/l/radio-browser-api)
+
 ## Install
 
 ```js
