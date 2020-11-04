@@ -9,6 +9,7 @@
   "jsdelivr": "dist/unpkg/index.js",
   "sideEffects": true,
   "types": "dist/types/",
+  "license": "MIT",
   "files": [
     "dist",
     "src"

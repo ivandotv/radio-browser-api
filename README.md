@@ -20,7 +20,7 @@ npm install radio-browser-api
 This is a wrapper around free and open-source [radio browser api](https://api.radio-browser.info/).
 It simplifies the task of querying the API by creating methods for each API route and normalizing the responses and errors.
 
-It can be used both in the browser and in nodejs. It has a peer dependency on (`node-fetch`)[https://www.npmjs.com/package/node-fetch] for working in nodejs.
+It can be used both in the **browser** and in **nodejs**. It has a peer dependency on [`node-fetch`](https://www.npmjs.com/package/node-fetch) for working in nodejs.
 
 I suggest you familiarize yourself with the [original API docs](https://de1.api.radio-browser.info/) before using this library.
 
