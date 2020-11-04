@@ -1,0 +1,21 @@
+## 1.0.0 (2020-11-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* station object is changed
+* Signature of the station response has been changed
+* make the user agent optional
+* hide broken stations by default
+
+### feat
+
+* change station object ([16edcd2](https://github.com/ivandotv/radio-browser-api/commit/16edcd28bb1747b2a7bc2ae85dd8303e7f3face8))
+* parse tags and language properties in to arrays ([c6c6f95](https://github.com/ivandotv/radio-browser-api/commit/c6c6f9589ef9fa5cbfc758d0108ab30c1af4508b))
+* hide broken stations by default ([55d14fe](https://github.com/ivandotv/radio-browser-api/commit/55d14feb12fc100b1f7074dea42dc6bfb0dc5d02))
+
+
+* Write readme ([a38654e](https://github.com/ivandotv/radio-browser-api/commit/a38654e25bca55ff4adb340585c3e0cdcc2da45f))
+* Add comments to methods ([9df8025](https://github.com/ivandotv/radio-browser-api/commit/9df8025529a8573de4e82bab9c2c967baaf06ab5))
+* make the user agent optional ([c480a2b](https://github.com/ivandotv/radio-browser-api/commit/c480a2bd3f806e2466dd29b9e69035dde68f5e52))
+* **breaking:** rename class ([a2dde64](https://github.com/ivandotv/radio-browser-api/commit/a2dde6469f7e75905aafa90b9d565dec092050b6))
