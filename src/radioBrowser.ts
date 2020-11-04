@@ -489,7 +489,7 @@ export class RadioBrowserApi {
       fetchConfig.headers
     )
     const finalConfig = Object.assign({}, this.fetchConfig, fetchConfig)
-    fetchConfig.headers = headers
+    finalConfig.headers = headers
 
     const response = await this.fetchImpl(url, finalConfig)
 
