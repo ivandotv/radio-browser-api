@@ -1,8 +1,8 @@
 {
   "name": "radio-browser-api",
-  "version": "0.0.0",
-  "private": true,
-  "description": "",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Wrapper for free and open-source radio browser api: https://api.radio-browser.info/.",
   "main": "dist/cjs/index.js",
   "module": "dist/unpkg/index.esm.js",
   "unpkg": "dist/unpkg/index.js",
@@ -56,7 +56,12 @@
     "url": "https://github.com/ivandotv/radio-browser-api/issues"
   },
   "homepage": "https://github.com/ivandotv/radio-browser-api#readme",
-  "keywords": [],
+  "keywords": [
+    "radio",
+    "api",
+    "radio-browser-api",
+    "radio-browser-info"
+  ],
   "author": "Ivan Vlatkovic",
   "devDependencies": {
     "@babel/cli": "^7.12.1",

@@ -42,9 +42,9 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           file: ./coverage/coverage-final.json
-      # - name: 'Publish to NPM'
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/master' && matrix.node == 12
-      #   run: npx semantic-release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Publish to NPM'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master' && matrix.node == 14
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
