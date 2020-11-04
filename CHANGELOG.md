@@ -1,3 +1,8 @@
+### [1.0.2](https://github.com/ivandotv/radio-browser-api/compare/v1.0.1...v1.0.2) (2020-11-04)
+
+
+* **readme:** Fix markdown links ([f8ccaf4](https://github.com/ivandotv/radio-browser-api/commit/f8ccaf46a81ef287035098c0022ebda09392464a))
+
 ### [1.0.1](https://github.com/ivandotv/radio-browser-api/compare/v1.0.0...v1.0.1) (2020-11-04)
 
 
