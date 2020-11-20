@@ -1,3 +1,12 @@
+### [1.0.3](https://github.com/ivandotv/radio-browser-api/compare/v1.0.2...v1.0.3) (2020-11-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* change constructor signature
+
+* make user agent mandatory ([0e02f72](https://github.com/ivandotv/radio-browser-api/commit/0e02f72f8f8b0fbe9ca9fa84d8c22e76b40adaad))
+
 ### [1.0.2](https://github.com/ivandotv/radio-browser-api/compare/v1.0.1...v1.0.2) (2020-11-04)
 
 
