@@ -18,6 +18,7 @@ describe('Radio Browser', () => {
   })
 
   test('Resolve base url', async () => {
+    const appName = 'test'
     const mockResult = [
       {
         name: 'some.server.name.info',
@@ -29,7 +30,7 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(200, mockResult)
 
-    const api = new RadioBrowserApi(globalTest.fetch)
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     const result = await api.resolveBaseUrl()
 
     expect(result).toEqual(mockResult)
@@ -37,7 +38,8 @@ describe('Radio Browser', () => {
   })
 
   test('Resolve base url but do not set it', async () => {
-    const api = new RadioBrowserApi(globalTest.fetch)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     const defaultBaseUrl = api.getBaseUrl()
     const mockResult = [
       {
@@ -62,8 +64,8 @@ describe('Radio Browser', () => {
 
   test('Manually set base url', () => {
     const url = '1.2.3.4'
-
-    const api = new RadioBrowserApi(globalTest.fetch)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     api.setBaseUrl(url)
 
     expect(api.getBaseUrl()).toBe(url)
@@ -75,7 +77,8 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(500, errorText)
 
-    const api = new RadioBrowserApi(globalTest.fetch)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     expect.assertions(1)
     try {
       await api.resolveBaseUrl()
@@ -109,7 +112,8 @@ describe('Radio Browser', () => {
       .get('/json/servers')
       .reply(200, [{ name: '', ip: '' }])
 
-    const api = new RadioBrowserApi(globalTest.fetch)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     const spy = jest.spyOn(globalTest, 'fetch')
 
     const headerName = 'x-jest-test'
@@ -130,8 +134,8 @@ describe('Radio Browser', () => {
   })
 
   test('get countries', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -142,7 +146,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/countries/${country}`)
@@ -160,8 +164,8 @@ describe('Radio Browser', () => {
   })
 
   test('get country by country code', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -172,7 +176,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/countrycodes/${country}`)
@@ -193,8 +197,8 @@ describe('Radio Browser', () => {
   })
 
   test('get codecs', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -204,7 +208,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get('/json/codecs')
@@ -225,8 +229,8 @@ describe('Radio Browser', () => {
   })
 
   test('get country states', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -237,7 +241,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/states/${country}`)
@@ -258,8 +262,8 @@ describe('Radio Browser', () => {
   })
 
   test('get languages', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -270,7 +274,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/languages/${language}`)
@@ -291,8 +295,8 @@ describe('Radio Browser', () => {
   })
 
   test('get tags', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -303,7 +307,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/tags/${tag}`)
@@ -324,8 +328,8 @@ describe('Radio Browser', () => {
   })
   describe('Get stations by', () => {
     test('by language', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -336,7 +340,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get(`/json/stations/bylanguage/${language}`)
@@ -362,8 +366,8 @@ describe('Radio Browser', () => {
     })
 
     test('by tag', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -374,7 +378,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get(`/json/stations/bytag/${tag}`)
@@ -401,8 +405,8 @@ describe('Radio Browser', () => {
     test('Throw if station search type does not exist', async () => {
       expect.assertions(1)
 
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
       try {
         await api.getStationsBy(
           // @ts-ignore
@@ -416,8 +420,8 @@ describe('Radio Browser', () => {
   })
 
   test('get all stations', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -427,7 +431,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get('/json/stations')
@@ -448,8 +452,8 @@ describe('Radio Browser', () => {
   })
 
   test('send station click', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -458,7 +462,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/url/${stationUuid}`)
@@ -474,8 +478,8 @@ describe('Radio Browser', () => {
   })
 
   test('vote for station', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -485,7 +489,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/vote/${stationUuid}`)
@@ -502,8 +506,8 @@ describe('Radio Browser', () => {
   })
 
   test('get stations by votes', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -514,7 +518,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/countrycodes/${country}`)
@@ -536,8 +540,8 @@ describe('Radio Browser', () => {
   describe('Advanced station search', () => {
     // advanced station search
     test('by tag list', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -549,7 +553,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get('/json/stations/search')
@@ -577,8 +581,8 @@ describe('Radio Browser', () => {
   describe('Show or hide broken stations', () => {
     // advanced station search
     test('hide broken stations by default', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -590,7 +594,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get('/json/stations/search')
@@ -617,8 +621,8 @@ describe('Radio Browser', () => {
   })
 
   test('hide broken stations explicitly', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -631,7 +635,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get('/json/stations/search')
@@ -654,8 +658,8 @@ describe('Radio Browser', () => {
     expect(result).toEqual([getMockStation()])
   })
   test('Show broken stations', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const headerName = 'x-jest-test'
     const headerValue = '1'
@@ -668,7 +672,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get('/json/stations/search')
@@ -691,8 +695,8 @@ describe('Radio Browser', () => {
     expect(result).toEqual([getMockStation()])
   })
   test('Remove stations with the same ids', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     const headerName = 'x-jest-test'
     const headerValue = '1'
     const mockResult = [getMockResponse(), getMockResponse()]
@@ -702,7 +706,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/stations/bytag/${tag}`)
@@ -728,7 +732,8 @@ describe('Radio Browser', () => {
   })
 
   test('Remove duplicated tags', async () => {
-    const api = new RadioBrowserApi(globalTest.fetch)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     const tag = 'jazz'
     const mockResponse = getMockResponse()
     const duplicatedTags = mockResponse.tags.split(',')
@@ -746,7 +751,8 @@ describe('Radio Browser', () => {
   })
 
   test('Remove tags over 10 characters long', async () => {
-    const api = new RadioBrowserApi(globalTest.fetch)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     const tag = 'jazz'
     const mockResponse = getMockResponse()
     mockResponse.tags = mockResponse.tags.concat(',tag with over 10 characters')
@@ -763,8 +769,8 @@ describe('Radio Browser', () => {
 
   describe('Get top stations by clicks', () => {
     test('get all', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -773,7 +779,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get('/json/stations/topclick')
@@ -789,8 +795,8 @@ describe('Radio Browser', () => {
       expect(result).toEqual([getMockStation()])
     })
     test('get top 5', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const count = 5
       const headerName = 'x-jest-test'
@@ -800,7 +806,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get(`/json/stations/topclick/${count}`)
@@ -819,8 +825,8 @@ describe('Radio Browser', () => {
 
   describe('Get stations by votes', () => {
     test('get all', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -829,7 +835,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get('/json/stations/topvote')
@@ -845,8 +851,8 @@ describe('Radio Browser', () => {
       expect(result).toEqual([getMockStation()])
     })
     test('get top 5', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const count = 5
       const headerName = 'x-jest-test'
@@ -856,7 +862,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get(`/json/stations/topvote/${count}`)
@@ -875,8 +881,8 @@ describe('Radio Browser', () => {
 
   describe('Get stations by recent clicks', () => {
     test('get all', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
@@ -885,7 +891,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get('/json/stations/lastclick')
@@ -901,8 +907,8 @@ describe('Radio Browser', () => {
       expect(result).toEqual([getMockStation()])
     })
     test('get top 5', async () => {
-      const userAgent = 'test'
-      const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+      const appName = 'test'
+      const api = new RadioBrowserApi(globalTest.fetch, appName)
 
       const count = 5
       const headerName = 'x-jest-test'
@@ -912,7 +918,7 @@ describe('Radio Browser', () => {
       const scope = nock(baseUrl, {
         reqheaders: {
           [headerName]: headerValue,
-          'user-agent': userAgent
+          'user-agent': appName
         }
       })
         .get(`/json/stations/lastclick/${count}`)
@@ -930,8 +936,8 @@ describe('Radio Browser', () => {
   })
 
   test('get stations by Id', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
     const stationIds = ['1', '2', '3']
 
     const headerName = 'x-jest-test'
@@ -941,7 +947,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/stations/byuuid/${stationIds.join(',')}`)
@@ -957,8 +963,8 @@ describe('Radio Browser', () => {
     expect(result).toEqual([getMockStation()])
   })
   test('get stations by url', async () => {
-    const userAgent = 'test'
-    const api = new RadioBrowserApi(globalTest.fetch, userAgent)
+    const appName = 'test'
+    const api = new RadioBrowserApi(globalTest.fetch, appName)
 
     const url = 'stationUrl'
     const headerName = 'x-jest-test'
@@ -968,7 +974,7 @@ describe('Radio Browser', () => {
     const scope = nock(baseUrl, {
       reqheaders: {
         [headerName]: headerValue,
-        'user-agent': userAgent
+        'user-agent': appName
       }
     })
       .get(`/json/stations/byurl/${url}`)

@@ -31,6 +31,7 @@ API by default, returns `broken` stations (stations that are in the system but d
 ## Usage
 
 First, you need to instantiate the class instance and pass in the only required argument which is an object that represents the `fetch`. This package has a `peerDependency` on `node-fetch` you can safely ignore it if you intend to use it only in the browser.
+You should also have an application name, this is going to be passed as `user agent string` to the API. You whatever you like but be consistent.
 
 Server:
 
@@ -39,7 +40,7 @@ import nodeFetch from 'node-fetch'
 import { RadioBrowserApi } from 'radio-browser-api'
 
 const fetchImpl = (nodeFetch as unknown) as typeof fetch
-const api = new RadioBrowserApi(globalTest.fetch)
+const api = new RadioBrowserApi(globalTest.fetch, 'My Radio App')
 ```
 
 Browser:
@@ -47,7 +48,7 @@ Browser:
 ```ts
 import { RadioBrowserApi } from 'radio-browser-api'
 
-const api = new RadioBrowserApi(fetch.bind(window))
+const api = new RadioBrowserApi(fetch.bind(window), 'My Radio App')
 ```
 
 After you instantiate the class, you can get the list of **available API servers** (I know, weird right?). Essentially the underlying API URLs can change and the author has two to three servers always running. Something like:
@@ -55,7 +56,7 @@ After you instantiate the class, you can get the list of **available API servers
 This step is not mandatory because the class has one of the servers hardcoded, but If you get errors that service is not available, you can query for available servers.
 
 ```ts
-const api = new RadioBrowserApi(fetch.bind(window))
+const api = new RadioBrowserApi(fetch.bind(window), 'My Radio App')
 
 api.resolveBaseUrl().then((urls: { ip: string; name: string }[]) => {
   // set the server to be used for all api calls
@@ -70,7 +71,7 @@ There are a lot of methods you can use to query the API.
 ```ts
 import { RadioBrowserApi } from 'radio-browser-api'
 //browser
-const api = new RadioBrowserApi(fetch.bind(window))
+const api = new RadioBrowserApi(fetch.bind(window),'My Radio App')
 
 // query stations by country code and limit to first 100 stations
 const stations = await api.searchStations({
