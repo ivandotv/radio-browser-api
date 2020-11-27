@@ -120,9 +120,9 @@ const browserModuleWithPolyfill = {
 
 const allBuilds = [
   umd,
-  umdWithPolyfill,
-  browserModule,
-  browserModuleWithPolyfill
+  // umdWithPolyfill,
+  browserModule
+  // browserModuleWithPolyfill
 ]
 
 const envToBuildMap = {
@@ -133,7 +133,7 @@ const envToBuildMap = {
 const finalBuilds = chooseBuild(envToBuildMap, process.env.BUILD) || allBuilds
 
 function libPath(path, libName) {
-  return function(suffix) {
+  return function (suffix) {
     return path.concat('/', libName, suffix)
   }
 }
@@ -146,7 +146,7 @@ function chooseBuild(buildMap, builds) {
   const result = []
 
   if (envArr.length > 0) {
-    envArr.forEach(element => {
+    envArr.forEach((element) => {
       if (buildMap[element]) {
         result.push(...buildMap[element])
         console.log(`Found key: ${element}`)
