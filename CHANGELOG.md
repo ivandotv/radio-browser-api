@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/ivandotv/radio-browser-api/compare/v1.0.3...v2.0.0) (2020-11-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* Stop building polyfill versions
+
+### ci
+
+* Stop building polyfill versions ([9a1aeb9](https://github.com/ivandotv/radio-browser-api/commit/9a1aeb93e2485282a1804672040743e8e2af0af9))
+
 ### [1.0.3](https://github.com/ivandotv/radio-browser-api/compare/v1.0.2...v1.0.3) (2020-11-20)
 
 
