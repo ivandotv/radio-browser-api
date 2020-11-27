@@ -96,6 +96,7 @@ export type StationQuery = {
   reverse?: boolean
   order?: keyof typeof StationSearchOrder
   hideBroken?: boolean
+  removeDuplicates?: boolean
 }
 
 export type AdvancedStationQuery = {

@@ -701,7 +701,10 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [getMockResponse(), getMockResponse()]
     const tag = 'jazz'
-    const query = { order: 'name', reverse: true }
+    const query = {
+      order: 'name',
+      reverse: true
+    }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -724,7 +727,8 @@ describe('Radio Browser', () => {
         headers: {
           [headerName]: headerValue
         }
-      }
+      },
+      true
     )
 
     expect(scope.isDone()).toBe(true)

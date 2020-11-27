@@ -186,13 +186,15 @@ export class RadioBrowserApi {
    * @param search - Search value for the parameter
    * @param query - Query
    * @param fetchConfig - Fetch configuration
+   * @param removeDuplicates - remove duplicate stations
    * @returns Array of station results
    */
   async getStationsBy(
     searchType: keyof typeof StationSearchType,
     search?: string,
     query?: StationQuery,
-    fetchConfig?: RequestInit
+    fetchConfig?: RequestInit,
+    removeDuplicates = false
   ): Promise<Station[]> {
     if (!StationSearchType[searchType]) {
       throw new Error(`search type does not exist: ${searchType}`)
@@ -206,27 +208,33 @@ export class RadioBrowserApi {
       fetchConfig
     )
 
-    return this.normalizeStations(stations)
+    return this.normalizeStations(stations, removeDuplicates)
   }
 
   /**
    * Normalizes stations from the API response
    * @param stations - Array of station responses
+   * @param removeDuplicates - remove duplicate stations
    * @returns Array of normalized stations
    */
-  protected normalizeStations(stations: StationResponse[]): Station[] {
+  protected normalizeStations(
+    stations: StationResponse[],
+    removeDuplicates = false
+  ): Station[] {
     const result = []
     const duplicates: { [key: string]: boolean } = {}
 
     for (const response of stations) {
-      const nameAndUrl = `${response.name
-        .toLowerCase()
-        .trim()}${response.url.toLowerCase().trim()}`
+      if (removeDuplicates) {
+        const nameAndUrl = `${response.name
+          .toLowerCase()
+          .trim()}${response.url.toLowerCase().trim()}`
 
-      // guard against results having the same stations under different id's
-      if (duplicates[nameAndUrl]) continue
+        // guard against results having the same stations under different id's
+        if (duplicates[nameAndUrl]) continue
 
-      duplicates[nameAndUrl] = true
+        duplicates[nameAndUrl] = true
+      }
 
       const station: Station = {
         changeId: response.changeuuid,
@@ -268,36 +276,40 @@ export class RadioBrowserApi {
    * are not limited somehow, they can be huge (size in MB)
    * @param query - Query
    * @param fetchConfig - Fetch configuration
+   * @param removeDuplicates - remove duplicate stations
    * @returns Array of all available stations
    */
   async getAllStations(
     query?: Omit<StationQuery, 'hideBroken'>,
-    fetchConfig?: RequestInit
+    fetchConfig?: RequestInit,
+    removeDuplicates = false
   ): Promise<Station[]> {
     const stations = await this.runRequest<StationResponse[]>(
       this.buildRequest('stations', '', query),
       fetchConfig
     )
 
-    return this.normalizeStations(stations)
+    return this.normalizeStations(stations, removeDuplicates)
   }
 
   /**
    * Searches stations by particular params
    * @param query - Query
    * @param fetchConfig - Fetch configuration
+   * @param removeDuplicates - remove duplicate stations
    * @returns Array of station results
    */
   async searchStations(
     query: AdvancedStationQuery,
-    fetchConfig?: RequestInit
+    fetchConfig?: RequestInit,
+    removeDuplicates = false
   ): Promise<Station[]> {
     const stations = await this.runRequest<StationResponse[]>(
       this.buildRequest('stations/search', undefined, query),
       fetchConfig
     )
 
-    return this.normalizeStations(stations)
+    return this.normalizeStations(stations, removeDuplicates)
   }
 
   /**
