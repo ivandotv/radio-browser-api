@@ -1,3 +1,5 @@
+## [2.1.0](https://github.com/ivandotv/radio-browser-api/compare/v2.0.0...v2.1.0) (2020-11-27)
+
 ## [2.0.0](https://github.com/ivandotv/radio-browser-api/compare/v1.0.3...v2.0.0) (2020-11-27)
 
 
