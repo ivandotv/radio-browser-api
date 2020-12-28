@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export const StationSearchOrder = {
   name: 'name',
   url: 'url',
@@ -18,6 +21,9 @@ export const StationSearchOrder = {
   random: 'random'
 } as const
 
+/**
+ * @public
+ */
 export const StationSearchType = {
   byUuid: 'byUuid',
   byName: 'byName',
@@ -35,6 +41,9 @@ export const StationSearchType = {
   byTagExact: 'byTagExact'
 } as const
 
+/**
+ * @public
+ */
 export type StationResponse = {
   changeuuid: string
   stationuuid: string
@@ -63,6 +72,9 @@ export type StationResponse = {
   clicktrend: number
 }
 
+/**
+ * @public
+ */
 export type Station = {
   changeId: string
   id: string
@@ -90,6 +102,9 @@ export type Station = {
   clickTrend: number
 }
 
+/**
+ * @public
+ */
 export type StationQuery = {
   offset?: number
   limit?: number
@@ -99,6 +114,9 @@ export type StationQuery = {
   removeDuplicates?: boolean
 }
 
+/**
+ * @public
+ */
 export type AdvancedStationQuery = {
   name?: string
   nameExact?: boolean
@@ -117,6 +135,9 @@ export type AdvancedStationQuery = {
   bitrateMax?: string
 } & StationQuery
 
+/**
+ * @public
+ */
 export type Query = {
   order?: 'name' | 'stationcount'
   reverse?: boolean
@@ -124,12 +145,21 @@ export type Query = {
 } & Object
 
 // valid for country codes also
+/**
+ * @public
+ */
 export type CountryResult = {
   name: string
   stationcount: number
 }
 
+/**
+ * @public
+ */
 export type TagResult = CountryResult
+/**
+ * @public
+ */
 export type CountryStateResult = CountryResult & {
   country: string
 }

@@ -10,6 +10,10 @@ import {
   TagResult
 } from './constants'
 
+/**
+ * Query the radio browser api.
+ * @public
+ */
 export class RadioBrowserApi {
   protected baseUrl = 'https://fr1.api.radio-browser.info/json'
 
@@ -44,7 +48,7 @@ export class RadioBrowserApi {
    * @param config-  Fetch configuration
    * @returns Array of objects with the ip and name of the api server
    */
-  async resolveBaseUrl(
+  protected async resolveBaseUrl(
     autoSet = true,
     config: RequestInit = {}
   ): Promise<{ ip: string; name: string }[]> {
