@@ -1,3 +1,8 @@
+## [2.2.0](https://github.com/ivandotv/radio-browser-api/compare/v2.1.1...v2.2.0) (2021-02-01)
+
+
+* **readme:** update typescrip example ([4c8f727](https://github.com/ivandotv/radio-browser-api/commit/4c8f727bc72decae51feb2a474d78577115a7544))
+
 ### [2.1.1](https://github.com/ivandotv/radio-browser-api/compare/v2.1.0...v2.1.1) (2020-12-05)
 
 
