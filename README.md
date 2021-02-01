@@ -41,8 +41,10 @@ Server:
 import nodeFetch from 'node-fetch'
 import { RadioBrowserApi } from 'radio-browser-api'
 
-const fetchImpl = (nodeFetch as unknown) as typeof fetch
-const api = new RadioBrowserApi(globalTest.fetch, 'My Radio App')
+const api = new RadioBrowserApi(
+  (nodeFetch as unknown) as typeof fetch,
+  'My Radio App'
+)
 ```
 
 Browser:
