@@ -48,7 +48,7 @@ export class RadioBrowserApi {
    * @param config-  Fetch configuration
    * @returns Array of objects with the ip and name of the api server
    */
-  protected async resolveBaseUrl(
+  async resolveBaseUrl(
     autoSet = true,
     config: RequestInit = {}
   ): Promise<{ ip: string; name: string }[]> {
