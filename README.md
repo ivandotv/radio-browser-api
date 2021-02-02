@@ -20,9 +20,7 @@ npm install radio-browser-api
 ## What is it
 
 This is a wrapper around free and open-source [radio browser api](https://api.radio-browser.info/).
-It simplifies the task of querying the API by creating methods for each API route and normalizing the responses and errors.
-
-It can be used both in the **browser** and in **nodejs**. It has a peer dependency on [`node-fetch`](https://www.npmjs.com/package/node-fetch) for working in nodejs.
+It simplifies the task of querying the API by creating methods for each API route and normalizing the responses and errors. It can be used both in the **browser** and in **Node.js**.
 
 I suggest you familiarize yourself with the [original API docs](https://de1.api.radio-browser.info/) before using this library.
 
@@ -32,8 +30,7 @@ API by default, returns `broken` stations (stations that are in the system but d
 
 ## Usage
 
-First, you need to instantiate the class instance and pass in the only required argument which is an object that represents the `fetch`. This package has a `peerDependency` on `node-fetch` you can safely ignore it if you intend to use it only in the browser.
-You should also have an application name, this is going to be passed as `user agent string` to the API. You whatever you like but be consistent.
+First, you need to instantiate the class instance and pass in an object that represents the `fetch`. So when using this module on the server side, make sure you have a fetch implementation (e.g [node-fetch](https://www.npmjs.com/package/node-fetch)) available. You should also have an application name this is going to be passed as `user agent string` when talking to the API. You can use whatever you like but be consistent.
 
 Server:
 
