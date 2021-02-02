@@ -1,3 +1,8 @@
+### [2.2.1](https://github.com/ivandotv/radio-browser-api/compare/v2.2.0...v2.2.1) (2021-02-02)
+
+
+* **readme:** remove references to peer dependency ([4bc9278](https://github.com/ivandotv/radio-browser-api/commit/4bc927857023897a69cdfd1fb627349edfb13f66))
+
 ## [2.2.0](https://github.com/ivandotv/radio-browser-api/compare/v2.1.1...v2.2.0) (2021-02-01)
 
 
