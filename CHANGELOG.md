@@ -1,3 +1,8 @@
+### [2.2.2](https://github.com/ivandotv/radio-browser-api/compare/v2.2.1...v2.2.2) (2021-02-08)
+
+
+* **test:** move "fetch" to global object just for tests ([4776917](https://github.com/ivandotv/radio-browser-api/commit/477691716ce4e3357a6cfe3e8474f75322c96437))
+
 ### [2.2.1](https://github.com/ivandotv/radio-browser-api/compare/v2.2.0...v2.2.1) (2021-02-02)
 
 
