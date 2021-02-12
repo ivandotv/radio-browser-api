@@ -8,7 +8,7 @@
   "unpkg": "dist/unpkg/index.js",
   "jsdelivr": "dist/unpkg/index.js",
   "sideEffects": true,
-  "types": "dist/types/radio-browser-api.d.ts",
+  "types": "dist/types/index.d.ts",
   "license": "MIT",
   "files": [
     "dist",
