@@ -1,6 +1,6 @@
 {
   "name": "radio-browser-api",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "private": false,
   "description": "Wrapper for free and open-source radio browser api: https://api.radio-browser.info/.",
   "main": "dist/cjs/index.js",
