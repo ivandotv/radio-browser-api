@@ -9,7 +9,7 @@ Resolves API base url
 <b>Signature:</b>
 
 ```typescript
-protected resolveBaseUrl(autoSet?: boolean, config?: RequestInit): Promise<{
+resolveBaseUrl(autoSet?: boolean, config?: RequestInit): Promise<{
         ip: string;
         name: string;
     }[]>;
