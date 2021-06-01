@@ -17,8 +17,6 @@ import {
 export class RadioBrowserApi {
   protected baseUrl = 'https://fr1.api.radio-browser.info/json'
 
-  hideBroken: boolean
-
   protected fetchConfig: RequestInit = {
     method: 'GET',
     redirect: 'follow'
@@ -33,13 +31,12 @@ export class RadioBrowserApi {
   constructor(
     protected fetchImpl: typeof fetch,
     protected appName: string,
-    hideBroken = true
+    protected hideBroken = true
   ) {
     if (!appName) {
       throw new Error('appName is requred')
     }
     this.fetchConfig.headers = { 'user-agent': this.appName }
-    this.hideBroken = hideBroken
   }
 
   /**
