@@ -19,7 +19,7 @@
   },
   "scripts": {
     "prepublishOnly": "npm run test && npm run build",
-    "cz": "git-cz",
+    "commit": "git-cz",
     "fix:src": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
     "fix:tests": "eslint --fix \"./tests/**/*.{js,jsx,ts,tsx}\"",
     "fix": "npm-run-all -p fix:*",
