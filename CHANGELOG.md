@@ -1,3 +1,14 @@
+## [2.3.0](https://github.com/ivandotv/radio-browser-api/compare/v2.2.4...v2.3.0) (2021-06-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* fetch is no longer passed in via constructor. It should be available in the
+environment
+
+* expect fetch to be available ([f1e628d](https://github.com/ivandotv/radio-browser-api/commit/f1e628d0011986261060fdd4e4e6262506d877bf))
+* refactor constructor initialization ([92effb1](https://github.com/ivandotv/radio-browser-api/commit/92effb1577b737d20c04057b9fc103a540c4b162))
+
 ### [2.2.4](https://github.com/ivandotv/radio-browser-api/compare/v2.2.3...v2.2.4) (2021-02-12)
 
 ### [2.2.3](https://github.com/ivandotv/radio-browser-api/compare/v2.2.2...v2.2.3) (2021-02-12)
