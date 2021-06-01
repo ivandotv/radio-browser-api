@@ -15,7 +15,9 @@ import {
  * @public
  */
 export class RadioBrowserApi {
-  protected baseUrl = 'https://fr1.api.radio-browser.info/json'
+  protected static baseUrl: string = 'https://fr1.api.radio-browser.info/json'
+
+  protected baseUrl: string | undefined
 
   protected fetchConfig: RequestInit = {
     method: 'GET',
@@ -29,13 +31,41 @@ export class RadioBrowserApi {
    */
   constructor(protected appName: string, protected hideBroken = true) {
     if (!appName) {
-      throw new Error('appName is requred')
+      throw new Error('appName is required')
     }
     this.fetchConfig.headers = { 'user-agent': this.appName }
   }
 
   /**
-   * Resolves API base url
+   * Resolves static API base url this will be the default for all class instances.
+   * @param autoSet - Automatically set first resolved base url
+   * @param config-  Fetch configuration
+   * @returns Array of objects with the ip and name of the api server
+   */
+  static async resolveBaseUrl(
+    autoSet = true,
+    config: RequestInit = {}
+  ): Promise<{ ip: string; name: string }[]> {
+    let result: { ip: string; name: string }[]
+
+    const response = await fetch(
+      'https://all.api.radio-browser.info/json/servers',
+      config
+    )
+    if (response.ok) {
+      result = await response.json()
+      if (autoSet) {
+        RadioBrowserApi.baseUrl = `https://${result[0].name}`
+      }
+
+      return result
+    } else {
+      throw response
+    }
+  }
+
+  /**
+   * Resolves API base url for this class instance only
    * @param autoSet - Automatically set first resolved base url
    * @param config-  Fetch configuration
    * @returns Array of objects with the ip and name of the api server
@@ -44,16 +74,21 @@ export class RadioBrowserApi {
     autoSet = true,
     config: RequestInit = {}
   ): Promise<{ ip: string; name: string }[]> {
-    const result = await this.runRequest<{ name: string; ip: string }[]>(
-      'https://all.api.radio-browser.info/json/servers',
-      config
-    )
+    const result = await RadioBrowserApi.resolveBaseUrl(false, config)
 
     if (autoSet) {
       this.baseUrl = `https://${result[0].name}`
     }
 
     return result
+  }
+
+  /**
+   * Sets static base url for all api calls
+   * @param url - Url to the api server
+   */
+  static setBaseUrl(url: string): void {
+    RadioBrowserApi.baseUrl = url
   }
 
   /**
@@ -69,7 +104,15 @@ export class RadioBrowserApi {
    * @returns Base url
    */
   getBaseUrl(): string {
-    return this.baseUrl
+    return this.baseUrl || RadioBrowserApi.baseUrl
+  }
+
+  /**
+   * Get current static base url
+   * @returns Base url
+   */
+  static getBaseUrl(): string {
+    return RadioBrowserApi.baseUrl
   }
 
   /**
@@ -478,7 +521,7 @@ export class RadioBrowserApi {
 
     const queryParams = queryCopy ? this.createQueryParams(queryCopy) : ''
 
-    return `${this.baseUrl}/${endPoint}${search}${queryParams}`
+    return `${this.getBaseUrl()}/${endPoint}${search}${queryParams}`
   }
 
   /**

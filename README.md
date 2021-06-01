@@ -30,39 +30,43 @@ API by default, returns `broken` stations (stations that are in the system but d
 
 ## Usage
 
-First, you need to instantiate the class instance and pass in an object that represents the `fetch`. So when using this module on the server side, make sure you have a fetch implementation (e.g [node-fetch](https://www.npmjs.com/package/node-fetch)) available. You should also have an application name this is going to be passed as `user agent string` when talking to the API. You can use whatever you like but be consistent.
-
-Server:
+Make sure you have a fetch implementation (e.g [node-fetch](https://www.npmjs.com/package/node-fetch)) available. You should also have an application name that is going to be passed as `user agent string` when talking to the API. You can use whatever you like but be consistent, the author of the API uses it to track usage statistics.
 
 ```ts
-import nodeFetch from 'node-fetch'
-import { RadioBrowserApi } from 'radio-browser-api'
+import { RadioBrowserApi, StationSearchType } from 'radio-browser-api'
 
-const api = new RadioBrowserApi(
-  (nodeFetch as unknown) as typeof fetch,
-  'My Radio App'
-)
+const api = new RadioBrowserApi('My Radio App')
+
+await api.getStationsBy(StationSearchType.byTag, 'jazz')
 ```
 
-Browser:
-
-```ts
-import { RadioBrowserApi } from 'radio-browser-api'
-
-const api = new RadioBrowserApi(fetch.bind(window), 'My Radio App')
-```
-
-After you instantiate the class, you can get the list of **available API servers** (I know, weird right?). Essentially the underlying API URLs can change and the author has two to three servers always running. Something like:
+After you instantiate the class, you can get the list of **available API servers** (I know, weird right?). Essentially the underlying API URL's can change and the author has two to three servers always running. Something like:
 `https://fr1.api.radio-browser.info` or `https://de1.api.radio-browser.info`
-This step is not mandatory because the class has one of the servers hardcoded, but If you get errors that service is not available, you can query for available servers.
+This step is not mandatory because the class has one of the servers hardcoded, but If you get errors that service is not available, you can query for available servers, before actually using the API.
 
 ```ts
-const api = new RadioBrowserApi(fetch.bind(window), 'My Radio App')
+const api = new RadioBrowserApi('My Radio App')
 
-api.resolveBaseUrl().then((urls: { ip: string; name: string }[]) => {
-  // set the server to be used for all api calls
-  api.setBaseUrl(urls[o0].ip)
-})
+await api.resolveBaseUrl() // use first result
+
+// or
+
+// result is { ip: string; name: string }[]
+const result = await api.resolveBaseUrl()
+//pick one of the results
+api.setBaseUrl(result[1])
+```
+
+You can also use class static methods to set the base URL for all current and future class instances.
+
+```ts
+await RadioBrowserApi.resolveBaseUrl()
+
+//or
+const result = await RadioBrowserApi.resolveBaseUrl()
+
+// result is { ip: string; name: string }[]
+RadioBrowserApi.setBaseUrl(result[0])
 ```
 
 ### Querying the API
@@ -71,8 +75,8 @@ There are a lot of methods you can use to query the API.
 
 ```ts
 import { RadioBrowserApi } from 'radio-browser-api'
-//browser
-const api = new RadioBrowserApi(fetch.bind(window),'My Radio App')
+
+const api = new RadioBrowserApi('My Radio App')
 
 // query stations by country code and limit to first 100 stations
 const stations = await api.searchStations({
@@ -121,7 +125,7 @@ type Station = {
   votes: number // Number of votes for this station
   lastChangeTime: Date // Last time when the stream information was changed in the database
   codec: string // The codec of this stream recorded at the last check.
-  bitrate: number // The bitrate of this stream recorded at the last check.
+  bitrate: number // The bitrate of this stream was recorded at the last check.
   hls: boolean // Mark if this stream is using HLS distribution or non-HLS.
   lastCheckOk: boolean // The current online/offline state of this stream.
   lastCheckTime: Date // The last time when any radio-browser server checked the online state of this stream
