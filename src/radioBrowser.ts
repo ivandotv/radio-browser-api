@@ -24,15 +24,10 @@ export class RadioBrowserApi {
 
   /**
    * Creates an instance of radio browser api.
-   * @param fetchImpl - Fetch API
    * @param appName - App name to be used as user agent header to indentify the calls to the API
    * @param hideBroken - Hide broken stations for all future API calls
    */
-  constructor(
-    protected fetchImpl: typeof fetch,
-    protected appName: string,
-    protected hideBroken = true
-  ) {
+  constructor(protected appName: string, protected hideBroken = true) {
     if (!appName) {
       throw new Error('appName is requred')
     }
@@ -505,7 +500,7 @@ export class RadioBrowserApi {
     const finalConfig = Object.assign({}, this.fetchConfig, fetchConfig)
     finalConfig.headers = headers
 
-    const response = await this.fetchImpl(url, finalConfig)
+    const response = await fetch(url, finalConfig)
 
     if (response.ok) {
       return response.json()
