@@ -40,35 +40,6 @@ const api = new RadioBrowserApi('My Radio App')
 await api.getStationsBy(StationSearchType.byTag, 'jazz')
 ```
 
-After you instantiate the class, you can get the list of **available API servers** (I know, weird right?). Essentially the underlying API URL's can change and the author has two to three servers always running. Something like:
-`https://fr1.api.radio-browser.info` or `https://de1.api.radio-browser.info`
-This step is not mandatory because the class has one of the servers hardcoded, but If you get errors that service is not available, you can query for available servers, before actually using the API.
-
-```ts
-const api = new RadioBrowserApi('My Radio App')
-
-await api.resolveBaseUrl() // use first result
-
-// or
-
-// result is { ip: string; name: string }[]
-const result = await api.resolveBaseUrl()
-//pick one of the results
-api.setBaseUrl(result[1])
-```
-
-You can also use class static methods to set the base URL for all current and future class instances.
-
-```ts
-await RadioBrowserApi.resolveBaseUrl()
-
-//or
-const result = await RadioBrowserApi.resolveBaseUrl()
-
-// result is { ip: string; name: string }[]
-RadioBrowserApi.setBaseUrl(result[0])
-```
-
 ### Querying the API
 
 There are a lot of methods you can use to query the API.

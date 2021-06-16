@@ -15,7 +15,7 @@ import {
  * @public
  */
 export class RadioBrowserApi {
-  protected static baseUrl: string = 'https://fr1.api.radio-browser.info/json'
+  static version = __VERSION__
 
   protected baseUrl: string | undefined
 
@@ -37,58 +37,27 @@ export class RadioBrowserApi {
   }
 
   /**
-   * Resolves static API base url this will be the default for all class instances.
-   * @param autoSet - Automatically set first resolved base url
-   * @param config-  Fetch configuration
-   * @returns Array of objects with the ip and name of the api server
-   */
-  static async resolveBaseUrl(
-    autoSet = true,
-    config: RequestInit = {}
-  ): Promise<{ ip: string; name: string }[]> {
-    let result: { ip: string; name: string }[]
-
-    const response = await fetch(
-      'https://all.api.radio-browser.info/json/servers',
-      config
-    )
-    if (response.ok) {
-      result = await response.json()
-      if (autoSet) {
-        RadioBrowserApi.baseUrl = `https://${result[0].name}`
-      }
-
-      return result
-    } else {
-      throw response
-    }
-  }
-
-  /**
-   * Resolves API base url for this class instance only
+   * Resolves API base url this will be the default for all class instances.
    * @param autoSet - Automatically set first resolved base url
    * @param config-  Fetch configuration
    * @returns Array of objects with the ip and name of the api server
    */
   async resolveBaseUrl(
-    autoSet = true,
     config: RequestInit = {}
   ): Promise<{ ip: string; name: string }[]> {
-    const result = await RadioBrowserApi.resolveBaseUrl(false, config)
+    let result: { ip: string; name: string }[]
 
-    if (autoSet) {
-      this.baseUrl = `https://${result[0].name}`
+    const response = await fetch(
+      'http://all.api.radio-browser.info/json/servers',
+      config
+    )
+    if (response.ok) {
+      result = await response.json()
+
+      return result
+    } else {
+      throw response
     }
-
-    return result
-  }
-
-  /**
-   * Sets static base url for all api calls
-   * @param url - Url to the api server
-   */
-  static setBaseUrl(url: string): void {
-    RadioBrowserApi.baseUrl = url
   }
 
   /**
@@ -100,19 +69,11 @@ export class RadioBrowserApi {
   }
 
   /**
-   * Get current base url
+   * Get current  base url
    * @returns Base url
    */
-  getBaseUrl(): string {
-    return this.baseUrl || RadioBrowserApi.baseUrl
-  }
-
-  /**
-   * Get current static base url
-   * @returns Base url
-   */
-  static getBaseUrl(): string {
-    return RadioBrowserApi.baseUrl
+  getBaseUrl(): string | undefined {
+    return this.baseUrl
   }
 
   /**
@@ -521,7 +482,7 @@ export class RadioBrowserApi {
 
     const queryParams = queryCopy ? this.createQueryParams(queryCopy) : ''
 
-    return `${this.getBaseUrl()}/${endPoint}${search}${queryParams}`
+    return `${endPoint}${search}${queryParams}`
   }
 
   /**
@@ -534,16 +495,22 @@ export class RadioBrowserApi {
     url: string,
     fetchConfig: RequestInit = {}
   ): Promise<T> {
-    // manual merge deep
-    const headers = Object.assign(
-      {},
-      this.fetchConfig.headers,
-      fetchConfig.headers
-    )
-    const finalConfig = Object.assign({}, this.fetchConfig, fetchConfig)
-    finalConfig.headers = headers
+    const finalConfig = {
+      ...this.fetchConfig,
+      ...fetchConfig,
+      headers: {
+        ...this.fetchConfig.headers,
+        ...fetchConfig.headers
+      }
+    }
 
-    const response = await fetch(url, finalConfig)
+    if (!this.baseUrl) {
+      const results = await this.resolveBaseUrl()
+      const random = Math.floor(Math.random() * results.length)
+      this.baseUrl = `https://${results[random].name}`
+    }
+
+    const response = await fetch(`${this.baseUrl}/json/${url}`, finalConfig)
 
     if (response.ok) {
       return response.json()

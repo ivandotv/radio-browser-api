@@ -8,167 +8,70 @@ import { getMockStation, getMockResponse } from './utils/mockStation'
 
 global.fetch = (nodeFetch as unknown) as typeof fetch
 
-const baseUrl = 'https://fr1.api.radio-browser.info'
+const resolvedServer = 'fr1.api.radio-browser.info'
+const baseUrl = `https://${resolvedServer}`
+const baseIp = '1.2.2.2'
+
+nock.disableNetConnect()
 
 describe('Radio Browser', () => {
+  beforeEach(() => {
+    nock('http://all.api.radio-browser.info')
+      .get('/json/servers')
+      .reply(200, [
+        {
+          name: 'fr1.api.radio-browser.info',
+          ip: baseIp
+        }
+      ])
+  })
   afterEach(() => {
     nock.cleanAll()
     jest.clearAllMocks()
-    RadioBrowserApi.setBaseUrl(`${baseUrl}/json`)
   })
 
   describe('Resolve base url', () => {
-    describe('Static', () => {
-      test('Resolve base url', async () => {
-        const mockResult = [
-          {
-            name: 'some.server.name.info',
-            ip: '1.2.2.2'
-          }
-        ]
+    test("Instance can set it's own base url", () => {
+      const baseUrl = 'instance-url'
+      const api = new RadioBrowserApi('my app')
+      api.setBaseUrl(baseUrl)
 
-        nock('https://all.api.radio-browser.info')
-          .get('/json/servers')
-          .reply(200, mockResult)
-
-        const result = await RadioBrowserApi.resolveBaseUrl()
-
-        expect(result).toEqual(mockResult)
-        expect(RadioBrowserApi.getBaseUrl()).toBe(
-          'https://' + mockResult[0].name
-        )
-      })
-
-      test('Resolve base url but do not set it', async () => {
-        const defaultBaseUrl = RadioBrowserApi.getBaseUrl()
-        const mockResult = [
-          {
-            name: 'first.server',
-            ip: '1.2.2.2.'
-          },
-          {
-            name: 'second.server',
-            ip: '1.2.2.2.'
-          }
-        ]
-
-        nock('https://all.api.radio-browser.info')
-          .get('/json/servers')
-          .reply(200, mockResult)
-
-        const result = await RadioBrowserApi.resolveBaseUrl(false)
-
-        expect(result).toEqual(mockResult)
-        expect(RadioBrowserApi.getBaseUrl()).toBe(defaultBaseUrl)
-      })
-
-      test('Manually set base url', () => {
-        const url = '1.2.3.4'
-        RadioBrowserApi.setBaseUrl(url)
-
-        expect(RadioBrowserApi.getBaseUrl()).toBe(url)
-      })
-
-      test('Throw if resolve base url is not OK', async () => {
-        const errorText = 'server error'
-        nock(/radio-browser.info/)
-          .get('/json/servers')
-          .reply(500, errorText)
-
-        expect.assertions(1)
-        try {
-          await RadioBrowserApi.resolveBaseUrl()
-        } catch (e) {
-          const result = await e.text()
-          expect(result).toBe(errorText)
-        }
-      })
+      expect(api.getBaseUrl()).toBe(baseUrl)
     })
 
-    describe('Per instance', () => {
-      test('Instance inherits base url from class static property', () => {
-        const instance = new RadioBrowserApi('my app')
-        expect(instance.getBaseUrl()).toBe(RadioBrowserApi.getBaseUrl())
-      })
-      test("Instance can set it's own base url", () => {
-        const baseUrl = 'instance-url'
-        const instance = new RadioBrowserApi('my app')
-        instance.setBaseUrl(baseUrl)
+    test('Resolve base url', async () => {
+      const appName = 'test'
+      const api = new RadioBrowserApi(appName)
+      const result = await api.resolveBaseUrl()
 
-        expect(instance.getBaseUrl()).toBe(baseUrl)
-        expect(instance.getBaseUrl()).not.toBe(RadioBrowserApi.getBaseUrl())
-      })
+      expect(result).toEqual([{ name: resolvedServer, ip: baseIp }])
+    })
 
-      test('Resolve base url', async () => {
-        const appName = 'test'
-        const mockResult = [
-          {
-            name: 'some.server.name.info',
-            ip: '1.2.2.2'
-          }
-        ]
+    test('Manually set base url', () => {
+      const url = '1.2.3.4'
+      const appName = 'test'
+      const api = new RadioBrowserApi(appName)
+      api.setBaseUrl(url)
 
-        nock('https://all.api.radio-browser.info')
-          .get('/json/servers')
-          .reply(200, mockResult)
+      expect(api.getBaseUrl()).toBe(url)
+    })
 
-        const api = new RadioBrowserApi(appName)
-        const result = await api.resolveBaseUrl()
+    test('Throw if resolve base url is not OK', async () => {
+      const errorText = 'server error'
+      nock.cleanAll()
+      nock(/radio-browser.info/)
+        .get('/json/servers')
+        .reply(500, errorText)
 
-        expect(result).toEqual(mockResult)
-        expect(api.getBaseUrl()).toBe('https://' + mockResult[0].name)
-      })
-
-      test('Resolve base url but do not set it', async () => {
-        const appName = 'test'
-        const api = new RadioBrowserApi(appName)
-        const defaultBaseUrl = api.getBaseUrl()
-        const mockResult = [
-          {
-            name: 'first.server',
-            ip: '1.2.2.2.'
-          },
-          {
-            name: 'second.server',
-            ip: '1.2.2.2.'
-          }
-        ]
-
-        nock('https://all.api.radio-browser.info')
-          .get('/json/servers')
-          .reply(200, mockResult)
-
-        const result = await api.resolveBaseUrl(false)
-
-        expect(result).toEqual(mockResult)
-        expect(api.getBaseUrl()).toBe(defaultBaseUrl)
-      })
-
-      test('Manually set base url', () => {
-        const url = '1.2.3.4'
-        const appName = 'test'
-        const api = new RadioBrowserApi(appName)
-        api.setBaseUrl(url)
-
-        expect(api.getBaseUrl()).toBe(url)
-      })
-
-      test('Throw if resolve base url is not OK', async () => {
-        const errorText = 'server error'
-        nock(/radio-browser.info/)
-          .get('/json/servers')
-          .reply(500, errorText)
-
-        const appName = 'test'
-        const api = new RadioBrowserApi(appName)
-        expect.assertions(1)
-        try {
-          await api.resolveBaseUrl()
-        } catch (e) {
-          const result = await e.text()
-          expect(result).toBe(errorText)
-        }
-      })
+      const appName = 'test'
+      const api = new RadioBrowserApi(appName)
+      expect.assertions(1)
+      try {
+        await api.resolveBaseUrl()
+      } catch (e) {
+        const result = await e.text()
+        expect(result).toBe(errorText)
+      }
     })
   })
 
@@ -209,7 +112,7 @@ describe('Radio Browser', () => {
     const headerName = 'x-jest-test'
     const headerValue = '1'
 
-    await api.resolveBaseUrl(true, {
+    await api.resolveBaseUrl({
       headers: {
         [headerName]: headerValue
       }
