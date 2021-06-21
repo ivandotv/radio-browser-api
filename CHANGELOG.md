@@ -1,3 +1,14 @@
+## [4.0.0](https://github.com/ivandotv/radio-browser-api/compare/v3.0.0...v4.0.0) (2021-06-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Static methods to resolve base url have been removed
+
+### feat
+
+* remove all static methods and automatically resolve base url ([bbd0501](https://github.com/ivandotv/radio-browser-api/commit/bbd0501e4cc057d1780d367a04d139d8255e7522))
+
 ## [2.3.0](https://github.com/ivandotv/radio-browser-api/compare/v2.2.4...v2.3.0) (2021-06-01)
 
 
