@@ -30,7 +30,7 @@ API by default, returns `broken` stations (stations that are in the system but d
 
 ## Usage
 
-Make sure you have a fetch implementation (e.g [node-fetch](https://www.npmjs.com/package/node-fetch)) available. You should also have an application name that is going to be passed as `user agent string` when talking to the API. You can use whatever you like but be consistent, the author of the API uses it to track usage statistics.
+If using in node.js environment, make sure you have a fetch implementation (e.g [node-fetch](https://www.npmjs.com/package/node-fetch)) available. You should also have an application name that is going to be passed as `user agent string` when talking to the API. You can use whatever you like but be consistent, the author of the API uses it to track usage statistics.
 
 ```ts
 import { RadioBrowserApi, StationSearchType } from 'radio-browser-api'
