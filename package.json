@@ -4,13 +4,12 @@
   "private": false,
   "description": "Wrapper for free and open-source radio browser api: https://api.radio-browser.info/.",
   "main": "dist/cjs/index.js",
-  "module": "dist/unpkg/index.esm.js",
+  "module": "dist/esm/index.js",
   "unpkg": "dist/unpkg/index.js",
   "jsdelivr": "dist/unpkg/index.js",
   "exports": {
-    "import": "./dist/esm/index.esm.js",
-    "require": "./dist/cjs/index.js",
-    "development": "./dist/cjs/index.development.js"
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js"
   },
   "sideEffects": true,
   "types": "dist/types/index.d.ts",

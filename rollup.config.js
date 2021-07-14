@@ -8,7 +8,7 @@ import filesize from 'rollup-plugin-filesize'
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 
-const libraryName = 'MyLib'
+const libraryName = 'index'
 
 const input = 'src/index.ts'
 
