@@ -1,3 +1,8 @@
+### [4.0.1](https://github.com/ivandotv/radio-browser-api/compare/v4.0.0...v4.0.1) (2021-07-14)
+
+
+* **readme:** update readme ([fe833f7](https://github.com/ivandotv/radio-browser-api/commit/fe833f77364f750f7fcdb5d7b8c8ea5a9b1a89f7))
+
 ## [4.0.0](https://github.com/ivandotv/radio-browser-api/compare/v3.0.0...v4.0.0) (2021-06-21)
 
 
