@@ -6,7 +6,7 @@ import { StationSearchType } from '../src/constants'
 import { RadioBrowserApi } from '../src/radioBrowser'
 import { getMockStation, getMockResponse } from './utils/mockStation'
 
-global.fetch = (nodeFetch as unknown) as typeof fetch
+global.fetch = nodeFetch as unknown as typeof fetch
 
 const resolvedServer = 'fr1.api.radio-browser.info'
 const baseUrl = `https://${resolvedServer}`
@@ -947,7 +947,7 @@ describe('Radio Browser', () => {
         'user-agent': appName
       }
     })
-      .get(`/json/stations/byuuid/${stationIds.join(',')}`)
+      .get(`/json/stations/byuuid?uuids=${stationIds.join(',')}`)
       .reply(200, mockResult)
 
     const result = await api.getStationsById(stationIds, {

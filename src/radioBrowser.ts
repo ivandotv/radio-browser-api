@@ -226,9 +226,9 @@ export class RadioBrowserApi {
 
     for (const response of stations) {
       if (removeDuplicates) {
-        const nameAndUrl = `${response.name
+        const nameAndUrl = `${response.name.toLowerCase().trim()}${response.url
           .toLowerCase()
-          .trim()}${response.url.toLowerCase().trim()}`
+          .trim()}`
 
         // guard against results having the same stations under different id's
         if (duplicates[nameAndUrl]) continue
@@ -405,7 +405,7 @@ export class RadioBrowserApi {
     const stationsIds = ids.join(',')
     const stations = await this.runRequest<StationResponse[]>(
       this.buildRequest(
-        `stations/byuuid/${stationsIds}`,
+        `stations/byuuid?uuids=${stationsIds}`,
         undefined,
         undefined,
         false
