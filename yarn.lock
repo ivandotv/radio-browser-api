@@ -1362,9 +1362,9 @@
     fastq "^1.6.0"
 
 "@npmcli/arborist@^2.3.0", "@npmcli/arborist@^2.5.0", "@npmcli/arborist@^2.6.4":
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/@npmcli/arborist/-/arborist-2.7.1.tgz#dc7b8a75d7469c26559675adbccae26cfcbe2d01"
-  integrity sha512-EGDHJs6dna/52BrStr/6aaRcMLrYxGbSjT4V3JzvoTBY9/w5i2+1KNepmsG80CAsGADdo6nuNnFwb7sDRm8ZAw==
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@npmcli/arborist/-/arborist-2.8.0.tgz#ff078287eba44595383eb58ad8aa8540bc8aae9e"
+  integrity sha512-R9rTyak1rGdmVTyiU14dgBb+qMllY3B6I8hp7FB4xXsU9dJDrYZJR8I+191CMo5Y1941jTDCtNcXXW9TldPEFQ==
   dependencies:
     "@npmcli/installed-package-contents" "^1.0.7"
     "@npmcli/map-workspaces" "^1.0.2"
@@ -1382,10 +1382,10 @@
     mkdirp "^1.0.4"
     mkdirp-infer-owner "^2.0.0"
     npm-install-checks "^4.0.0"
-    npm-package-arg "^8.1.0"
+    npm-package-arg "^8.1.5"
     npm-pick-manifest "^6.1.0"
     npm-registry-fetch "^11.0.0"
-    pacote "^11.2.6"
+    pacote "^11.3.5"
     parse-conflict-json "^1.1.1"
     proc-log "^1.0.0"
     promise-all-reject-late "^1.0.0"
@@ -1483,7 +1483,7 @@
 
 "@npmcli/package-json@^1.0.1":
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@npmcli/package-json/-/package-json-1.0.1.tgz#1ed42f00febe5293c3502fd0ef785647355f6e89"
+  resolved "https://registry.npmjs.org/@npmcli/package-json/-/package-json-1.0.1.tgz"
   integrity sha512-y6jnu76E9C23osz8gEMBayZmaZ69vFOIk8vR1FJL/wbEJ54+9aVG9rLTjQKSXfgYZEr50nw1txBBFfBZZe+bYg==
   dependencies:
     json-parse-even-better-errors "^2.3.1"
@@ -1917,10 +1917,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^26.0.24":
-  version "26.0.24"
-  resolved "https://registry.npmjs.org/@types/jest/-/jest-26.0.24.tgz"
-  integrity sha512-E/X5Vib8BWqZNRlDxj9vYXhsDwPYbPINqKF9BsnSoon4RQ0D9moEuLD8txgyypFLH7J4+Lho9Nr/c8H0Fi+17w==
+"@types/jest@^27.0.0":
+  version "27.0.0"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-27.0.0.tgz"
+  integrity sha512-IlpQZVpxufe+3qPaAqEoSPHVSxnJh1cf0BqqWHJeKiAUbwnHdmNzjP3ZCWSZSTbmAGXQPNk9QmM3Bif0pR54rg==
   dependencies:
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
@@ -3045,7 +3045,7 @@ binary-extensions@^2.0.0, binary-extensions@^2.2.0:
 
 bindings@^1.5.0:
   version "1.5.0"
-  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.5.0.tgz#10353c9e945334bc0511a6d90b38fbc7c9c504df"
+  resolved "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz"
   integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
   dependencies:
     file-uri-to-path "1.0.0"
@@ -5349,7 +5349,7 @@ file-loader@^6.2.0:
 
 file-uri-to-path@1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
+  resolved "https://registry.npmjs.org/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz"
   integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
 
 filesize@^6.1.0:
@@ -8476,7 +8476,7 @@ n-readlines@1.0.0:
 
 nan@^2.12.1:
   version "2.14.2"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
+  resolved "https://registry.npmjs.org/nan/-/nan-2.14.2.tgz"
   integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
 
 nanoid@^3.1.23:
@@ -9167,7 +9167,7 @@ pacote@^11.1.11, pacote@^11.2.6, pacote@^11.3.0, pacote@^11.3.1, pacote@^11.3.3:
     ssri "^8.0.1"
     tar "^6.1.0"
 
-pacote@^11.2.7:
+pacote@^11.2.7, pacote@^11.3.5:
   version "11.3.5"
   resolved "https://registry.npmjs.org/pacote/-/pacote-11.3.5.tgz"
   integrity sha512-fT375Yczn4zi+6Hkk2TBe1x1sP8FgFsEIZ2/iWaXY2r/NkhDJfxbcn5paz1+RTFCyNf+dPnaoBDJoAxXSU8Bkg==
@@ -9785,10 +9785,19 @@ postcss@^7.0.0:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^8.2.1, postcss@^8.2.15:
+postcss@^8.2.1:
   version "8.3.5"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.3.5.tgz"
   integrity sha512-NxTuJocUhYGsMiMFHDUkmjSKT3EdH4/WbGF6GCi1NDGk+vbcUTun4fpbOqaPtD8IIsztA2ilZm2DhYCuyN58gA==
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.23"
+    source-map-js "^0.6.2"
+
+postcss@^8.2.15:
+  version "8.3.6"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.6.tgz#2730dd76a97969f37f53b9a6096197be311cc4ea"
+  integrity sha512-wG1cc/JhRgdqB6WHEuyLTedf3KIRuD0hG6ldkFEZNCjRxiC+3i6kkWUUbiJQayP28iwG35cEmAbe98585BYV0A==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.23"
