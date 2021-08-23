@@ -38,7 +38,7 @@
     "build:browser": "del dist/unpkg && rollup -c",
     "build:cjs": "del dist/cjs && cross-env BABEL_ENV=cjs babel src --out-dir dist/cjs --extensions \".ts,.tsx,js,jsx\" --source-maps --verbose",
     "build:esm": "del dist/esm && cross-env BABEL_ENV=esm babel src --out-dir dist/esm --extensions \".ts,.tsx,js,jsx\" --source-maps",
-    "build": "npm run build:cjs && npm run build:esm && npm run build:browser",
+    "build": "npm run build:types && npm run build:cjs && npm run build:esm && npm run build:browser",
     "semantic-release": "semantic-release",
     "prepare": "husky install"
   },
