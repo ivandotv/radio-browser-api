@@ -1,3 +1,5 @@
+### [4.0.5](https://github.com/ivandotv/radio-browser-api/compare/v4.0.4...v4.0.5) (2021-08-31)
+
 ### [4.0.4](https://github.com/ivandotv/radio-browser-api/compare/v4.0.3...v4.0.4) (2021-08-23)
 
 ### [4.0.3](https://github.com/ivandotv/radio-browser-api/compare/v4.0.2...v4.0.3) (2021-07-17)
