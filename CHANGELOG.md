@@ -1,3 +1,14 @@
+## [5.0.0](https://github.com/ivandotv/radio-browser-api/compare/v4.0.5...v5.0.0) (2021-11-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* const value has been changed
+
+### fix
+
+* byLanguageExact typo ([476580c](https://github.com/ivandotv/radio-browser-api/commit/476580c67372d07fc8714fda086793e6964430a8))
+
 ### [4.0.5](https://github.com/ivandotv/radio-browser-api/compare/v4.0.4...v4.0.5) (2021-08-31)
 
 ### [4.0.4](https://github.com/ivandotv/radio-browser-api/compare/v4.0.3...v4.0.4) (2021-08-23)
