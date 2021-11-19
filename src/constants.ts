@@ -36,7 +36,7 @@ export const StationSearchType = {
   byState: 'byState',
   byStateExact: 'byStateExact',
   byLanguage: 'byLanguage',
-  byLanguageExact: 'byLanguageexact',
+  byLanguageExact: 'byLanguageExact',
   byTag: 'byTag',
   byTagExact: 'byTagExact'
 } as const
