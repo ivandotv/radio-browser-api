@@ -107,7 +107,7 @@
     "eslint-plugin-tsdoc": "^0.2.14",
     "husky": "^6.0.0",
     "jest": "^27.0.6",
-    "jest-junit": "^12.2.0",
+    "jest-junit": "^13.0.0",
     "jest-watch-typeahead": "^0.6.4",
     "lint-staged": "^11.0.1",
     "nock": "^13.1.1",
