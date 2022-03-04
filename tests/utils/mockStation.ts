@@ -27,7 +27,7 @@ export function getMockResponse(): StationResponse {
     clickcount: 14,
     clicktrend: -1,
     geoLat: 47.70441105302798,
-    geoLong: 14.795494079589846,
+    geoLong: 14.795494079589846
   }
 }
 

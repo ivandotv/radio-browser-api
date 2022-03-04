@@ -69,6 +69,7 @@ describe('Radio Browser', () => {
       try {
         await api.resolveBaseUrl()
       } catch (e) {
+        // @ts-expect-error e is unknown
         const result = await e.text()
         expect(result).toBe(errorText)
       }
