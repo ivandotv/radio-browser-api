@@ -70,8 +70,8 @@ export type StationResponse = {
   clicktimestamp: string
   clickcount: number
   clicktrend: number,
-  geo_lat?: number
-  geo_long?: number
+  geoLat?: number
+  geoLong?: number
 }
 
 /**
@@ -102,8 +102,8 @@ export type Station = {
   clickTimestamp: Date
   clickCount: number
   clickTrend: number,
-  geo_lat?: number
-  geo_long?: number
+  geoLat?: number
+  geoLong?: number
 }
 
 /**
