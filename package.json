@@ -1,6 +1,6 @@
 {
   "name": "radio-browser-api",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "private": false,
   "description": "Wrapper for free and open-source radio browser api: https://api.radio-browser.info/.",
   "main": "dist/cjs/index.js",
