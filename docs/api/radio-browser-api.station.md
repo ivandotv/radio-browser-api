@@ -33,5 +33,7 @@ export declare type Station = {
     clickTimestamp: Date;
     clickCount: number;
     clickTrend: number;
+    geoLat?: number;
+    geoLong?: number;
 };
 ```

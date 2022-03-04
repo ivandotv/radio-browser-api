@@ -9,11 +9,11 @@ Get current base url
 <b>Signature:</b>
 
 ```typescript
-getBaseUrl(): string;
+getBaseUrl(): string | undefined;
 ```
 <b>Returns:</b>
 
-string
+string \| undefined
 
 Base url
 

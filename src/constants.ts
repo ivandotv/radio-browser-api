@@ -49,7 +49,6 @@ export type StationResponse = {
   stationuuid: string
   name: string
   url: string
-  // eslint-disable-next-line
   url_resolved: string
   homepage: string
   favicon: string
@@ -70,6 +69,8 @@ export type StationResponse = {
   clicktimestamp: string
   clickcount: number
   clicktrend: number
+  geo_lat?: number
+  geo_long?: number
 }
 
 /**
@@ -100,6 +101,8 @@ export type Station = {
   clickTimestamp: Date
   clickCount: number
   clickTrend: number
+  geoLat?: number
+  geoLong?: number
 }
 
 /**

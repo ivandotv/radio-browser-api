@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-protected baseUrl: string;
+protected baseUrl: string | undefined;
 ```

@@ -9,14 +9,13 @@ Creates an instance of radio browser api.
 <b>Signature:</b>
 
 ```typescript
-constructor(fetchImpl: typeof fetch, appName: string, hideBroken?: boolean);
+constructor(appName: string, hideBroken?: boolean);
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  fetchImpl | typeof fetch | Fetch API |
 |  appName | string | App name to be used as user agent header to indentify the calls to the API |
 |  hideBroken | boolean | Hide broken stations for all future API calls |
 

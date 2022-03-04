@@ -267,6 +267,8 @@ export class RadioBrowserApi {
         lastLocalCheckTime: new Date(response.lastlocalchecktime),
         language: response.language.split(','),
         lastCheckTime: new Date(response.lastchecktime),
+        geoLat: response.geo_lat !== null ? response.geo_lat : undefined,
+        geoLong: response.geo_long !== null ? response.geo_long : undefined,
         tags: [...new Set(response.tags.split(','))].filter(
           (tag) => tag.length > 0 && tag.length < 10
         ) // drop duplicates and tags over 10 characters
