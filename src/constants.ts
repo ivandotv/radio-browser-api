@@ -69,7 +69,9 @@ export type StationResponse = {
   lastcheckoktime: string
   clicktimestamp: string
   clickcount: number
-  clicktrend: number
+  clicktrend: number,
+  geo_lat?: number
+  geo_long?: number
 }
 
 /**
@@ -99,7 +101,9 @@ export type Station = {
   lastLocalCheckTime: Date
   clickTimestamp: Date
   clickCount: number
-  clickTrend: number
+  clickTrend: number,
+  geo_lat?: number
+  geo_long?: number
 }
 
 /**

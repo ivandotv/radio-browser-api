@@ -25,7 +25,9 @@ export function getMockResponse(): StationResponse {
     lastlocalchecktime: '2020-10-27 06:04:51',
     clicktimestamp: '2020-10-25 18:33:05',
     clickcount: 14,
-    clicktrend: -1
+    clicktrend: -1,
+    geo_lat: 47.70441105302798,
+    geo_long: 14.795494079589846,
   }
 }
 
