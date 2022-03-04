@@ -26,8 +26,8 @@ export function getMockResponse(): StationResponse {
     clicktimestamp: '2020-10-25 18:33:05',
     clickcount: 14,
     clicktrend: -1,
-    geoLat: 47.70441105302798,
-    geoLong: 14.795494079589846
+    geo_lat: 47.70441105302798,
+    geo_long: 14.795494079589846
   }
 }
 
