@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-hideBroken: boolean;
+protected hideBroken: boolean;
 ```

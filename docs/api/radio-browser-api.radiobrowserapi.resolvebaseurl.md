@@ -4,12 +4,12 @@
 
 ## RadioBrowserApi.resolveBaseUrl() method
 
-Resolves API base url
+Resolves API base url this will be the default for all class instances.
 
 <b>Signature:</b>
 
 ```typescript
-resolveBaseUrl(autoSet?: boolean, config?: RequestInit): Promise<{
+resolveBaseUrl(config?: RequestInit): Promise<{
         ip: string;
         name: string;
     }[]>;
@@ -19,7 +19,6 @@ resolveBaseUrl(autoSet?: boolean, config?: RequestInit): Promise<{
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  autoSet | boolean | Automatically set first resolved base url |
 |  config | RequestInit | Fetch configuration |
 
 <b>Returns:</b>

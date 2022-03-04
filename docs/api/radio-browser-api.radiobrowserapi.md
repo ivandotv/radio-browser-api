@@ -16,17 +16,17 @@ export declare class RadioBrowserApi
 
 |  Constructor | Modifiers | Description |
 |  --- | --- | --- |
-|  [(constructor)(fetchImpl, appName, hideBroken)](./radio-browser-api.radiobrowserapi._constructor_.md) |  | Creates an instance of radio browser api. |
+|  [(constructor)(appName, hideBroken)](./radio-browser-api.radiobrowserapi._constructor_.md) |  | Creates an instance of radio browser api. |
 
 ## Properties
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
 |  [appName](./radio-browser-api.radiobrowserapi.appname.md) |  | string |  |
-|  [baseUrl](./radio-browser-api.radiobrowserapi.baseurl.md) |  | string |  |
+|  [baseUrl](./radio-browser-api.radiobrowserapi.baseurl.md) |  | string \| undefined |  |
 |  [fetchConfig](./radio-browser-api.radiobrowserapi.fetchconfig.md) |  | RequestInit |  |
-|  [fetchImpl](./radio-browser-api.radiobrowserapi.fetchimpl.md) |  | typeof fetch |  |
 |  [hideBroken](./radio-browser-api.radiobrowserapi.hidebroken.md) |  | boolean |  |
+|  [version](./radio-browser-api.radiobrowserapi.version.md) | <code>static</code> | string |  |
 
 ## Methods
 
@@ -49,7 +49,7 @@ export declare class RadioBrowserApi
 |  [getStationsByVotes(limit, fetchConfig)](./radio-browser-api.radiobrowserapi.getstationsbyvotes.md) |  | Gets stations by votes. Returns most voted stations |
 |  [getTags(tag, query, fetchConfig)](./radio-browser-api.radiobrowserapi.gettags.md) |  | Gets all available tags |
 |  [normalizeStations(stations, removeDuplicates)](./radio-browser-api.radiobrowserapi.normalizestations.md) |  | Normalizes stations from the API response |
-|  [resolveBaseUrl(autoSet, config)](./radio-browser-api.radiobrowserapi.resolvebaseurl.md) |  | Resolves API base url |
+|  [resolveBaseUrl(config)](./radio-browser-api.radiobrowserapi.resolvebaseurl.md) |  | Resolves API base url this will be the default for all class instances. |
 |  [resolveGetStations(endPoint, limit, fetchConfig)](./radio-browser-api.radiobrowserapi.resolvegetstations.md) |  |  |
 |  [runRequest(url, fetchConfig)](./radio-browser-api.radiobrowserapi.runrequest.md) |  | Fires of the request to the API |
 |  [searchStations(query, fetchConfig, removeDuplicates)](./radio-browser-api.radiobrowserapi.searchstations.md) |  | Searches stations by particular params |

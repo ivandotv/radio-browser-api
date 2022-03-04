@@ -20,7 +20,7 @@ StationSearchType: {
     readonly byState: "byState";
     readonly byStateExact: "byStateExact";
     readonly byLanguage: "byLanguage";
-    readonly byLanguageExact: "byLanguageexact";
+    readonly byLanguageExact: "byLanguageExact";
     readonly byTag: "byTag";
     readonly byTagExact: "byTagExact";
 }
