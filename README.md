@@ -110,8 +110,8 @@ type Station = {
   clickTimestamp: Date // The time of the last click recorded for this stream
   clickCount: number // Clicks within the last 24 hours
   clickTrend: number // The difference of the clickcounts within the last 2 days. Positive values mean an increase, negative a decrease of clicks.
-  geoLat: number // Latitude on earth where the stream is located. Undefined if it doesn't exist.
-  geoLong: number // Longitude on earth where the stream is located. Undefined if it doesn't exist.
+  geoLat: number | null // Latitude on earth where the stream is located. Null if it doesn't exist.
+  geoLong: number | null // Longitude on earth where the stream is located. Null if it doesn't exist.
 }
 ```
 
