@@ -3,7 +3,12 @@ import nodeFetch from 'node-fetch'
 import { Query } from '../src'
 import { StationSearchType, StationQuery } from '../src/constants'
 import { RadioBrowserApi } from '../src/radioBrowser'
-import { getMockStation, getMockResponse } from './utils/mockStation'
+import {
+  getMockStation,
+  getMockResponse,
+  getMockResponseWithoutGeoInfo,
+  getMockStationWithoutGeoInfo
+} from './utils/mockStation'
 
 global.fetch = nodeFetch as unknown as typeof fetch
 
@@ -619,7 +624,7 @@ describe('Radio Browser', () => {
 
       const headerName = 'x-jest-test'
       const headerValue = '1'
-      const mockResult = [getMockResponse()]
+      const mockResult = [getMockResponseWithoutGeoInfo()]
       const query = {
         taglist: 'rap,pop,jazz',
         has_geo_info: 'false'
@@ -651,7 +656,7 @@ describe('Radio Browser', () => {
       )
 
       expect(scope.isDone()).toBe(true)
-      expect(result).toEqual([getMockStation()])
+      expect(result).toEqual([getMockStationWithoutGeoInfo()])
     })
   })
 
