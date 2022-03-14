@@ -74,6 +74,11 @@ const stations = await api.searchStations({
   tagList: ['dance','house']
 })
 
+// query stations with or without geolocation info
+const stations = await api.searchStations({
+  hasGeoInfo: true // not set=display all, true=show only stations with geo_info, false=show only stations without geo_info
+})
+
 //etc..
 ```
 
