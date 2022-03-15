@@ -1,10 +1,14 @@
 import nock from 'nock'
 import nodeFetch from 'node-fetch'
-import { StationQuery } from '../dist/types'
 import { Query } from '../src'
-import { StationSearchType } from '../src/constants'
+import { StationSearchType, StationQuery } from '../src/constants'
 import { RadioBrowserApi } from '../src/radioBrowser'
-import { getMockStation, getMockResponse } from './utils/mockStation'
+import {
+  getMockStation,
+  getMockResponse,
+  getMockResponseWithoutGeoInfo,
+  getMockStationWithoutGeoInfo
+} from './utils/mockStation'
 
 global.fetch = nodeFetch as unknown as typeof fetch
 
@@ -572,6 +576,90 @@ describe('Radio Browser', () => {
       expect(result).toEqual([getMockStation()])
     })
   })
+  describe('Show or hide stations with geolocation info', () => {
+    // advanced station search
+    test('show stations with geolocation info', async () => {
+      const appName = 'test'
+      const api = new RadioBrowserApi(appName)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [getMockResponse()]
+      const query = {
+        taglist: 'rap,pop,jazz',
+        has_geo_info: 'true'
+      }
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': appName
+        }
+      })
+        .get('/json/stations/search')
+        .query({
+          hidebroken: 'true',
+          ...query
+        })
+        .reply(200, mockResult)
+
+      const result = await api.searchStations(
+        {
+          tagList: ['rap', 'pop', 'jazz'],
+          hasGeoInfo: true
+        },
+        {
+          headers: {
+            [headerName]: headerValue
+          }
+        }
+      )
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual([getMockStation()])
+    })
+    test('show stations without geolocation info', async () => {
+      const appName = 'test'
+      const api = new RadioBrowserApi(appName)
+
+      const headerName = 'x-jest-test'
+      const headerValue = '1'
+      const mockResult = [getMockResponseWithoutGeoInfo()]
+      const query = {
+        taglist: 'rap,pop,jazz',
+        has_geo_info: 'false'
+      }
+
+      const scope = nock(baseUrl, {
+        reqheaders: {
+          [headerName]: headerValue,
+          'user-agent': appName
+        }
+      })
+        .get('/json/stations/search')
+        .query({
+          hidebroken: 'true',
+          ...query
+        })
+        .reply(200, mockResult)
+
+      const result = await api.searchStations(
+        {
+          tagList: ['rap', 'pop', 'jazz'],
+          hasGeoInfo: false
+        },
+        {
+          headers: {
+            [headerName]: headerValue
+          }
+        }
+      )
+
+      expect(scope.isDone()).toBe(true)
+      expect(result).toEqual([getMockStationWithoutGeoInfo()])
+    })
+  })
+
   describe('Show or hide broken stations', () => {
     // advanced station search
     test('hide broken stations by default', async () => {
