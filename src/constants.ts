@@ -69,8 +69,8 @@ export type StationResponse = {
   clicktimestamp: string
   clickcount: number
   clicktrend: number
-  geo_lat?: number | null
-  geo_long?: number | null
+  geo_lat?: number
+  geo_long?: number
 }
 
 /**
@@ -101,8 +101,8 @@ export type Station = {
   clickTimestamp: Date
   clickCount: number
   clickTrend: number
-  geoLat?: number | null
-  geoLong?: number | null
+  geoLat?: number
+  geoLong?: number
 }
 
 /**
@@ -136,7 +136,6 @@ export type AdvancedStationQuery = {
   codec?: string
   bitrateMin?: string
   bitrateMax?: string
-  hasGeoInfo?: boolean
 } & StationQuery
 
 /**

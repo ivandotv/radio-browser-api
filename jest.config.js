@@ -2,8 +2,7 @@ module.exports = {
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.[jt]s?(x)',
     '<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)',
-    '<rootDir>/tests/?(*.)+(spec|test).[jt]s?(x)',
-    '<rootDir>/tests/radioBrowser.test.ts'
+    '<rootDir>/tests/?(*.)+(spec|test).[jt]s?(x)'
   ],
   testEnvironment: 'node',
   watchPlugins: [
