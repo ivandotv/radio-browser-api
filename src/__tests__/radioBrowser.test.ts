@@ -1,8 +1,8 @@
 import nock from 'nock'
 import nodeFetch from 'node-fetch'
-import { Query } from '../src'
-import { StationSearchType, StationQuery } from '../src/constants'
-import { RadioBrowserApi } from '../src/radioBrowser'
+import { Query } from '../../src'
+import { StationSearchType, StationQuery } from '../../src/constants'
+import { RadioBrowserApi } from '../../src/radioBrowser'
 import {
   getMockStation,
   getMockResponse,

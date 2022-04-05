@@ -1,11 +1,16 @@
 {
-  "extends": ["config:base"],
+  "extends": ["config:base", "schedule:earlyMondays"],
   "rangeStrategy": "replace",
-  "semanticCommits": true,
+  "labels": ["dependencies"],
   "packageRules": [
     {
       "updateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
+    },
+    {
+      "packagePatterns": ["^eslint"],
+      "groupName": "eslint packages",
+      "addLabels": ["eslint"]
     }
   ]
 }

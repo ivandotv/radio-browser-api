@@ -1,58 +1,42 @@
 {
   "name": "radio-browser-api",
   "version": "5.2.0",
-  "private": false,
   "description": "Wrapper for free and open-source radio browser api: https://api.radio-browser.info/.",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "unpkg": "dist/unpkg/index.js",
-  "jsdelivr": "dist/unpkg/index.js",
-  "exports": {
-    "import": "./dist/esm/index.js",
-    "require": "./dist/cjs/index.js"
-  },
-  "sideEffects": true,
-  "types": "dist/types/index.d.ts",
+  "keywords": [
+    "radio",
+    "api",
+    "radio-browser-api",
+    "radio-browser-info"
+  ],
+  "private": false,
+  "author": "Ivan Vlatkovic",
   "license": "MIT",
+  "main": "./dist/prod/radio-browser-api.js",
+  "umd": "./dist/prod/radio-browser-api.umd.js",
+  "exports": {
+    "development": "./dist/dev/radio-browser-api.esm.js",
+    "import": "./dist/prod/radio-browser-api.esm.js",
+    "require": "./dist/prod/radio-browser-api.js"
+  },
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "commit": "git-cz",
-    "fix:src": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
-    "fix:tests": "eslint --fix \"./tests/**/*.{js,jsx,ts,tsx}\"",
-    "fix": "npm-run-all -p fix:*",
-    "docs": "npm run build:types && npm run api:extract && npm run api:write",
-    "api:write": "api-documenter markdown -i temp -o docs/api",
-    "api:extract": "api-extractor run --local --verbose --typescript-compiler-folder node_modules/typescript",
-    "test": "cross-env  BABEL_ENV=test jest --verbose --coverage --no-cache",
-    "test:watch": "cross-env BABEL_ENV=test jest --watch",
-    "test:ci": "npm run type:check && jest --runInBand --ci --reporters=default --reporters=jest-junit --coverage --coverageDirectory=coverage",
-    "type:check": "tsc -p tsconfig.check-types.json",
-    "build:types": "del dist/types && tsc -p tsconfig.build-types.json",
-    "build:browser": "del dist/unpkg && rollup -c",
-    "build:cjs": "del dist/cjs && cross-env BABEL_ENV=cjs babel src --out-dir dist/cjs --extensions \".ts,.tsx,js,jsx\" --source-maps --verbose",
-    "build:esm": "del dist/esm && cross-env BABEL_ENV=esm babel src --out-dir dist/esm --extensions \".ts,.tsx,js,jsx\" --source-maps",
-    "build": "npm run build:types && npm run build:cjs && npm run build:esm && npm run build:browser",
-    "semantic-release": "semantic-release",
-    "prepare": "husky install"
-  },
-  "engines": {
-    "node": ">=10.0.0"
-  },
-  "jest-junit": {
-    "outputDirectory": "./reports/junit",
-    "outputName": "test-results.xml"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
+    "lint": "eslint --fix \"src/**/\"",
+    "lint:check": "eslint \"src/**/\"",
+    "lint:ci": "pnpm lint:check",
+    "test": "jest --verbose --coverage",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
+    "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd  --output dist/prod",
+    "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev",
+    "build": "rm -rf ./dist && pnpm build:dev && pnpm build:prod",
+    "gen:docs": "rm -rf ./docs/api && typedoc --theme markdown --readme none --excludePrivate  --excludeInternal --exclude ./src/globals.d.ts --exclude ./src/__tests__ --out docs/api ./src",
+    "prepublishOnly": "pnpm build",
+    "prepare": "husky install",
+    "release": "pnpm run prepublishOnly && pnpm changeset publish"
   },
   "repository": {
     "type": "git",
@@ -62,66 +46,33 @@
     "url": "https://github.com/ivandotv/radio-browser-api/issues"
   },
   "homepage": "https://github.com/ivandotv/radio-browser-api#readme",
-  "keywords": [
-    "radio",
-    "api",
-    "radio-browser-api",
-    "radio-browser-info"
-  ],
-  "author": "Ivan Vlatkovic",
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.7",
-    "@babel/plugin-proposal-class-properties": "^7.16.7",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.16.7",
-    "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
-    "@babel/plugin-proposal-optional-chaining": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
-    "@babel/types": "^7.17.0",
-    "@microsoft/api-documenter": "^7.15.4",
-    "@microsoft/api-extractor": "^7.19.5",
-    "@rollup/plugin-commonjs": "^21.0.2",
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "@semantic-release/changelog": "^6.0.1",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/release-notes-generator": "^10.0.3",
-    "@size-limit/preset-small-lib": "^7.0.8",
+    "@changesets/cli": "^2.21.1",
     "@types/jest": "^27.4.1",
-    "@types/node": "^17.0.21",
-    "@types/node-fetch": "^2.6.1",
-    "@typescript-eslint/eslint-plugin": "^5.15.0",
-    "@typescript-eslint/parser": "^5.15.0",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
     "babel-plugin-dev-expression": "^0.2.3",
     "babel-plugin-transform-define": "^2.0.1",
-    "babel-preset-minify": "^0.5.1",
-    "commitizen": "^4.2.4",
-    "conventional-changelog-conventionalcommits": "^4.6.3",
-    "core-js": "^3.21.1",
     "cross-env": "^7.0.3",
-    "cz-conventional-changelog": "^3.3.0",
-    "del-cli": "4.0.1",
+    "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-jest": "^26.1.3",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
-    "jest-junit": "^13.0.0",
+    "jest-mock-console": "^1.2.3",
     "jest-watch-typeahead": "^1.0.0",
-    "lint-staged": "^12.3.5",
+    "lint-staged": "^12.3.7",
+    "microbundle": "^0.14.2",
     "nock": "^13.2.4",
     "node-fetch": "^2.6.7",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.5.1",
-    "prettier-standard": "^16.4.1",
-    "rollup": "^2.70.1",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-filesize": "^9.1.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-terser": "^7.0.2",
-    "semantic-release": "^19.0.2",
-    "standardx": "^7.0.0",
-    "typescript": "^4.6.2"
+    "prettier": "^2.6.1",
+    "shx": "^0.3.4",
+    "typedoc": "^0.22.13",
+    "typedoc-plugin-markdown": "^3.11.14"
   }
 }

@@ -5,38 +5,56 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Main",
       "type": "node",
       "request": "launch",
-      "name": "Main",
       "program": "${workspaceFolder}/src/index.ts",
       // "preLaunchTask": "npm: build:cjs",
       "outFiles": ["${workspaceFolder}/dist/cjs/**/*.js"],
+      "smartStep": true,
       "skipFiles": [
         "${workspaceFolder}/node_modules/**/*.js",
         "<node_internals>/**/*.js"
       ]
     },
     {
+      "name": "Current Test File",
       "type": "node",
       "request": "launch",
-      "name": "Current test file",
-      "cwd": "${workspaceRoot}",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": [
-        "${relativeFile}",
+      "cwd": "${workspaceFolder}/${relativeFileDirname}",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "jest",
+        "${file}",
         "--no-cache",
         "--watchAll=false",
         "--runInBand"
       ],
+      "env": { "JEST_DEBUG": "true" },
       "console": "integratedTerminal",
       "protocol": "inspector",
       "internalConsoleOptions": "neverOpen",
+      "smartStep": true,
       "disableOptimisticBPs": true,
-      "sourceMaps": true,
       "skipFiles": [
         "${workspaceFolder}/node_modules/**/*.js",
         "<node_internals>/**/*.js"
       ]
+    },
+    {
+      "name": "Nodemon",
+      "type": "node",
+      "request": "attach",
+      "processId": "${command:PickProcess}",
+      "restart": true,
+      "protocol": "inspector",
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ],
+      // "localRoot": "${workspaceFolder}/src/regexparam",
+      // "remoteRoot": "/",
+      "stopOnEntry": true
     }
   ]
 }

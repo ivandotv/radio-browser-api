@@ -1,14 +1,15 @@
-name: Unit tests
+name: Test
 on:
   push:
     branches:
-      - master
+      - '*'
   pull_request:
     branches:
       - master
+      - develop
 jobs:
   build:
-    name: Node ${{ matrix.node }} unit tests
+    name: Node unit tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -17,34 +18,63 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
+      - name: Cache .pnpm-store
+        uses: actions/cache@v2
         with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Setup node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - run: npm install
-      - run: npm run test:ci
+
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2.2.1
+        with:
+          version: 6.23.6
+          run_install: true
+
+      - name: Lint source
+        run: |
+          pnpm lint:ci
+
+      - name: Build package
+        run: |
+          pnpm build
+
+      - name: Run tests
+        run: |
+          pnpm test:ci
         env:
           CI: true
 
       - name: Generate Code Coverage
-        if: matrix.node == 14
-        uses: codecov/codecov-action@v1
+        # only when running in node v16
+        if: matrix.node == 16
+        uses: codecov/codecov-action@v2
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          file: ./coverage/coverage-final.json
-      - name: 'Publish to NPM'
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master' && matrix.node == 14
-        run: npx semantic-release
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: 'Consume changesets'
+        if: github.event_name == 'push' && github.repository == 'ivandotv/radio-browser-api' && matrix.node == 16 && github.ref == 'refs/heads/master'
+        uses: changesets/action@v1
+        id: 'changesets'
+        with:
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: pnpm release
+          commit: version bump
+          title: Next release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 'Generate docs'
+        if: steps.changesets.outputs.published == 'true'
+        run: pnpm gen:docs
+
+      - name: Commit docs
+        if: steps.changesets.outputs.published == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Generate docs'

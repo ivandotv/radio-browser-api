@@ -15,7 +15,7 @@ npm install radio-browser-api
 
 - [What is it](#what-is-it)
 - [Usage](#usage)
-- [Package level API Docs](docs/api/index.md)
+- [Package level API Docs](docs/api/README.md)
 
 ## What is it
 

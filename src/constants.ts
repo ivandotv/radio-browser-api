@@ -146,7 +146,7 @@ export type Query = {
   order?: 'name' | 'stationcount'
   reverse?: boolean
   hideBroken?: boolean
-} & Object
+} & Record<string, any>
 
 // valid for country codes also
 /**
