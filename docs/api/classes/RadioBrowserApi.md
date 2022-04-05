@@ -62,7 +62,7 @@ Creates an instance of radio browser api.
 
 #### Defined in
 
-[radioBrowser.ts:32](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L32)
+[radioBrowser.ts:32](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L32)
 
 ## Properties
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[radioBrowser.ts:20](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L20)
+[radioBrowser.ts:20](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L20)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[radioBrowser.ts:22](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L22)
+[radioBrowser.ts:22](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L22)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[radioBrowser.ts:18](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L18)
+[radioBrowser.ts:18](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L18)
 
 ## Methods
 
@@ -131,7 +131,7 @@ Built request string
 
 #### Defined in
 
-[radioBrowser.ts:473](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L473)
+[radioBrowser.ts:473](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L473)
 
 ___
 
@@ -155,7 +155,7 @@ String of encoded query parameters
 
 #### Defined in
 
-[radioBrowser.ts:536](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L536)
+[radioBrowser.ts:536](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L536)
 
 ___
 
@@ -182,7 +182,7 @@ Array of all available stations
 
 #### Defined in
 
-[radioBrowser.ts:291](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L291)
+[radioBrowser.ts:291](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L291)
 
 ___
 
@@ -200,7 +200,7 @@ Base url
 
 #### Defined in
 
-[radioBrowser.ts:82](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L82)
+[radioBrowser.ts:82](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L82)
 
 ___
 
@@ -225,7 +225,7 @@ List of available codes
 
 #### Defined in
 
-[radioBrowser.ts:130](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L130)
+[radioBrowser.ts:130](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L130)
 
 ___
 
@@ -251,7 +251,7 @@ Array of country results with the name of the station and station count
 
 #### Defined in
 
-[radioBrowser.ts:93](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L93)
+[radioBrowser.ts:93](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L93)
 
 ___
 
@@ -277,7 +277,7 @@ Array of country results with the name of the station and station count
 
 #### Defined in
 
-[radioBrowser.ts:111](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L111)
+[radioBrowser.ts:111](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L111)
 
 ___
 
@@ -303,7 +303,7 @@ Array of country states
 
 #### Defined in
 
-[radioBrowser.ts:144](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L144)
+[radioBrowser.ts:144](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L144)
 
 ___
 
@@ -329,7 +329,7 @@ Array of language results
 
 #### Defined in
 
-[radioBrowser.ts:162](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L162)
+[radioBrowser.ts:162](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L162)
 
 ___
 
@@ -354,7 +354,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:434](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L434)
+[radioBrowser.ts:434](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L434)
 
 ___
 
@@ -382,7 +382,7 @@ Array of station results
 
 #### Defined in
 
-[radioBrowser.ts:199](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L199)
+[radioBrowser.ts:199](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L199)
 
 ___
 
@@ -407,7 +407,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:330](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L330)
+[radioBrowser.ts:330](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L330)
 
 ___
 
@@ -432,7 +432,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:410](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L410)
+[radioBrowser.ts:410](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L410)
 
 ___
 
@@ -457,7 +457,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:356](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L356)
+[radioBrowser.ts:356](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L356)
 
 ___
 
@@ -482,7 +482,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:343](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L343)
+[radioBrowser.ts:343](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L343)
 
 ___
 
@@ -508,7 +508,7 @@ List of tag results
 
 #### Defined in
 
-[radioBrowser.ts:180](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L180)
+[radioBrowser.ts:180](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L180)
 
 ___
 
@@ -533,7 +533,7 @@ Array of normalized stations
 
 #### Defined in
 
-[radioBrowser.ts:227](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L227)
+[radioBrowser.ts:227](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L227)
 
 ___
 
@@ -557,7 +557,7 @@ Array of objects with the ip and name of the api server
 
 #### Defined in
 
-[radioBrowser.ts:45](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L45)
+[radioBrowser.ts:45](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L45)
 
 ___
 
@@ -579,7 +579,7 @@ ___
 
 #### Defined in
 
-[radioBrowser.ts:446](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L446)
+[radioBrowser.ts:446](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L446)
 
 ___
 
@@ -610,7 +610,7 @@ Fetch response
 
 #### Defined in
 
-[radioBrowser.ts:503](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L503)
+[radioBrowser.ts:503](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L503)
 
 ___
 
@@ -636,7 +636,7 @@ Array of station results
 
 #### Defined in
 
-[radioBrowser.ts:311](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L311)
+[radioBrowser.ts:311](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L311)
 
 ___
 
@@ -661,7 +661,7 @@ Station click object
 
 #### Defined in
 
-[radioBrowser.ts:369](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L369)
+[radioBrowser.ts:369](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L369)
 
 ___
 
@@ -683,7 +683,7 @@ Sets base url for all api calls
 
 #### Defined in
 
-[radioBrowser.ts:74](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L74)
+[radioBrowser.ts:74](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L74)
 
 ___
 
@@ -708,4 +708,4 @@ Station vote object
 
 #### Defined in
 
-[radioBrowser.ts:391](https://github.com/ivandotv/radio-browser-api/blob/518bd91/src/radioBrowser.ts#L391)
+[radioBrowser.ts:391](https://github.com/ivandotv/radio-browser-api/blob/94dd6cf/src/radioBrowser.ts#L391)
