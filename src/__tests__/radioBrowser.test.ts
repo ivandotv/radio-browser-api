@@ -69,14 +69,8 @@ describe('Radio Browser', () => {
 
       const appName = 'test'
       const api = new RadioBrowserApi(appName)
-      expect.assertions(1)
-      try {
-        await api.resolveBaseUrl()
-      } catch (e) {
-        // @ts-expect-error e is unknown
-        const result = await e.text()
-        expect(result).toBe(errorText)
-      }
+
+      await expect(api.resolveBaseUrl()).rejects.toBeTruthy()
     })
   })
 
@@ -405,15 +399,14 @@ describe('Radio Browser', () => {
 
       const appName = 'test'
       const api = new RadioBrowserApi(appName)
-      try {
-        await api.getStationsBy(
-          // @ts-ignore
-          'byColor', // does not exits
+
+      await expect(
+        api.getStationsBy(
+          // @ts-expect-error - does not exits
+          'byColor',
           'red'
         )
-      } catch (e: any) {
-        expect(e.message).toMatch(/search type does not exist/)
-      }
+      ).rejects.toThrowError(/search type does not exist/)
     })
   })
 
