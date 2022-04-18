@@ -269,7 +269,7 @@ export class RadioBrowserApi {
         lastCheckTime: new Date(response.lastchecktime),
         geoLat: response.geo_lat,
         geoLong: response.geo_long,
-        tags: [...new Set(response.tags.split(','))].filter(
+        tags: Array.from(new Set(response.tags.split(','))).filter(
           (tag) => tag.length > 0 && tag.length < 10
         ) // drop duplicates and tags over 10 characters
       }
