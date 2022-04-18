@@ -1,5 +1,11 @@
 ## [5.1.0](https://github.com/ivandotv/radio-browser-api/compare/v5.0.0...v5.1.0) (2022-03-04)
 
+## 5.2.2
+
+### Patch Changes
+
+- 70f93b3: Refactor setting up radio tags. It appears that microbundle is not transpiling correctly combination of array and set.
+
 ## 5.2.1
 
 ### Patch Changes
