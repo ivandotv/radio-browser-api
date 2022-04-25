@@ -18,6 +18,7 @@
     "import": "./dist/prod/radio-browser-api.esm.js",
     "require": "./dist/prod/radio-browser-api.js"
   },
+  "type": "module",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
