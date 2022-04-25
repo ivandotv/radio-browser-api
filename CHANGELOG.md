@@ -1,5 +1,11 @@
 ## [5.1.0](https://github.com/ivandotv/radio-browser-api/compare/v5.0.0...v5.1.0) (2022-03-04)
 
+## 5.2.3
+
+### Patch Changes
+
+- 3783e09: add "module" export to package
+
 ## 5.2.2
 
 ### Patch Changes
