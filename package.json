@@ -12,12 +12,12 @@
   "author": "Ivan Vlatkovic",
   "license": "MIT",
   "main": "./dist/prod/radio-browser-api.js",
-  "module": "./dist/prod/radio-browser-api.esm.js",
-  "umd": "./dist/prod/radio-browser-api.umd.js",
+  "module": "./dist/prod/radio-browser-api.modern.mjs",
+  "umd:main": "./dist/prod/radio-browser-api.umd.js",
   "exports": {
-    "development": "./dist/dev/radio-browser-api.esm.js",
-    "import": "./dist/prod/radio-browser-api.esm.js",
-    "require": "./dist/prod/radio-browser-api.js"
+    "require": "./dist/prod/radio-browser-api.js",
+    "development": "./dist/dev/radio-browser-api.modern.mjs",
+    "default": "./dist/prod/radio-browser-api.modern.mjs"
   },
   "types": "./dist/types/index.d.ts",
   "files": [
