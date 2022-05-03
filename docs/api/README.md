@@ -32,7 +32,7 @@ radio-browser-api
 
 #### Defined in
 
-[constants.ts:123](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L123)
+[constants.ts:123](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L123)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[constants.ts:155](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L155)
+[constants.ts:155](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L155)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[constants.ts:167](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L167)
+[constants.ts:167](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L167)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[constants.ts:145](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L145)
+[constants.ts:145](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L145)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[constants.ts:79](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L79)
+[constants.ts:79](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L79)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[constants.ts:111](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L111)
+[constants.ts:111](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L111)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[constants.ts:47](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L47)
+[constants.ts:47](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L47)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[constants.ts:163](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L163)
+[constants.ts:163](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L163)
 
 ## Variables
 
@@ -214,7 +214,7 @@ ___
 
 #### Defined in
 
-[constants.ts:4](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L4)
+[constants.ts:4](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L4)
 
 ___
 
@@ -243,4 +243,4 @@ ___
 
 #### Defined in
 
-[constants.ts:27](https://github.com/ivandotv/radio-browser-api/blob/5a6c17a/src/constants.ts#L27)
+[constants.ts:27](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/constants.ts#L27)
