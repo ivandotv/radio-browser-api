@@ -133,7 +133,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [{ name: 'rs', stationcount: 10 }]
     const country = 'germany'
-    const query = { order: 'name', hideBroken: true }
+    const query: Query = { order: 'name', hideBroken: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -145,7 +145,7 @@ describe('Radio Browser', () => {
       .query({ order: 'name', hidebroken: 'true' })
       .reply(200, mockResult)
 
-    const result = await api.getCountries(country, query as Query, {
+    const result = await api.getCountries(country, query, {
       headers: {
         [headerName]: headerValue
       }
@@ -163,7 +163,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [{ name: 'rs', stationcount: 10 }]
     const country = 'RS'
-    const query = { order: 'name', reverse: true }
+    const query: Query = { order: 'name', reverse: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -178,7 +178,7 @@ describe('Radio Browser', () => {
       })
       .reply(200, mockResult)
 
-    const result = await api.getCountryCodes(country, query as Query, {
+    const result = await api.getCountryCodes(country, query, {
       headers: {
         [headerName]: headerValue
       }
@@ -195,7 +195,7 @@ describe('Radio Browser', () => {
     const headerName = 'x-jest-test'
     const headerValue = '1'
     const mockResult = [{ name: 'rs', stationcount: 10 }]
-    const query = { order: 'name', reverse: true }
+    const query: Query = { order: 'name', reverse: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -210,7 +210,7 @@ describe('Radio Browser', () => {
       })
       .reply(200, mockResult)
 
-    const result = await api.getCodecs(query as Query, {
+    const result = await api.getCodecs(query, {
       headers: {
         [headerName]: headerValue
       }
@@ -228,7 +228,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [{ name: 'rs', stationcount: 10 }]
     const country = 'Germany'
-    const query = { order: 'name', reverse: true }
+    const query: Query = { order: 'name', reverse: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -243,7 +243,7 @@ describe('Radio Browser', () => {
       })
       .reply(200, mockResult)
 
-    const result = await api.getCountryStates(country, query as Query, {
+    const result = await api.getCountryStates(country, query, {
       headers: {
         [headerName]: headerValue
       }
@@ -261,7 +261,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [{ name: 'rs', stationcount: 10 }]
     const language = 'ger'
-    const query = { order: 'name', reverse: true }
+    const query: Query = { order: 'name', reverse: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -276,7 +276,7 @@ describe('Radio Browser', () => {
       })
       .reply(200, mockResult)
 
-    const result = await api.getLanguages(language, query as Query, {
+    const result = await api.getLanguages(language, query, {
       headers: {
         [headerName]: headerValue
       }
@@ -294,7 +294,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [{ name: 'rs', stationcount: 10 }]
     const tag = 'jazz'
-    const query = { order: 'name', reverse: true }
+    const query: Query = { order: 'name', reverse: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -309,7 +309,7 @@ describe('Radio Browser', () => {
       })
       .reply(200, mockResult)
 
-    const result = await api.getTags(tag, query as Query, {
+    const result = await api.getTags(tag, query, {
       headers: {
         [headerName]: headerValue
       }
@@ -327,7 +327,7 @@ describe('Radio Browser', () => {
       const headerValue = '1'
       const mockResult = [getMockResponse()]
       const language = 'ger'
-      const query = { order: 'name', reverse: true }
+      const query: Query = { order: 'name', reverse: true }
 
       const scope = nock(baseUrl, {
         reqheaders: {
@@ -365,7 +365,7 @@ describe('Radio Browser', () => {
       const headerValue = '1'
       const mockResult = [getMockResponse()]
       const tag = 'jazz'
-      const query = { order: 'name', reverse: true }
+      const query: Query = { order: 'name', reverse: true }
 
       const scope = nock(baseUrl, {
         reqheaders: {
@@ -417,7 +417,7 @@ describe('Radio Browser', () => {
     const headerName = 'x-jest-test'
     const headerValue = '1'
     const mockResult = [getMockResponse()]
-    const query = { order: 'name', reverse: true }
+    const query: Query = { order: 'name', reverse: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -504,7 +504,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [{ name: 'rs', stationcount: 10 }]
     const country = 'RS'
-    const query = { order: 'name', reverse: true }
+    const query: Query = { order: 'name', reverse: true }
 
     const scope = nock(baseUrl, {
       reqheaders: {
@@ -537,8 +537,8 @@ describe('Radio Browser', () => {
       const headerName = 'x-jest-test'
       const headerValue = '1'
       const mockResult = [getMockResponse()]
-      const query = {
-        taglist: 'rap,pop,jazz'
+      const query: Query = {
+        tagList: 'rap,pop,jazz'
       }
 
       const scope = nock(baseUrl, {
@@ -569,7 +569,7 @@ describe('Radio Browser', () => {
       expect(result).toEqual([getMockStation()])
     })
   })
-  describe('Show or hide stations with geolocation info', () => {
+  describe('Stations with geolocation info', () => {
     // advanced station search
     test('show stations with geolocation info', async () => {
       const appName = 'test'
@@ -578,8 +578,8 @@ describe('Radio Browser', () => {
       const headerName = 'x-jest-test'
       const headerValue = '1'
       const mockResult = [getMockResponse()]
-      const query = {
-        taglist: 'rap,pop,jazz',
+      const query: Query = {
+        tagList: 'rap,pop,jazz',
         has_geo_info: 'true'
       }
 
@@ -618,8 +618,8 @@ describe('Radio Browser', () => {
       const headerName = 'x-jest-test'
       const headerValue = '1'
       const mockResult = [getMockResponseWithoutGeoInfo()]
-      const query = {
-        taglist: 'rap,pop,jazz',
+      const query: Query = {
+        tagList: 'rap,pop,jazz',
         has_geo_info: 'false'
       }
 
@@ -663,7 +663,7 @@ describe('Radio Browser', () => {
       const headerValue = '1'
       const mockResult = [getMockResponse()]
       const query = {
-        taglist: 'rap,pop,jazz'
+        tagList: 'rap,pop,jazz'
       }
 
       const scope = nock(baseUrl, {
@@ -703,7 +703,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [getMockResponse()]
     const query = {
-      taglist: 'rap,pop,jazz',
+      tagList: 'rap,pop,jazz',
       hidebroken: 'true'
     }
 
@@ -739,9 +739,9 @@ describe('Radio Browser', () => {
     const headerName = 'x-jest-test'
     const headerValue = '1'
     const mockResult = [getMockResponse()]
-    const query = {
-      taglist: 'rap,pop,jazz',
-      hidebroken: 'false'
+    const query: Query = {
+      tagList: 'rap,pop,jazz',
+      hidebroken: false
     }
 
     const scope = nock(baseUrl, {
@@ -776,7 +776,7 @@ describe('Radio Browser', () => {
     const headerValue = '1'
     const mockResult = [getMockResponse(), getMockResponse()]
     const tag = 'jazz'
-    const query = {
+    const query: Query = {
       order: 'name',
       reverse: true
     }

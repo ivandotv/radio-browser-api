@@ -289,7 +289,7 @@ export class RadioBrowserApi {
    * @returns Array of all available stations
    */
   async getAllStations(
-    query?: Omit<StationQuery, 'hideBroken'>,
+    query?: Omit<StationQuery, 'hidebroken'>,
     fetchConfig?: RequestInit,
     removeDuplicates = false
   ): Promise<Station[]> {
@@ -484,7 +484,7 @@ export class RadioBrowserApi {
       if ('tagList' in queryCopy && Array.isArray(queryCopy.tagList)) {
         queryCopy.tagList = [...queryCopy.tagList]
       }
-      if (addHideBrokenParam && typeof queryCopy.hideBroken === 'undefined') {
+      if (addHideBrokenParam && queryCopy.hideBroken === undefined) {
         queryCopy.hideBroken = this.hideBroken
       }
     }
@@ -537,12 +537,21 @@ export class RadioBrowserApi {
     let result = ''
     if (params) {
       for (const [key, value] of Object.entries(params)) {
-        result += `&${
-          key === 'hasGeoInfo' ? 'has_geo_info' : key
-        }=${encodeURIComponent(value)}`
+        let finalKey = key
+
+        switch (finalKey) {
+          case 'hasGeoInfo':
+            finalKey = 'has_geo_info'
+            break
+          case 'hideBroken':
+            finalKey = 'hidebroken'
+            break
+        }
+
+        result += `&${finalKey}=${encodeURIComponent(value)}`
       }
     }
 
-    return result ? `?${result.slice(1).toLowerCase()}` : ''
+    return result ? `?${result.slice(1)}` : ''
   }
 }
