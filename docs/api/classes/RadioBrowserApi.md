@@ -12,16 +12,10 @@ Query the radio browser api.
 
 ### Properties
 
-- [appName](RadioBrowserApi.md#appname)
-- [baseUrl](RadioBrowserApi.md#baseurl)
-- [fetchConfig](RadioBrowserApi.md#fetchconfig)
-- [hideBroken](RadioBrowserApi.md#hidebroken)
 - [version](RadioBrowserApi.md#version)
 
 ### Methods
 
-- [buildRequest](RadioBrowserApi.md#buildrequest)
-- [createQueryParams](RadioBrowserApi.md#createqueryparams)
 - [getAllStations](RadioBrowserApi.md#getallstations)
 - [getBaseUrl](RadioBrowserApi.md#getbaseurl)
 - [getCodecs](RadioBrowserApi.md#getcodecs)
@@ -36,10 +30,7 @@ Query the radio browser api.
 - [getStationsByRecentClicks](RadioBrowserApi.md#getstationsbyrecentclicks)
 - [getStationsByVotes](RadioBrowserApi.md#getstationsbyvotes)
 - [getTags](RadioBrowserApi.md#gettags)
-- [normalizeStations](RadioBrowserApi.md#normalizestations)
 - [resolveBaseUrl](RadioBrowserApi.md#resolvebaseurl)
-- [resolveGetStations](RadioBrowserApi.md#resolvegetstations)
-- [runRequest](RadioBrowserApi.md#runrequest)
 - [searchStations](RadioBrowserApi.md#searchstations)
 - [sendStationClick](RadioBrowserApi.md#sendstationclick)
 - [setBaseUrl](RadioBrowserApi.md#setbaseurl)
@@ -62,41 +53,9 @@ Creates an instance of radio browser api.
 
 #### Defined in
 
-[radioBrowser.ts:32](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L32)
+[radioBrowser.ts:32](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L32)
 
 ## Properties
-
-### appName
-
-• `Protected` **appName**: `string`
-
-___
-
-### baseUrl
-
-• `Protected` **baseUrl**: `undefined` \| `string`
-
-#### Defined in
-
-[radioBrowser.ts:20](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L20)
-
-___
-
-### fetchConfig
-
-• `Protected` **fetchConfig**: `RequestInit`
-
-#### Defined in
-
-[radioBrowser.ts:22](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L22)
-
-___
-
-### hideBroken
-
-• `Protected` **hideBroken**: `boolean` = `true`
-
-___
 
 ### version
 
@@ -104,60 +63,9 @@ ___
 
 #### Defined in
 
-[radioBrowser.ts:18](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L18)
+[radioBrowser.ts:18](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L18)
 
 ## Methods
-
-### buildRequest
-
-▸ `Protected` **buildRequest**(`endPoint`, `search?`, `query?`, `addHideBrokenParam?`): `string`
-
-Builds request to the API
-
-#### Parameters
-
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `endPoint` | `string` | `undefined` | API endpoint |
-| `search?` | `string` | `undefined` | Search term |
-| `query?` | [`Query`](../README.md#query) \| [`StationQuery`](../README.md#stationquery) \| [`AdvancedStationQuery`](../README.md#advancedstationquery) | `undefined` | Query |
-| `addHideBrokenParam` | `boolean` | `true` | Hide broken stations from the results |
-
-#### Returns
-
-`string`
-
-Built request string
-
-#### Defined in
-
-[radioBrowser.ts:473](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L473)
-
-___
-
-### createQueryParams
-
-▸ `Protected` **createQueryParams**(`params?`): `string`
-
-Encodes query parameters
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `params?` | `object` | Object that represents paramters as key value pairs |
-
-#### Returns
-
-`string`
-
-String of encoded query parameters
-
-#### Defined in
-
-[radioBrowser.ts:536](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L536)
-
-___
 
 ### getAllStations
 
@@ -182,7 +90,7 @@ Array of all available stations
 
 #### Defined in
 
-[radioBrowser.ts:291](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L291)
+[radioBrowser.ts:291](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L291)
 
 ___
 
@@ -200,7 +108,7 @@ Base url
 
 #### Defined in
 
-[radioBrowser.ts:82](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L82)
+[radioBrowser.ts:82](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L82)
 
 ___
 
@@ -225,7 +133,7 @@ List of available codes
 
 #### Defined in
 
-[radioBrowser.ts:130](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L130)
+[radioBrowser.ts:130](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L130)
 
 ___
 
@@ -251,7 +159,7 @@ Array of country results with the name of the station and station count
 
 #### Defined in
 
-[radioBrowser.ts:93](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L93)
+[radioBrowser.ts:93](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L93)
 
 ___
 
@@ -277,7 +185,7 @@ Array of country results with the name of the station and station count
 
 #### Defined in
 
-[radioBrowser.ts:111](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L111)
+[radioBrowser.ts:111](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L111)
 
 ___
 
@@ -303,7 +211,7 @@ Array of country states
 
 #### Defined in
 
-[radioBrowser.ts:144](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L144)
+[radioBrowser.ts:144](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L144)
 
 ___
 
@@ -329,7 +237,7 @@ Array of language results
 
 #### Defined in
 
-[radioBrowser.ts:162](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L162)
+[radioBrowser.ts:162](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L162)
 
 ___
 
@@ -354,7 +262,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:434](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L434)
+[radioBrowser.ts:434](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L434)
 
 ___
 
@@ -382,7 +290,7 @@ Array of station results
 
 #### Defined in
 
-[radioBrowser.ts:199](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L199)
+[radioBrowser.ts:199](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L199)
 
 ___
 
@@ -407,7 +315,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:330](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L330)
+[radioBrowser.ts:330](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L330)
 
 ___
 
@@ -432,7 +340,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:410](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L410)
+[radioBrowser.ts:410](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L410)
 
 ___
 
@@ -457,7 +365,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:356](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L356)
+[radioBrowser.ts:356](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L356)
 
 ___
 
@@ -482,7 +390,7 @@ Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:343](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L343)
+[radioBrowser.ts:343](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L343)
 
 ___
 
@@ -508,32 +416,7 @@ List of tag results
 
 #### Defined in
 
-[radioBrowser.ts:180](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L180)
-
-___
-
-### normalizeStations
-
-▸ `Protected` **normalizeStations**(`stations`, `removeDuplicates?`): [`Station`](../README.md#station)[]
-
-Normalizes stations from the API response
-
-#### Parameters
-
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `stations` | [`StationResponse`](../README.md#stationresponse)[] | `undefined` | Array of station responses |
-| `removeDuplicates` | `boolean` | `false` | remove duplicate stations |
-
-#### Returns
-
-[`Station`](../README.md#station)[]
-
-Array of normalized stations
-
-#### Defined in
-
-[radioBrowser.ts:227](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L227)
+[radioBrowser.ts:180](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L180)
 
 ___
 
@@ -557,60 +440,7 @@ Array of objects with the ip and name of the api server
 
 #### Defined in
 
-[radioBrowser.ts:45](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L45)
-
-___
-
-### resolveGetStations
-
-▸ `Protected` **resolveGetStations**(`endPoint`, `limit?`, `fetchConfig?`): `Promise`<[`Station`](../README.md#station)[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `endPoint` | `string` |
-| `limit?` | `number` |
-| `fetchConfig?` | `RequestInit` |
-
-#### Returns
-
-`Promise`<[`Station`](../README.md#station)[]\>
-
-#### Defined in
-
-[radioBrowser.ts:446](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L446)
-
-___
-
-### runRequest
-
-▸ `Protected` **runRequest**<`T`\>(`url`, `fetchConfig?`): `Promise`<`T`\>
-
-Fires of the request to the API
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `url` | `string` | Request url |
-| `fetchConfig` | `RequestInit` | Fetch configuration |
-
-#### Returns
-
-`Promise`<`T`\>
-
-Fetch response
-
-#### Defined in
-
-[radioBrowser.ts:503](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L503)
+[radioBrowser.ts:45](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L45)
 
 ___
 
@@ -636,7 +466,7 @@ Array of station results
 
 #### Defined in
 
-[radioBrowser.ts:311](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L311)
+[radioBrowser.ts:311](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L311)
 
 ___
 
@@ -661,7 +491,7 @@ Station click object
 
 #### Defined in
 
-[radioBrowser.ts:369](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L369)
+[radioBrowser.ts:369](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L369)
 
 ___
 
@@ -683,7 +513,7 @@ Sets base url for all api calls
 
 #### Defined in
 
-[radioBrowser.ts:74](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L74)
+[radioBrowser.ts:74](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L74)
 
 ___
 
@@ -708,4 +538,4 @@ Station vote object
 
 #### Defined in
 
-[radioBrowser.ts:391](https://github.com/ivandotv/radio-browser-api/blob/c7dfac2/src/radioBrowser.ts#L391)
+[radioBrowser.ts:391](https://github.com/ivandotv/radio-browser-api/blob/f9058c6/src/radioBrowser.ts#L391)
