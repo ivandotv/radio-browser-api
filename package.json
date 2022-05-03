@@ -11,13 +11,14 @@
   "private": false,
   "author": "Ivan Vlatkovic",
   "license": "MIT",
-  "main": "./dist/prod/radio-browser-api.js",
-  "module": "./dist/prod/radio-browser-api.modern.mjs",
-  "umd:main": "./dist/prod/radio-browser-api.umd.js",
+  "type": "module",
+  "main": "./dist/prod/index.cjs",
+  "module": "./dist/prod/index.modern.js",
+  "umd:main": "./dist/prod/index.umd.js",
   "exports": {
-    "require": "./dist/prod/radio-browser-api.js",
-    "development": "./dist/dev/radio-browser-api.modern.mjs",
-    "default": "./dist/prod/radio-browser-api.modern.mjs"
+    "require": "./dist/prod/index.cjs",
+    "development": "./dist/dev/index.modern.js",
+    "default": "./dist/prod/index.modern.js"
   },
   "types": "./dist/types/index.d.ts",
   "files": [
@@ -31,10 +32,10 @@
     "test": "jest --verbose --coverage",
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
-    "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd  --output dist/prod",
-    "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev",
+    "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd  --output dist/prod/index.js",
+    "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev/index.js",
     "build": "rm -rf ./dist && pnpm build:dev && pnpm build:prod",
-    "gen:docs": "rm -rf ./docs/api && typedoc --theme markdown --readme none --excludePrivate  --excludeInternal --exclude ./src/globals.d.ts --exclude ./src/__tests__ --out docs/api ./src",
+    "gen:docs": "rm -rf ./docs/api && typedoc --options typedoc.cjs",
     "prepublishOnly": "pnpm build",
     "prepare": "husky install",
     "release": "pnpm run prepublishOnly && pnpm changeset publish"
