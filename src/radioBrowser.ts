@@ -537,21 +537,25 @@ export class RadioBrowserApi {
     let result = ''
     if (params) {
       for (const [key, value] of Object.entries(params)) {
-        let finalKey = key
+        let finalKey = key.toLowerCase()
 
         switch (finalKey) {
-          case 'hasGeoInfo':
+          case 'hasgeoinfo':
             finalKey = 'has_geo_info'
             break
-          case 'hideBroken':
+          case 'hidebroken':
             finalKey = 'hidebroken'
             break
+
+          case 'taglist':
+            // github.com/segler-alex/radiobrowser-api-rust/issues/80
+            finalKey = 'tagList' // tagList is the only one that is not lowercased
         }
 
         result += `&${finalKey}=${encodeURIComponent(value)}`
       }
     }
 
-    return result ? `?${result.slice(1)}` : ''
+    return result.length ? `?${result.slice(1)}` : ''
   }
 }
