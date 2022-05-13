@@ -1,5 +1,11 @@
 ## [5.1.0](https://github.com/ivandotv/radio-browser-api/compare/v5.0.0...v5.1.0) (2022-03-04)
 
+## 6.0.1
+
+### Patch Changes
+
+- 561ea26: "tagList" should be the only one that is not lowercased
+
 ## 6.0.0
 
 ### Major Changes
