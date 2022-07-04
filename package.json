@@ -75,7 +75,7 @@
     "node-fetch": "^2.6.7",
     "prettier": "^2.6.2",
     "shx": "^0.3.4",
-    "typedoc": "^0.22.15",
+    "typedoc": "^0.23.0",
     "typedoc-plugin-markdown": "^3.12.1"
   }
 }
