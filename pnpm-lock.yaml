@@ -19,7 +19,7 @@ specifiers:
   eslint-plugin-tsdoc: ^0.2.16
   husky: ^7.0.4
   jest: ^28.0.3
-  jest-mock-console: ^1.2.3
+  jest-mock-console: ^2.0.0
   jest-watch-typeahead: ^1.1.0
   lint-staged: ^12.4.1
   microbundle: ^0.15.0
@@ -49,7 +49,7 @@ devDependencies:
   eslint-plugin-tsdoc: 0.2.16
   husky: 7.0.4
   jest: 28.0.3
-  jest-mock-console: 1.2.3_jest@28.0.3
+  jest-mock-console: 2.0.0_jest@28.0.3
   jest-watch-typeahead: 1.1.0_jest@28.0.3
   lint-staged: 12.4.1
   microbundle: 0.15.0
@@ -5478,8 +5478,8 @@ packages:
       stack-utils: 2.0.5
     dev: true
 
-  /jest-mock-console/1.2.3_jest@28.0.3:
-    resolution: {integrity: sha512-q4jfuHW3V3tYzwtKTF6nxjRNriUC2/D2SVfxW88lNeG1qO1mVarBUqgOAvZjTEmxuTsjzGlHQsDIgvlOZaLccg==}
+  /jest-mock-console/2.0.0_jest@28.0.3:
+    resolution: {integrity: sha512-7zrKtXVut+6doalosFxw/2O9spLepQJ9VukODtyLIub2fFkWKe1TyQrxr/GyQogTQcdkHfhvFJdx1OEzLqf/mw==}
     peerDependencies:
       jest: '>= 22.4.2'
     dependencies:

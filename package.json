@@ -67,7 +67,7 @@
     "eslint-plugin-tsdoc": "^0.2.16",
     "husky": "^7.0.4",
     "jest": "^28.0.3",
-    "jest-mock-console": "^1.2.3",
+    "jest-mock-console": "^2.0.0",
     "jest-watch-typeahead": "^1.1.0",
     "lint-staged": "^12.4.1",
     "microbundle": "^0.15.0",
