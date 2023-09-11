@@ -69,7 +69,7 @@
     "jest": "^28.0.3",
     "jest-mock-console": "^1.2.3",
     "jest-watch-typeahead": "^1.1.0",
-    "lint-staged": "^12.4.1",
+    "lint-staged": "^14.0.0",
     "microbundle": "^0.15.0",
     "nock": "^13.2.4",
     "node-fetch": "^2.6.7",
