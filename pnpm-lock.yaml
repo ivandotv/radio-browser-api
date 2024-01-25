@@ -17,7 +17,7 @@ specifiers:
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-promise: ^6.0.0
   eslint-plugin-tsdoc: ^0.2.16
-  husky: ^7.0.4
+  husky: ^8.0.0
   jest: ^28.0.3
   jest-mock-console: ^1.2.3
   jest-watch-typeahead: ^1.1.0
@@ -47,7 +47,7 @@ devDependencies:
   eslint-plugin-prettier: 4.0.0_665eb419c9d7860ca0c224f7f6dcdace
   eslint-plugin-promise: 6.0.0_eslint@8.14.0
   eslint-plugin-tsdoc: 0.2.16
-  husky: 7.0.4
+  husky: 8.0.0
   jest: 28.0.3
   jest-mock-console: 1.2.3_jest@28.0.3
   jest-watch-typeahead: 1.1.0_jest@28.0.3
@@ -329,7 +329,7 @@ packages:
     resolution: {integrity: sha512-LVtS6TqjJHFc+nYeITRo6VLXve70xmq7wPhWTqDJusJEgGmkAACWwMiTNrvfoQo6hEhFwAIixNkvB0jPXDL8Wg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.17.0
+      '@babel/types': 7.17.10
     dev: true
 
   /@babel/helper-module-transforms/7.17.7:
@@ -4890,9 +4890,9 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: true
 
-  /husky/7.0.4:
-    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
-    engines: {node: '>=12'}
+  /husky/8.0.0:
+    resolution: {integrity: sha512-4qbE/5dzNDNxFEkX9MNRPKl5+omTXQzdILCUWiqG/lWIAioiM5vln265/l6I2Zx8gpW8l1ukZwGQeCFbBZ6+6w==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
