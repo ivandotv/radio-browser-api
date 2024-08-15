@@ -18,6 +18,7 @@
   "exports": {
     "require": "./dist/prod/index.cjs",
     "development": "./dist/dev/index.modern.js",
+    "types": "./dist/types/index.d.ts",
     "default": "./dist/prod/index.modern.js"
   },
   "types": "./dist/types/index.d.ts",
