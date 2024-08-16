@@ -1,5 +1,6 @@
+/** @type {import('typedoc').TypeDocOptions} */
 module.exports = {
-  theme: 'markdown',
+  plugin: ["typedoc-plugin-markdown"],
   readme: 'none',
   excludePrivate: true,
   excludeInternal: true,
