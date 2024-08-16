@@ -8,6 +8,7 @@
     "radio-browser-api",
     "radio-browser-info"
   ],
+  "packageManager": "pnpm@9.7.0",
   "private": false,
   "author": "Ivan Vlatkovic",
   "license": "MIT",
