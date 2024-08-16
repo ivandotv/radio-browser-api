@@ -57,8 +57,8 @@ importers:
         specifier: ^0.2.16
         version: 0.2.17
       husky:
-        specifier: ^7.0.4
-        version: 7.0.4
+        specifier: ^9.0.0
+        version: 9.1.4
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.3.0)(babel-plugin-macros@3.1.0)
@@ -2076,9 +2076,9 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
-  husky@7.0.4:
-    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
-    engines: {node: '>=12'}
+  husky@9.1.4:
+    resolution: {integrity: sha512-bho94YyReb4JV7LYWRWxZ/xr6TtOTt8cMfmQ39MQYJ7f/YE268s3GdghGwi+y4zAeqewE5zYLvuhV0M0ijsDEA==}
+    engines: {node: '>=18'}
     hasBin: true
 
   iconv-lite@0.4.24:
@@ -6344,7 +6344,7 @@ snapshots:
 
   human-signals@2.1.0: {}
 
-  husky@7.0.4: {}
+  husky@9.1.4: {}
 
   iconv-lite@0.4.24:
     dependencies:
