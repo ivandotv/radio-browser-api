@@ -1,5 +1,12 @@
 ## [5.1.0](https://github.com/ivandotv/radio-browser-api/compare/v5.0.0...v5.1.0) (2022-03-04)
 
+## 6.0.2
+
+### Patch Changes
+
+- 6d34893: fixed bug in getStationByUrl
+- fef1705: export types
+
 ## 6.0.1
 
 ### Patch Changes
