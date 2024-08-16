@@ -56,7 +56,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: 'Consume changesets'
-        if: github.event_name == 'push' && github.repository == 'ivandotv/radio-browser-api' && matrix.node == 16 && github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && github.repository == 'ivandotv/radio-browser-api' && matrix.node == 21 && github.ref == 'refs/heads/master'
         uses: changesets/action@v1
         id: 'changesets'
         with:
