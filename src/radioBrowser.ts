@@ -436,7 +436,12 @@ export class RadioBrowserApi {
     fetchConfig?: RequestInit
   ): Promise<Station[]> {
     const stations = await this.runRequest<StationResponse[]>(
-      this.buildRequest(`stations/byurl?url=${url}`, undefined, undefined, false),
+      this.buildRequest(
+        `stations/byurl?url=${url}`,
+        undefined,
+        undefined,
+        false
+      ),
       fetchConfig
     )
 

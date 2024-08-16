@@ -1056,7 +1056,7 @@ describe('Radio Browser', () => {
         'user-agent': appName
       }
     })
-      .get(`/json/stations/byurl/${url}`)
+      .get(`/json/stations/byurl?url=${url}`)
       .reply(200, mockResult)
 
     const result = await api.getStationByUrl(url, {
