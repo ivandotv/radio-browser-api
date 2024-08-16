@@ -10,7 +10,7 @@ import {
   getMockStationWithoutGeoInfo
 } from './utils/mockStation'
 
-global.fetch = nodeFetch as unknown as typeof fetch
+globalThis.fetch = nodeFetch as unknown as typeof fetch
 
 const resolvedServer = 'fr1.api.radio-browser.info'
 const baseUrl = `https://${resolvedServer}`
