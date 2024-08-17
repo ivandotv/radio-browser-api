@@ -15,11 +15,13 @@ module.exports = {
   plugins: [
     '@typescript-eslint/eslint-plugin',
     'eslint-plugin-tsdoc',
+    'jsdoc',
     'prettier'
   ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:jsdoc/recommended-typescript',
     'plugin:jest/recommended',
     'prettier'
   ],
