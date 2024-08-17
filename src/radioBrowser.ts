@@ -12,7 +12,6 @@ import {
 
 /**
  * Query the radio browser api.
- * @public
  */
 export class RadioBrowserApi {
   static version = __VERSION__
@@ -38,8 +37,7 @@ export class RadioBrowserApi {
 
   /**
    * Resolves API base url this will be the default for all class instances.
-   * @param autoSet - Automatically set first resolved base url
-   * @param config-  Fetch configuration
+   * @param config -  Fetch configuration
    * @returns Array of objects with the ip and name of the api server
    */
   async resolveBaseUrl(
@@ -154,7 +152,7 @@ export class RadioBrowserApi {
 
   /**
    * Gets all available languages
-   * @param language- Limit results to particular language
+   * @param language - Limit results to particular language
    * @param query -  Query
    * @param fetchConfig - Fetch configuration
    * @returns Array of language results

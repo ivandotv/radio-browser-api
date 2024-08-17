@@ -1,5 +1,4 @@
 /**
- * @public
  */
 export const StationSearchOrder = {
   name: 'name',
@@ -22,7 +21,6 @@ export const StationSearchOrder = {
 } as const
 
 /**
- * @public
  */
 export const StationSearchType = {
   byUuid: 'byUuid',
@@ -42,7 +40,6 @@ export const StationSearchType = {
 } as const
 
 /**
- * @public
  */
 export type StationResponse = {
   changeuuid: string
@@ -74,7 +71,6 @@ export type StationResponse = {
 }
 
 /**
- * @public
  */
 export type Station = {
   changeId: string
@@ -106,7 +102,6 @@ export type Station = {
 }
 
 /**
- * @public
  */
 export type StationQuery = {
   offset?: number
@@ -118,7 +113,6 @@ export type StationQuery = {
 }
 
 /**
- * @public
  */
 export type AdvancedStationQuery = {
   name?: string
@@ -140,7 +134,6 @@ export type AdvancedStationQuery = {
 } & StationQuery
 
 /**
- * @public
  */
 export type Query = {
   order?: 'name' | 'stationcount'
@@ -150,7 +143,6 @@ export type Query = {
 
 // valid for country codes also
 /**
- * @public
  */
 export type CountryResult = {
   name: string
@@ -158,11 +150,9 @@ export type CountryResult = {
 }
 
 /**
- * @public
  */
 export type TagResult = CountryResult
 /**
- * @public
  */
 export type CountryStateResult = CountryResult & {
   country: string
