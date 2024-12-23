@@ -24,9 +24,11 @@ It simplifies the task of querying the API by creating methods for each API rout
 
 I suggest you familiarize yourself with the [original API docs](https://de1.api.radio-browser.info/) before using this library.
 
-Also note that this library modifies the results from the API, because the API is brittle, in a way that returns duplicate stations, duplicated tags, or tags that are not tags rather, complete sentences. The library cleans this up for you.
+Also note that this library modifies the results from the API, because the API is brittle, in a way that returns duplicate stations, duplicated tags, or tags that are not tags but rather, complete sentences. The library will clean this up for you.
 
 API by default, returns `broken` stations (stations that are in the system but don't have their streams up and running) library by default hides those stations ( this can be changed when creating the library instance, or per API call)
+
+For an example of usage of this library check [live radio repository](https://github.com/ivandotv/live-radio)
 
 ## Usage
 
