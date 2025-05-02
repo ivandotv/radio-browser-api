@@ -1,12 +1,12 @@
 import nock from 'nock'
 import nodeFetch from 'node-fetch'
 import { Query } from '../../src'
-import { StationSearchType, StationQuery } from '../../src/constants'
+import { StationQuery, StationSearchType } from '../../src/constants'
 import { RadioBrowserApi } from '../../src/radioBrowser'
 import {
-  getMockStation,
   getMockResponse,
   getMockResponseWithoutGeoInfo,
+  getMockStation,
   getMockStationWithoutGeoInfo
 } from './utils/mockStation'
 
@@ -20,7 +20,7 @@ nock.disableNetConnect()
 
 describe('Radio Browser', () => {
   beforeEach(() => {
-    nock('http://all.api.radio-browser.info')
+    nock('https://all.api.radio-browser.info')
       .get('/json/servers')
       .reply(200, [
         {
