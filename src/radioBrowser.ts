@@ -1,5 +1,4 @@
 import {
-  StationSearchType,
   AdvancedStationQuery,
   CountryResult,
   CountryStateResult,
@@ -7,6 +6,7 @@ import {
   Station,
   StationQuery,
   StationResponse,
+  StationSearchType,
   TagResult
 } from './constants'
 
@@ -44,16 +44,8 @@ export class RadioBrowserApi {
     config: RequestInit = {}
   ): Promise<{ ip: string; name: string }[]> {
     let result: { ip: string; name: string }[]
-
-    // temporary fix for https cert error when in frontend
-    // hardcode the server
-    // https://github.com/segler-alex/radiobrowser-api-rust/issues/122
-    // if (typeof window !== 'undefined') {
-    //   return [{ ip: '45.77.62.161', name: 'fr1.api.radio-browser.info' }]
-    // }
     const response = await fetch(
-      // this should be https when the above issue is resolved
-      'http://all.api.radio-browser.info/json/servers',
+      'https://all.api.radio-browser.info/json/servers',
       config
     )
     if (response.ok) {
