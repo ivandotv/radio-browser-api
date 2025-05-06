@@ -40,7 +40,7 @@ Query the radio browser api.
 
 ### constructor
 
-• **new RadioBrowserApi**(`appName`, `hideBroken?`)
+• **new RadioBrowserApi**(`appName`, `hideBroken?`): [`RadioBrowserApi`](RadioBrowserApi.md)
 
 Creates an instance of radio browser api.
 
@@ -51,9 +51,13 @@ Creates an instance of radio browser api.
 | `appName` | `string` | `undefined` | App name to be used as user agent header to indentify the calls to the API |
 | `hideBroken` | `boolean` | `true` | Hide broken stations for all future API calls |
 
+#### Returns
+
+[`RadioBrowserApi`](RadioBrowserApi.md)
+
 #### Defined in
 
-[radioBrowser.ts:32](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L32)
+[radioBrowser.ts:31](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L31)
 
 ## Properties
 
@@ -63,13 +67,13 @@ Creates an instance of radio browser api.
 
 #### Defined in
 
-[radioBrowser.ts:18](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L18)
+[radioBrowser.ts:17](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L17)
 
 ## Methods
 
 ### getAllStations
 
-▸ **getAllStations**(`query?`, `fetchConfig?`, `removeDuplicates?`): `Promise`<[`Station`](../README.md#station)[]\>
+▸ **getAllStations**(`query?`, `fetchConfig?`, `removeDuplicates?`): `Promise`\<[`Station`](../README.md#station)[]\>
 
 Gets all available stations. Please note that if results
 are not limited somehow, they can be huge (size in MB)
@@ -78,19 +82,19 @@ are not limited somehow, they can be huge (size in MB)
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `query?` | `Omit`<[`StationQuery`](../README.md#stationquery), ``"hidebroken"``\> | `undefined` | Query |
+| `query?` | `Omit`\<[`StationQuery`](../README.md#stationquery), ``"hidebroken"``\> | `undefined` | Query |
 | `fetchConfig?` | `RequestInit` | `undefined` | Fetch configuration |
 | `removeDuplicates` | `boolean` | `false` | remove duplicate stations |
 
 #### Returns
 
-`Promise`<[`Station`](../README.md#station)[]\>
+`Promise`\<[`Station`](../README.md#station)[]\>
 
 Array of all available stations
 
 #### Defined in
 
-[radioBrowser.ts:291](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L291)
+[radioBrowser.ts:281](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L281)
 
 ___
 
@@ -108,13 +112,13 @@ Base url
 
 #### Defined in
 
-[radioBrowser.ts:82](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L82)
+[radioBrowser.ts:72](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L72)
 
 ___
 
 ### getCodecs
 
-▸ **getCodecs**(`query?`, `fetchConfig?`): `Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+▸ **getCodecs**(`query?`, `fetchConfig?`): `Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 Gets available codes
 
@@ -127,19 +131,19 @@ Gets available codes
 
 #### Returns
 
-`Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+`Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 List of available codes
 
 #### Defined in
 
-[radioBrowser.ts:130](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L130)
+[radioBrowser.ts:120](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L120)
 
 ___
 
 ### getCountries
 
-▸ **getCountries**(`search?`, `query?`, `fetchConfig?`): `Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+▸ **getCountries**(`search?`, `query?`, `fetchConfig?`): `Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 Gets available countries
 
@@ -153,19 +157,19 @@ Gets available countries
 
 #### Returns
 
-`Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+`Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 Array of country results with the name of the station and station count
 
 #### Defined in
 
-[radioBrowser.ts:93](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L93)
+[radioBrowser.ts:83](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L83)
 
 ___
 
 ### getCountryCodes
 
-▸ **getCountryCodes**(`search?`, `query?`, `fetchConfig?`): `Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+▸ **getCountryCodes**(`search?`, `query?`, `fetchConfig?`): `Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 Gets countries by country code
 
@@ -179,19 +183,19 @@ Gets countries by country code
 
 #### Returns
 
-`Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+`Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 Array of country results with the name of the station and station count
 
 #### Defined in
 
-[radioBrowser.ts:111](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L111)
+[radioBrowser.ts:101](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L101)
 
 ___
 
 ### getCountryStates
 
-▸ **getCountryStates**(`country?`, `query?`, `fetchConfig?`): `Promise`<[`CountryStateResult`](../README.md#countrystateresult)[]\>
+▸ **getCountryStates**(`country?`, `query?`, `fetchConfig?`): `Promise`\<[`CountryStateResult`](../README.md#countrystateresult)[]\>
 
 Gets country states. States **should** be regions inside a country.
 
@@ -205,19 +209,19 @@ Gets country states. States **should** be regions inside a country.
 
 #### Returns
 
-`Promise`<[`CountryStateResult`](../README.md#countrystateresult)[]\>
+`Promise`\<[`CountryStateResult`](../README.md#countrystateresult)[]\>
 
 Array of country states
 
 #### Defined in
 
-[radioBrowser.ts:144](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L144)
+[radioBrowser.ts:134](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L134)
 
 ___
 
 ### getLanguages
 
-▸ **getLanguages**(`language?`, `query?`, `fetchConfig?`): `Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+▸ **getLanguages**(`language?`, `query?`, `fetchConfig?`): `Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 Gets all available languages
 
@@ -225,25 +229,25 @@ Gets all available languages
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `language?` | `string` | - |
+| `language?` | `string` | Limit results to particular language |
 | `query?` | [`Query`](../README.md#query) | Query |
 | `fetchConfig?` | `RequestInit` | Fetch configuration |
 
 #### Returns
 
-`Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+`Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 Array of language results
 
 #### Defined in
 
-[radioBrowser.ts:162](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L162)
+[radioBrowser.ts:152](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L152)
 
 ___
 
 ### getStationByUrl
 
-▸ **getStationByUrl**(`url`, `fetchConfig?`): `Promise`<[`Station`](../README.md#station)[]\>
+▸ **getStationByUrl**(`url`, `fetchConfig?`): `Promise`\<[`Station`](../README.md#station)[]\>
 
 Gets station by station url
 
@@ -256,19 +260,19 @@ Gets station by station url
 
 #### Returns
 
-`Promise`<[`Station`](../README.md#station)[]\>
+`Promise`\<[`Station`](../README.md#station)[]\>
 
 Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:434](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L434)
+[radioBrowser.ts:424](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L424)
 
 ___
 
 ### getStationsBy
 
-▸ **getStationsBy**(`searchType`, `search?`, `query?`, `fetchConfig?`, `removeDuplicates?`): `Promise`<[`Station`](../README.md#station)[]\>
+▸ **getStationsBy**(`searchType`, `search?`, `query?`, `fetchConfig?`, `removeDuplicates?`): `Promise`\<[`Station`](../README.md#station)[]\>
 
 Gets stations by various available parameters
 
@@ -284,19 +288,19 @@ Gets stations by various available parameters
 
 #### Returns
 
-`Promise`<[`Station`](../README.md#station)[]\>
+`Promise`\<[`Station`](../README.md#station)[]\>
 
 Array of station results
 
 #### Defined in
 
-[radioBrowser.ts:199](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L199)
+[radioBrowser.ts:189](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L189)
 
 ___
 
 ### getStationsByClicks
 
-▸ **getStationsByClicks**(`limit?`, `fetchConfig?`): `Promise`<[`Station`](../README.md#station)[]\>
+▸ **getStationsByClicks**(`limit?`, `fetchConfig?`): `Promise`\<[`Station`](../README.md#station)[]\>
 
 Gets stations by clicks. Stations with the highest number of clicks are most popular
 
@@ -309,19 +313,19 @@ Gets stations by clicks. Stations with the highest number of clicks are most pop
 
 #### Returns
 
-`Promise`<[`Station`](../README.md#station)[]\>
+`Promise`\<[`Station`](../README.md#station)[]\>
 
 Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:330](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L330)
+[radioBrowser.ts:320](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L320)
 
 ___
 
 ### getStationsById
 
-▸ **getStationsById**(`ids`, `fetchConfig?`): `Promise`<[`Station`](../README.md#station)[]\>
+▸ **getStationsById**(`ids`, `fetchConfig?`): `Promise`\<[`Station`](../README.md#station)[]\>
 
 Gets stations by station id
 
@@ -334,19 +338,19 @@ Gets stations by station id
 
 #### Returns
 
-`Promise`<[`Station`](../README.md#station)[]\>
+`Promise`\<[`Station`](../README.md#station)[]\>
 
 Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:410](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L410)
+[radioBrowser.ts:400](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L400)
 
 ___
 
 ### getStationsByRecentClicks
 
-▸ **getStationsByRecentClicks**(`limit?`, `fetchConfig?`): `Promise`<[`Station`](../README.md#station)[]\>
+▸ **getStationsByRecentClicks**(`limit?`, `fetchConfig?`): `Promise`\<[`Station`](../README.md#station)[]\>
 
 Gets stations by recent clicks. They are basically most recently listened stations.
 
@@ -359,19 +363,19 @@ Gets stations by recent clicks. They are basically most recently listened statio
 
 #### Returns
 
-`Promise`<[`Station`](../README.md#station)[]\>
+`Promise`\<[`Station`](../README.md#station)[]\>
 
 Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:356](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L356)
+[radioBrowser.ts:346](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L346)
 
 ___
 
 ### getStationsByVotes
 
-▸ **getStationsByVotes**(`limit?`, `fetchConfig?`): `Promise`<[`Station`](../README.md#station)[]\>
+▸ **getStationsByVotes**(`limit?`, `fetchConfig?`): `Promise`\<[`Station`](../README.md#station)[]\>
 
 Gets stations by votes. Returns most voted stations
 
@@ -384,19 +388,19 @@ Gets stations by votes. Returns most voted stations
 
 #### Returns
 
-`Promise`<[`Station`](../README.md#station)[]\>
+`Promise`\<[`Station`](../README.md#station)[]\>
 
 Array of stations
 
 #### Defined in
 
-[radioBrowser.ts:343](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L343)
+[radioBrowser.ts:333](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L333)
 
 ___
 
 ### getTags
 
-▸ **getTags**(`tag?`, `query?`, `fetchConfig?`): `Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+▸ **getTags**(`tag?`, `query?`, `fetchConfig?`): `Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 Gets all available tags
 
@@ -410,43 +414,43 @@ Gets all available tags
 
 #### Returns
 
-`Promise`<[`CountryResult`](../README.md#countryresult)[]\>
+`Promise`\<[`CountryResult`](../README.md#countryresult)[]\>
 
 List of tag results
 
 #### Defined in
 
-[radioBrowser.ts:180](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L180)
+[radioBrowser.ts:170](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L170)
 
 ___
 
 ### resolveBaseUrl
 
-▸ **resolveBaseUrl**(`config?`): `Promise`<{ `ip`: `string` ; `name`: `string`  }[]\>
+▸ **resolveBaseUrl**(`config?`): `Promise`\<\{ `ip`: `string` ; `name`: `string`  }[]\>
 
 Resolves API base url this will be the default for all class instances.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | `RequestInit` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `config` | `RequestInit` | Fetch configuration |
 
 #### Returns
 
-`Promise`<{ `ip`: `string` ; `name`: `string`  }[]\>
+`Promise`\<\{ `ip`: `string` ; `name`: `string`  }[]\>
 
 Array of objects with the ip and name of the api server
 
 #### Defined in
 
-[radioBrowser.ts:45](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L45)
+[radioBrowser.ts:43](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L43)
 
 ___
 
 ### searchStations
 
-▸ **searchStations**(`query`, `fetchConfig?`, `removeDuplicates?`): `Promise`<[`Station`](../README.md#station)[]\>
+▸ **searchStations**(`query`, `fetchConfig?`, `removeDuplicates?`): `Promise`\<[`Station`](../README.md#station)[]\>
 
 Searches stations by particular params
 
@@ -460,19 +464,19 @@ Searches stations by particular params
 
 #### Returns
 
-`Promise`<[`Station`](../README.md#station)[]\>
+`Promise`\<[`Station`](../README.md#station)[]\>
 
 Array of station results
 
 #### Defined in
 
-[radioBrowser.ts:311](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L311)
+[radioBrowser.ts:301](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L301)
 
 ___
 
 ### sendStationClick
 
-▸ **sendStationClick**(`id`, `fetchConfig?`): `Promise`<{ `message`: `string` ; `name`: `string` ; `ok`: `boolean` ; `stationuuid`: `string` ; `url`: `string`  }\>
+▸ **sendStationClick**(`id`, `fetchConfig?`): `Promise`\<\{ `message`: `string` ; `name`: `string` ; `ok`: `boolean` ; `stationuuid`: `string` ; `url`: `string`  }\>
 
 Sends click for the station. This method should be used when user starts to listen to the station.
 
@@ -485,13 +489,13 @@ Sends click for the station. This method should be used when user starts to list
 
 #### Returns
 
-`Promise`<{ `message`: `string` ; `name`: `string` ; `ok`: `boolean` ; `stationuuid`: `string` ; `url`: `string`  }\>
+`Promise`\<\{ `message`: `string` ; `name`: `string` ; `ok`: `boolean` ; `stationuuid`: `string` ; `url`: `string`  }\>
 
 Station click object
 
 #### Defined in
 
-[radioBrowser.ts:369](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L369)
+[radioBrowser.ts:359](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L359)
 
 ___
 
@@ -513,13 +517,13 @@ Sets base url for all api calls
 
 #### Defined in
 
-[radioBrowser.ts:74](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L74)
+[radioBrowser.ts:64](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L64)
 
 ___
 
 ### voteForStation
 
-▸ **voteForStation**(`id`, `fetchConfig?`): `Promise`<{ `message`: `string` ; `name`: `string` ; `ok`: `boolean` ; `stationuuid`: `string` ; `url`: `string`  }\>
+▸ **voteForStation**(`id`, `fetchConfig?`): `Promise`\<\{ `message`: `string` ; `name`: `string` ; `ok`: `boolean` ; `stationuuid`: `string` ; `url`: `string`  }\>
 
 Votes for station. This method should be used when user adds the station to favourites etc..
 
@@ -532,10 +536,10 @@ Votes for station. This method should be used when user adds the station to favo
 
 #### Returns
 
-`Promise`<{ `message`: `string` ; `name`: `string` ; `ok`: `boolean` ; `stationuuid`: `string` ; `url`: `string`  }\>
+`Promise`\<\{ `message`: `string` ; `name`: `string` ; `ok`: `boolean` ; `stationuuid`: `string` ; `url`: `string`  }\>
 
 Station vote object
 
 #### Defined in
 
-[radioBrowser.ts:391](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/radioBrowser.ts#L391)
+[radioBrowser.ts:381](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/radioBrowser.ts#L381)

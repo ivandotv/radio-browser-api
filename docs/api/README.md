@@ -8,7 +8,7 @@ radio-browser-api
 
 - [RadioBrowserApi](classes/RadioBrowserApi.md)
 
-### Type aliases
+### Type Aliases
 
 - [AdvancedStationQuery](README.md#advancedstationquery)
 - [CountryResult](README.md#countryresult)
@@ -24,15 +24,15 @@ radio-browser-api
 - [StationSearchOrder](README.md#stationsearchorder)
 - [StationSearchType](README.md#stationsearchtype)
 
-## Type aliases
+## Type Aliases
 
 ### AdvancedStationQuery
 
-Ƭ **AdvancedStationQuery**: { `bitrateMax?`: `string` ; `bitrateMin?`: `string` ; `codec?`: `string` ; `country?`: `string` ; `countryCode?`: `string` ; `countryExact?`: `boolean` ; `hasGeoInfo?`: `boolean` ; `language?`: `string` ; `languageExact?`: `boolean` ; `name?`: `string` ; `nameExact?`: `boolean` ; `state?`: `string` ; `stateExact?`: `boolean` ; `tag?`: `string` ; `tagExact?`: `boolean` ; `tagList?`: `string`[]  } & [`StationQuery`](README.md#stationquery)
+Ƭ **AdvancedStationQuery**: \{ `bitrateMax?`: `string` ; `bitrateMin?`: `string` ; `codec?`: `string` ; `country?`: `string` ; `countryCode?`: `string` ; `countryExact?`: `boolean` ; `hasGeoInfo?`: `boolean` ; `language?`: `string` ; `languageExact?`: `boolean` ; `name?`: `string` ; `nameExact?`: `boolean` ; `state?`: `string` ; `stateExact?`: `boolean` ; `tag?`: `string` ; `tagExact?`: `boolean` ; `tagList?`: `string`[]  } & [`StationQuery`](README.md#stationquery)
 
 #### Defined in
 
-[constants.ts:123](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L123)
+[constants.ts:117](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L117)
 
 ___
 
@@ -49,27 +49,27 @@ ___
 
 #### Defined in
 
-[constants.ts:155](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L155)
+[constants.ts:147](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L147)
 
 ___
 
 ### CountryStateResult
 
-Ƭ **CountryStateResult**: [`CountryResult`](README.md#countryresult) & { `country`: `string`  }
+Ƭ **CountryStateResult**: [`CountryResult`](README.md#countryresult) & \{ `country`: `string`  }
 
 #### Defined in
 
-[constants.ts:167](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L167)
+[constants.ts:157](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L157)
 
 ___
 
 ### Query
 
-Ƭ **Query**: { `hideBroken?`: `boolean` ; `order?`: ``"name"`` \| ``"stationcount"`` ; `reverse?`: `boolean`  } & `Record`<`string`, `any`\>
+Ƭ **Query**: \{ `hideBroken?`: `boolean` ; `order?`: ``"name"`` \| ``"stationcount"`` ; `reverse?`: `boolean`  } & `Record`\<`string`, `any`\>
 
 #### Defined in
 
-[constants.ts:145](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L145)
+[constants.ts:138](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L138)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[constants.ts:79](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L79)
+[constants.ts:75](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L75)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[constants.ts:111](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L111)
+[constants.ts:106](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L106)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[constants.ts:47](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L47)
+[constants.ts:44](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L44)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[constants.ts:163](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L163)
+[constants.ts:154](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L154)
 
 ## Variables
 
@@ -214,7 +214,7 @@ ___
 
 #### Defined in
 
-[constants.ts:4](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L4)
+[constants.ts:3](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L3)
 
 ___
 
@@ -243,4 +243,4 @@ ___
 
 #### Defined in
 
-[constants.ts:27](https://github.com/ivandotv/radio-browser-api/blob/c597838/src/constants.ts#L27)
+[constants.ts:25](https://github.com/ivandotv/radio-browser-api/blob/0e81016121e8bd1e05a267f9d778460f33657efb/src/constants.ts#L25)
