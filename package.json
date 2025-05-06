@@ -1,6 +1,6 @@
 {
   "name": "radio-browser-api",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Wrapper for free and open-source radio browser api: https://api.radio-browser.info/.",
   "keywords": [
     "radio",

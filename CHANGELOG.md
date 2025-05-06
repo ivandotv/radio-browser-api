@@ -1,5 +1,11 @@
 ## [5.1.0](https://github.com/ivandotv/radio-browser-api/compare/v5.0.0...v5.1.0) (2022-03-04)
 
+## 6.0.3
+
+### Patch Changes
+
+- 7b023e6: revert back to https
+
 ## 6.0.2
 
 ### Patch Changes
